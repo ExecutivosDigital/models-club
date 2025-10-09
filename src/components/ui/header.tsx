@@ -1,0 +1,91 @@
+"use client";
+import { useSidebar } from "@/store";
+import { cn } from "@/utils/cn";
+import { Pages } from "@/utils/menus";
+import { LogOut, Menu } from "lucide-react";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+
+export function Header() {
+  const { mobileMenu, setMobileMenu } = useSidebar();
+  const path = usePathname();
+  const router = useRouter();
+
+  return (
+    <header className="z-50 bg-stone-900">
+      <div className="w-full border-b border-b-stone-800 px-[15px] py-3 backdrop-blur-lg md:px-6">
+        <div className="flex h-full items-center justify-between">
+          <div className="flex items-center">
+            <div
+              onClick={() => router.push("/")}
+              className="text-primary flex items-center"
+            >
+              <Image
+                src="/logos/logo.png"
+                alt=""
+                quality={100}
+                width={1250}
+                height={500}
+                className="h-10 w-max object-contain"
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 ltr:pl-2 rtl:pr-2">
+              <div className="flex items-center">
+                <Image
+                  alt=""
+                  src="/logos/icon.png"
+                  width={36}
+                  height={36}
+                  className="rounded-full"
+                />
+              </div>
+              <LogOut className="cursor-pointer" />
+            </div>
+            <button
+              onClick={() => setMobileMenu(!mobileMenu)}
+              className="hover:bg-primary-100 hover:text-primary relative h-6 w-6 xl:hidden"
+            >
+              <Menu />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="hidden w-full px-6 shadow-md backdrop-blur-lg xl:block">
+        <div>
+          <div className="group relative flex justify-start">
+            <div className="group flex list-none gap-2">
+              {Pages.map((item, index) => (
+                <div
+                  key={`item-${index}`}
+                  className="relative"
+                  onClick={() => router.push(item.route)}
+                >
+                  <div
+                    className={cn(
+                      "group data-[state=open]:text-primary flex cursor-pointer items-center gap-2 px-6 py-4",
+                      path === item.route &&
+                        "border-primary from-primary/5 via-primary/30 to-primary/5 border-t-2 bg-gradient-to-r from-0% to-100% backdrop-blur backdrop-filter",
+                    )}
+                  >
+                    <Image
+                      src={`/icons/${item.icon}.svg`}
+                      alt=""
+                      width={20}
+                      height={20}
+                    />
+                    <span className="text-sm font-medium">{item.title}</span>
+                  </div>
+                  {path !== item.route && (
+                    <div className="hover:border-b-primary/50 absolute top-0 left-0 h-full w-full cursor-pointer border-b border-transparent transition duration-200" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}

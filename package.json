@@ -1,0 +1,51 @@
+{
+  "name": "models-club",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint-staged": "lint-staged",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write --list-different .",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@rocketseat/eslint-config": "^2.2.2",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.9",
+    "lucide-react": "^0.479.0",
+    "moment": "^2.30.1",
+    "next": "15.2.2",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.2",
+    "tailwind-scrollbar-hide": "^4.0.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@commitlint/types": "^20.0.0",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "commitlint": "19.8.1",
+    "commitlint@19.8.1": "^19.8.0",
+    "conventional-changelog-atom": "^5.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
