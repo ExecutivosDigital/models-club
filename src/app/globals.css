@@ -5,6 +5,7 @@
   --font-sans: "Inter", sans-serif;
 
   --color-primary: #cb0c9f;
+  --color-secondary: #7928ca;
 
   --animate-in: fade-in 300ms ease-out both;
   --animate-out: fade-out 300ms ease-in both;

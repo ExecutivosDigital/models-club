@@ -1,4 +1,4 @@
-import { DashBoardLayoutProvider } from "@/components/dashboard-layout";
+import { ApiContextProvider } from "@/context/ApiContext";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { Inter } from "next/font/google";
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html>
       <body className={`${inter.variable} bg-stone-950 text-neutral-300`}>
-        <DashBoardLayoutProvider>{children}</DashBoardLayoutProvider>
+        <ApiContextProvider>{children}</ApiContextProvider>
       </body>
     </html>
   );

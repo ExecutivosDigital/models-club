@@ -21,9 +21,9 @@ export const Pages = [
     route: "/classes",
   },
   {
-    title: "Modelo",
+    title: "Modelos",
     icon: "placeholder",
-    route: "/model",
+    route: "/models",
   },
   {
     title: "Administrativo",
