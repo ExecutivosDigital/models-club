@@ -1,9 +1,9 @@
 import { GenericCard } from "@/components/ui/card";
 import Image from "next/image";
 
-export function HomeCard1() {
+export function ModelCard5() {
   return (
-    <GenericCard className="from-primary to-secondary h-max bg-gradient-to-br xl:col-span-1">
+    <GenericCard className="from-primary to-secondary h-max bg-gradient-to-br xl:col-span-1 xl:h-48">
       <Image
         src="/static/generic-model-1.png"
         alt=""

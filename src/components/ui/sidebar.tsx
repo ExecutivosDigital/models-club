@@ -14,10 +14,9 @@ export function Sidebar() {
     <>
       <div
         className={cn(
-          "fixed top-0 z-[9999] h-full w-[248px] bg-stone-900",
-          mobileMenu
-            ? "visible left-0 opacity-100"
-            : "invisible -left-[300px] opacity-0",
+          "fixed top-0 left-0 z-[9999] h-screen w-[248px] -translate-x-full transition duration-300 ease-in xl:w-[calc(100%-450px)]",
+          !mobileMenu && "transparent pointer-events-none",
+          mobileMenu && "translate-x-0 bg-stone-900 backdrop-blur",
         )}
       >
         <div className="px-4 py-4">

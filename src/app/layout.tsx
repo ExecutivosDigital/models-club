@@ -1,7 +1,9 @@
 import { ApiContextProvider } from "@/context/ApiContext";
 import moment from "moment";
 import "moment/locale/pt-br";
+import { CookiesProvider } from "next-client-cookies/server";
 import { Inter } from "next/font/google";
+import "swiper/css";
 import "./globals.css";
 moment.locale("pt-br");
 
@@ -27,7 +29,9 @@ export default function RootLayout({
   return (
     <html>
       <body className={`${inter.variable} bg-stone-950 text-neutral-300`}>
-        <ApiContextProvider>{children}</ApiContextProvider>
+        <CookiesProvider>
+          <ApiContextProvider>{children}</ApiContextProvider>
+        </CookiesProvider>
       </body>
     </html>
   );

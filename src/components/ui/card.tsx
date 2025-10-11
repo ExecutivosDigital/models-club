@@ -9,7 +9,7 @@ export function GenericCard({ className, children }: GenericCardProps) {
   return (
     <div
       className={cn(
-        "flex flex-col gap-2 overflow-hidden rounded-md bg-stone-800 p-4",
+        "flex flex-col gap-2 overflow-hidden rounded-md bg-stone-900 p-4",
         className,
       )}
     >

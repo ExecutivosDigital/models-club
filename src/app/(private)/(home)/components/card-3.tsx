@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function HomeCard3() {
   return (
-    <GenericCard className="h-max xl:col-span-1 xl:h-40">
+    <GenericCard className="h-max xl:col-span-1 xl:h-full xl:justify-between">
       <div className="flex gap-2">
         <div className="flex flex-1 flex-col gap-2">
           <span className="font-semibold">Inserir Chave IA</span>
@@ -20,7 +20,7 @@ export function HomeCard3() {
           className="h-10 min-h-10 w-10 min-w-10 rounded object-contain"
         />
       </div>
-      <div className="flex w-full flex-1 items-center gap-2">
+      <div className="flex w-full items-center gap-2">
         <label className="relative flex h-8 w-full items-center gap-1 rounded-md bg-stone-950 px-2">
           <Image
             src="/icons/key.svg"
@@ -30,7 +30,7 @@ export function HomeCard3() {
             className="h-max w-4 rounded object-contain"
           />
           <input
-            className="absolute top-0 left-0 h-full w-full px-8 focus:outline-none"
+            className="absolute top-0 left-0 h-full w-full px-8"
             placeholder="Sua API KEY aqui"
           />
         </label>

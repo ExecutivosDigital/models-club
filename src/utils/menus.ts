@@ -13,12 +13,12 @@ export const Pages = [
   {
     title: "Analytics",
     icon: "analytics",
-    route: "/analytics",
+    route: "#",
   },
   {
     title: "Aulas",
     icon: "classes",
-    route: "/classes",
+    route: "#",
   },
   {
     title: "Modelos",
@@ -28,11 +28,11 @@ export const Pages = [
   {
     title: "Administrativo",
     icon: "placeholder",
-    route: "/adm",
+    route: "#",
   },
   {
     title: "Testar IA",
     icon: "placeholder",
-    route: "/ai",
+    route: "#",
   },
 ];
