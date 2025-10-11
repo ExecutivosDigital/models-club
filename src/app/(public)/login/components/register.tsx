@@ -18,7 +18,6 @@ import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import z from "zod";
 import Field from "./field";
 import { Form, FormField, FormItem, FormMessage } from "./form";
@@ -138,92 +137,93 @@ const CreateAccount = () => {
   const handleNext = async (
     form: UseFormReturn<z.infer<typeof FormSchema>>,
   ) => {
-    if (currentStep === 0) {
-      const isValid = await validateStep(currentStep);
-      if (!isValid) {
-        const errors = form.formState.errors;
+    router.push("/checkout");
+    // if (currentStep === 0) {
+    //   const isValid = await validateStep(currentStep);
+    //   if (!isValid) {
+    //     const errors = form.formState.errors;
 
-        const fieldLabels: Record<
-          keyof z.infer<typeof FirstFormSchema>,
-          string | Record<"password" | "confirm", string>
-        > = {
-          name: "Nome",
-          mobilePhone: "Telefone",
-          email: "Email",
-          password: {
-            password: "Senha",
-            confirm: "Confirmar Senha",
-          },
-        };
+    //     const fieldLabels: Record<
+    //       keyof z.infer<typeof FirstFormSchema>,
+    //       string | Record<"password" | "confirm", string>
+    //     > = {
+    //       name: "Nome",
+    //       mobilePhone: "Telefone",
+    //       email: "Email",
+    //       password: {
+    //         password: "Senha",
+    //         confirm: "Confirmar Senha",
+    //       },
+    //     };
 
-        const firstErrorField = Object.keys(
-          errors,
-        )[0] as keyof typeof fieldLabels;
-        const firstError = errors[firstErrorField];
+    //     const firstErrorField = Object.keys(
+    //       errors,
+    //     )[0] as keyof typeof fieldLabels;
+    //     const firstError = errors[firstErrorField];
 
-        if (firstError?.message && firstErrorField in fieldLabels) {
-          const fieldLabel = fieldLabels[firstErrorField];
-          return toast.error(`${fieldLabel}: ${firstError.message}`);
-        }
+    //     if (firstError?.message && firstErrorField in fieldLabels) {
+    //       const fieldLabel = fieldLabels[firstErrorField];
+    //       return toast.error(`${fieldLabel}: ${firstError.message}`);
+    //     }
 
-        return toast.error("Por favor, corrija os erros no formulário.");
-      } else {
-        setCurrentStep(currentStep + 1);
-      }
-    } else if (currentStep === 1) {
-      const isValid = await validateStep(currentStep);
-      if (!isValid) {
-        const errors = form.formState.errors;
+    //     return toast.error("Por favor, corrija os erros no formulário.");
+    //   } else {
+    //     setCurrentStep(currentStep + 1);
+    //   }
+    // } else if (currentStep === 1) {
+    //   const isValid = await validateStep(currentStep);
+    //   if (!isValid) {
+    //     const errors = form.formState.errors;
 
-        const fieldLabels: Record<
-          keyof z.infer<typeof SecondFormSchema>,
-          string
-        > = {
-          lawFirmName: "Nome do Escritório",
-          cpfCnpj: "CPF ou CNPJ",
-          paymentType: "Tipo de pagamento",
-          postalCode: "CEP",
-          address: "Endereço",
-          number: "Número",
-        };
+    //     const fieldLabels: Record<
+    //       keyof z.infer<typeof SecondFormSchema>,
+    //       string
+    //     > = {
+    //       lawFirmName: "Nome do Escritório",
+    //       cpfCnpj: "CPF ou CNPJ",
+    //       paymentType: "Tipo de pagamento",
+    //       postalCode: "CEP",
+    //       address: "Endereço",
+    //       number: "Número",
+    //     };
 
-        const secondErrorField = Object.keys(
-          errors,
-        )[0] as keyof typeof fieldLabels;
-        const secondError = errors[secondErrorField];
+    //     const secondErrorField = Object.keys(
+    //       errors,
+    //     )[0] as keyof typeof fieldLabels;
+    //     const secondError = errors[secondErrorField];
 
-        if (secondError?.message && secondErrorField in fieldLabels) {
-          const fieldLabel = fieldLabels[secondErrorField];
-          return toast.error(`${fieldLabel}: ${secondError.message}`);
-        }
+    //     if (secondError?.message && secondErrorField in fieldLabels) {
+    //       const fieldLabel = fieldLabels[secondErrorField];
+    //       return toast.error(`${fieldLabel}: ${secondError.message}`);
+    //     }
 
-        return toast.error("Por favor, corrija os erros no formulário.");
-      } else {
-        setIsCreating(true);
-        const create = await PostAPI(
-          "/lawyer/register",
-          {
-            ...form.getValues(),
-            phone: form.getValues("mobilePhone"),
-            cpf: form.getValues("cpfCnpj.cpf"),
-            lawFirmCnpj: form.getValues("cpfCnpj.lawFirmCnpj"),
-            password: form.getValues("password.password"),
-          },
-          false,
-        );
-        if (create.status === 200) {
-          cookies.set(
-            process.env.NEXT_PUBLIC_USER_TOKEN as string,
-            create.body.accessToken,
-          );
-          setToken(create.body.accessToken);
-          router.push("/checkout");
-          return setIsCreating(false);
-        }
-        toast.error("Erro ao cadastrar, tente novamente.");
-        return setIsCreating(false);
-      }
-    }
+    //     return toast.error("Por favor, corrija os erros no formulário.");
+    //   } else {
+    //     setIsCreating(true);
+    //     const create = await PostAPI(
+    //       "/lawyer/register",
+    //       {
+    //         ...form.getValues(),
+    //         phone: form.getValues("mobilePhone"),
+    //         cpf: form.getValues("cpfCnpj.cpf"),
+    //         lawFirmCnpj: form.getValues("cpfCnpj.lawFirmCnpj"),
+    //         password: form.getValues("password.password"),
+    //       },
+    //       false,
+    //     );
+    //     if (create.status === 200) {
+    //       cookies.set(
+    //         process.env.NEXT_PUBLIC_USER_TOKEN as string,
+    //         create.body.accessToken,
+    //       );
+    //       setToken(create.body.accessToken);
+    //       router.push("/checkout");
+    //       return setIsCreating(false);
+    //     }
+    //     toast.error("Erro ao cadastrar, tente novamente.");
+    //     return setIsCreating(false);
+    //   }
+    // }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -269,9 +269,9 @@ const CreateAccount = () => {
               render={({ field }) => (
                 <FormItem>
                   <Field
-                    classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent"
+                    classInput="border-neutral-500"
                     placeholder="Nome"
-                    Svg={<User className="text-zinc-600" />}
+                    Svg={<User className="text-neutral-500" />}
                     value={field.value}
                     onChange={field.onChange}
                     required
@@ -287,9 +287,9 @@ const CreateAccount = () => {
               render={({ field }) => (
                 <FormItem>
                   <Field
-                    classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent"
+                    classInput="border-neutral-500"
                     placeholder="Telefone"
-                    Svg={<Phone className="text-zinc-600" />}
+                    Svg={<Phone className="text-neutral-500" />}
                     icon="mobilePhone"
                     value={maskPhone(field.value)}
                     onChange={(e: any) => field.onChange(e.target.value)}
@@ -307,7 +307,7 @@ const CreateAccount = () => {
               render={({ field }) => (
                 <FormItem>
                   <Field
-                    classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent"
+                    classInput="border-neutral-500"
                     placeholder="Email"
                     icon="email"
                     value={field.value}
@@ -326,7 +326,7 @@ const CreateAccount = () => {
                 <FormItem>
                   <div className="relative">
                     <Field
-                      classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent pr-10"
+                      classInput="border-neutral-500"
                       placeholder="Senha"
                       icon="lock"
                       type={showPassword ? "text" : "password"}
@@ -337,7 +337,7 @@ const CreateAccount = () => {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="text-n-4 absolute inset-y-0 right-0 flex items-center pr-3.5"
+                      className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-neutral-500"
                     >
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
@@ -354,7 +354,7 @@ const CreateAccount = () => {
                 <FormItem>
                   <div className="relative">
                     <Field
-                      classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent pr-10"
+                      classInput="border-neutral-500"
                       placeholder="Senha"
                       icon="lock"
                       type={showRememberPassword ? "text" : "password"}
@@ -367,7 +367,7 @@ const CreateAccount = () => {
                       onClick={() =>
                         setShowRememberPassword(!showRememberPassword)
                       }
-                      className="text-n-4 absolute inset-y-0 right-0 flex items-center pr-3.5"
+                      className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-neutral-500"
                     >
                       {showRememberPassword ? (
                         <EyeOff size={20} />
@@ -390,9 +390,9 @@ const CreateAccount = () => {
               render={({ field }) => (
                 <FormItem>
                   <Field
-                    classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent"
+                    classInput="border-neutral-500"
                     placeholder="Nome do escritório"
-                    Svg={<House className="text-zinc-600" />}
+                    Svg={<House className="text-neutral-500" />}
                     value={field.value}
                     onChange={field.onChange}
                     required
@@ -403,9 +403,9 @@ const CreateAccount = () => {
             />
             <div>
               <Field
-                classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent"
+                classInput="border-neutral-500"
                 placeholder="CPF/CNPJ de faturamento"
-                Svg={<Hash className="text-zinc-600" />}
+                Svg={<Hash className="text-neutral-500" />}
                 value={tempCpfCnpj}
                 onChange={(e: { target: { value: string } }) =>
                   setTempCpfCnpj(maskCpfCnpj(e.target.value))
@@ -423,13 +423,13 @@ const CreateAccount = () => {
               key="postalCode"
               name="postalCode"
               control={form.control}
-              render={({ field }) => (
+              render={() => (
                 <FormItem>
                   <Field
-                    classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent"
+                    classInput="border-neutral-500"
                     placeholder="CEP"
                     icon="name"
-                    Svg={<MapPin className="text-zinc-600" />}
+                    Svg={<MapPin className="text-neutral-500" />}
                     value={tempCep}
                     onChange={(e: { target: { value: string } }) =>
                       setTempCep(maskCep(e.target.value))
@@ -448,10 +448,10 @@ const CreateAccount = () => {
               render={({ field }) => (
                 <FormItem>
                   <Field
-                    classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent"
+                    classInput="border-neutral-500"
                     placeholder="Endereço"
                     icon="name"
-                    Svg={<MapPinHouse className="text-zinc-600" />}
+                    Svg={<MapPinHouse className="text-neutral-500" />}
                     value={field.value}
                     onChange={field.onChange}
                     required
@@ -467,10 +467,10 @@ const CreateAccount = () => {
               render={({ field }) => (
                 <FormItem>
                   <Field
-                    classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent"
+                    classInput="border-neutral-500"
                     placeholder="Número"
                     icon="name"
-                    Svg={<List className="text-zinc-600" />}
+                    Svg={<List className="text-neutral-500" />}
                     value={field.value}
                     onChange={field.onChange}
                     required
@@ -488,7 +488,7 @@ const CreateAccount = () => {
         <button
           onClick={() => setCurrentStep(0)}
           className={cn(
-            "btn-secondary text-secondary-1 border-secondary btn-large mb-6 bg-transparent hover:text-white",
+            "rounded-md border border-neutral-500 bg-transparent px-4 py-2 text-neutral-500",
             currentStep === 0 && "hidden",
           )}
         >
@@ -497,28 +497,28 @@ const CreateAccount = () => {
         <button
           onClick={() => handleNext(form)}
           disabled={isCreating}
-          className="btn-secondary btn-large mb-6 w-full"
+          className="from-primary to-secondary w-full rounded-md bg-gradient-to-br px-4 py-2 font-semibold shadow-sm"
         >
           {isCreating ? (
             <Loader2 className="animate-spin" />
           ) : currentStep === 0 ? (
             "Próximo"
           ) : (
-            "Fazer parte da Jurid IA"
+            "Fazer parte da Models Club"
           )}
         </button>
       </div>
-      <div className="caption1 text-n-4 text-center">
+      <div className="text-sm text-neutral-500">
         Ao criar uma conta, você aceita nossos{" "}
         <button
-          className="text-n-5 hover:text-n-7 dark:text-n-3 dark:hover:text-n-1 transition-colors"
+          className="transition-colors hover:text-neutral-300"
           onClick={() => setIsTermModalOpen(true)}
         >
           Termos de Serviço
         </button>{" "}
         e nossa{" "}
         <button
-          className="text-n-5 hover:text-n-7 dark:text-n-3 dark:hover:text-n-1 transition-colors"
+          className="transition-colors hover:text-neutral-300"
           onClick={() => setIsTermModalOpen(true)}
         >
           Política de Privacidade

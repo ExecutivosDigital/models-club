@@ -116,7 +116,7 @@ const SignIn = ({ onClick }: SignInProps) => {
           render={({ field }) => (
             <FormItem>
               <Field
-                classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent"
+                classInput="border-neutral-500"
                 placeholder="Email"
                 icon="email"
                 value={field.value}
@@ -136,7 +136,7 @@ const SignIn = ({ onClick }: SignInProps) => {
             <FormItem>
               <div className="relative">
                 <Field
-                  classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent pr-10"
+                  classInput="border-neutral-500"
                   placeholder="Senha"
                   icon="lock"
                   type={showPassword ? "text" : "password"}
@@ -147,7 +147,7 @@ const SignIn = ({ onClick }: SignInProps) => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="text-n-4 absolute inset-y-0 right-0 flex items-center pr-3.5"
+                  className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-neutral-500"
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -156,19 +156,9 @@ const SignIn = ({ onClick }: SignInProps) => {
             </FormItem>
           )}
         />
-        {/* <Field
-        className="mb-2"
-        classInput="dark:bg-n-6 dark:border-n-7 dark:focus:bg-transparent"
-        placeholder="Senha"
-        icon="lock"
-        type="password"
-        value={password}
-        onChange={(e: any) => setPassword(e.target.value)}
-        required
-      /> */}
       </div>
       <button
-        className="base2 text-secondary-1 hover:text-secondary-1/90 mb-6 transition-colors"
+        className="mb-6 text-neutral-500 transition-colors"
         type="button"
         onClick={onClick}
       >
@@ -177,12 +167,12 @@ const SignIn = ({ onClick }: SignInProps) => {
       <button
         onClick={() => handleNext(form)}
         disabled={isLoggingIn}
-        className="btn-secondary btn-large w-full"
+        className="from-primary to-secondary w-full rounded-md bg-gradient-to-br px-4 py-2 font-semibold shadow-sm"
       >
         {isLoggingIn ? (
           <Loader2 className="animate-spin" />
         ) : (
-          "Acessar Jurid-IA"
+          "Acessar Models Club"
         )}
       </button>
     </Form>

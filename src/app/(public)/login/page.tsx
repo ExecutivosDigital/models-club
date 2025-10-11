@@ -11,8 +11,8 @@ export default function Login() {
 
   return (
     <>
-      <div className="relative flex h-screen overflow-x-hidden md:px-4 md:pt-16 md:pb-10 lg:p-6">
-        <div className="relative my-6 flex w-full max-w-[45rem] xl:max-w-[30rem] xl:p-10 2xl:max-w-[40rem]">
+      <div className="relative flex h-[100svh] overflow-x-hidden md:px-4 md:pt-16 md:pb-10 lg:p-6">
+        <div className="relative my-6 hidden w-full max-w-[45rem] lg:flex xl:max-w-[30rem] xl:p-10 2xl:max-w-[40rem]">
           <Image
             className="mx-auto block h-full w-auto rounded-[1.25rem] object-contain"
             src="/static/login.gif"
@@ -21,7 +21,7 @@ export default function Login() {
             height={1000}
           />
         </div>
-        <div className="bg-n-1 bg-n-8 relative my-6 mr-6 flex grow rounded-[1.25rem] p-10 md:p-0 md:px-2 lg:m-0">
+        <div className="relative m-6 flex grow rounded-[1.25rem] bg-stone-900 p-2 md:p-0 md:px-2 lg:m-0">
           <div className="m-auto w-full max-w-[31.5rem]">
             {forgot ? (
               forgot
@@ -36,16 +36,22 @@ export default function Login() {
                   alt=""
                 />
                 <div>
-                  <div className="bg-n-2 mb-8 flex rounded-xl bg-[#151718] p-1">
+                  <div className="mb-8 flex rounded-md bg-stone-800 p-1">
                     <div
                       onClick={() => setSelectedStep(0)}
-                      className="base2 text-n-4 hover:text-n-7 ui-selected:bg-n-1 ui-selected:text-n-7 ui-selected:shadow-[0_0.125rem_0.125rem_rgba(0,0,0,0.07),inset_0_0.25rem_0.125rem_#FFFFFF] tap-highlight-color hover:text-n-1 ui-selected:bg-secondary-1 ui-selected:text-n-1 ui-selected:shadow-[0_0.125rem_0.125rem_rgba(0,0,0,0.07),inset_0_0.0625rem_0.125rem_rgba(255,255,255,0.02)] h-10 basis-1/2 rounded-[0.625rem] font-semibold transition-colors outline-none"
+                      className={cn(
+                        "flex h-10 w-1/2 cursor-pointer items-center justify-center rounded-md transition-colors outline-none",
+                        selectedStep === 0 && "bg-stone-700 font-semibold",
+                      )}
                     >
                       Entrar
                     </div>
                     <div
                       onClick={() => setSelectedStep(1)}
-                      className="base2 text-n-4 hover:text-n-7 ui-selected:bg-n-1 ui-selected:text-n-7 ui-selected:shadow-[0_0.125rem_0.125rem_rgba(0,0,0,0.07),inset_0_0.25rem_0.125rem_#FFFFFF] tap-highlight-color hover:text-n-1 ui-selected:bg-secondary-1 ui-selected:text-n-1 ui-selected:shadow-[0_0.125rem_0.125rem_rgba(0,0,0,0.07),inset_0_0.0625rem_0.125rem_rgba(255,255,255,0.02)] h-10 basis-1/2 rounded-[0.625rem] font-semibold transition-colors outline-none"
+                      className={cn(
+                        "flex h-10 w-1/2 cursor-pointer items-center justify-center rounded-md transition-colors outline-none",
+                        selectedStep === 1 && "bg-stone-700 font-semibold",
+                      )}
                     >
                       Contrate Agora
                     </div>
