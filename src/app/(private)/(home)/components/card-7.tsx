@@ -49,7 +49,7 @@ export function HomeCard7() {
           Ver Todas
         </button>
       </div>
-      <div className="w-full xl:hidden">
+      <div className="h-[26rem] min-h-[26rem] w-full xl:hidden">
         <Swiper
           spaceBetween={10}
           breakpoints={{
@@ -60,7 +60,7 @@ export function HomeCard7() {
               slidesPerView: "auto",
             },
           }}
-          className="w-full"
+          className="h-full w-full"
         >
           {array.map((item) => (
             <SwiperSlide key={item.id}>
@@ -70,7 +70,7 @@ export function HomeCard7() {
                   alt=""
                   width={500}
                   height={500}
-                  className="h-max w-full rounded-md object-contain"
+                  className="h-max w-96 rounded-md object-contain"
                 />
                 <div className="flex flex-col px-2 leading-4">
                   <span className="text-sm text-zinc-400">{item.tag}</span>

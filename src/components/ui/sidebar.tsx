@@ -14,7 +14,7 @@ export function Sidebar() {
     <>
       <div
         className={cn(
-          "fixed top-0 left-0 z-[9999] h-screen w-[248px] -translate-x-full transition duration-300 ease-in xl:w-[calc(100%-450px)]",
+          "fixed top-0 left-0 z-[9999] h-screen w-[248px] -translate-x-full border-r border-r-stone-700 transition duration-300 ease-in xl:w-[calc(100%-450px)]",
           !mobileMenu && "transparent pointer-events-none",
           mobileMenu && "translate-x-0 bg-stone-900 backdrop-blur",
         )}

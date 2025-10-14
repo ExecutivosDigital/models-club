@@ -8,10 +8,12 @@ import {
 } from "@/components/ui/blocks/accordion";
 import { Check, CircleCheck, X } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Plans() {
+  const router = useRouter();
   const [planType, setPlanType] = useState("yearly");
   const benefits = [
     {
@@ -139,7 +141,10 @@ export default function Plans() {
                         <span>PIX na Hora</span>
                       </div>
                     </div>
-                    <button className="w-full rounded-lg border-2 border-black py-2 text-neutral-500">
+                    <button
+                      onClick={() => router.push("/checkout")}
+                      className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
+                    >
                       Comece Agora
                     </button>
                   </div>
@@ -171,7 +176,10 @@ export default function Plans() {
                         <span>Recursos de Monetização</span>
                       </div>
                     </div>
-                    <button className="w-full rounded-lg border-2 border-black py-2 text-neutral-500">
+                    <button
+                      onClick={() => router.push("/checkout")}
+                      className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
+                    >
                       Upgrade
                     </button>
                   </div>
@@ -207,7 +215,10 @@ export default function Plans() {
                       <span>Configurações IA Otimizadas</span>
                     </div>
                   </div>
-                  <button className="from-primary to-secondary w-full rounded-lg border-2 border-transparent bg-gradient-to-br py-2 text-white">
+                  <button
+                    onClick={() => router.push("/checkout")}
+                    className="from-primary to-secondary w-full rounded-lg border-2 border-transparent bg-gradient-to-br py-2 text-white"
+                  >
                     Upgrade
                   </button>
                 </div>
@@ -236,7 +247,10 @@ export default function Plans() {
                 <span>PIX na Hora</span>
               </div>
             </div>
-            <button className="w-full rounded-lg border-2 border-black py-2 text-neutral-500">
+            <button
+              onClick={() => router.push("/checkout")}
+              className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
+            >
               Comece Agora
             </button>
           </div>
@@ -262,7 +276,10 @@ export default function Plans() {
                 <span>Recursos de Monetização</span>
               </div>
             </div>
-            <button className="w-full rounded-lg border-2 border-black py-2 text-neutral-500">
+            <button
+              onClick={() => router.push("/checkout")}
+              className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
+            >
               Upgrade
             </button>
           </div>
@@ -291,7 +308,10 @@ export default function Plans() {
                 <span>Configurações IA Otimizadas</span>
               </div>
             </div>
-            <button className="from-primary to-secondary w-full rounded-lg border-2 border-transparent bg-gradient-to-br py-2 text-white">
+            <button
+              onClick={() => router.push("/checkout")}
+              className="from-primary to-secondary w-full rounded-lg border-2 border-transparent bg-gradient-to-br py-2 text-white"
+            >
               Upgrade
             </button>
           </div>
@@ -335,13 +355,13 @@ export default function Plans() {
           ))}
         </div>
       </div>
-      <div className="from-primary to-secondary relative flex h-max w-full flex-col items-center bg-gradient-to-br pt-20 pb-20 xl:h-[60vh] xl:pb-0">
+      <div className="from-primary to-secondary relative flex h-max w-full flex-col items-center bg-gradient-to-br pt-20 pb-20 xl:pb-0 2xl:h-[60vh]">
         <Image
           src="/static/generic-model-3.png"
           alt=""
           width={1000}
           height={1000}
-          className="absolute -right-10 bottom-0 hidden h-full w-max object-contain xl:block"
+          className="absolute -right-10 bottom-0 hidden h-2/3 w-max object-contain xl:block 2xl:h-full"
         />
         <div className="mx-auto w-full text-center xl:w-[50rem]">
           <span className="text-lg font-bold text-white xl:text-3xl">
@@ -366,7 +386,7 @@ export default function Plans() {
               </AccordionTrigger>
               <AccordionContent className="text-sm xl:text-base">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
+                industry. Lorem Ipsum has been the industry{"'"}s standard dummy
                 text ever since the 1500s
               </AccordionContent>
             </AccordionItem>
@@ -377,7 +397,7 @@ export default function Plans() {
               </AccordionTrigger>
               <AccordionContent className="text-sm xl:text-base">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
+                industry. Lorem Ipsum has been the industry{"'"}s standard dummy
                 text ever since the 1500s
               </AccordionContent>
             </AccordionItem>
@@ -387,7 +407,7 @@ export default function Plans() {
               </AccordionTrigger>
               <AccordionContent className="text-sm xl:text-base">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
+                industry. Lorem Ipsum has been the industry{"'"}s standard dummy
                 text ever since the 1500s
               </AccordionContent>
             </AccordionItem>
@@ -397,7 +417,7 @@ export default function Plans() {
               </AccordionTrigger>
               <AccordionContent className="text-sm xl:text-base">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
+                industry. Lorem Ipsum has been the industry{"'"}s standard dummy
                 text ever since the 1500s
               </AccordionContent>
             </AccordionItem>

@@ -12,7 +12,7 @@ export default function Login() {
   return (
     <>
       <div className="relative flex h-[100svh] overflow-x-hidden md:px-4 md:pt-16 md:pb-10 lg:p-6">
-        <div className="relative my-6 hidden w-full max-w-[45rem] lg:flex xl:max-w-[30rem] xl:p-10 2xl:max-w-[40rem]">
+        <div className="relative my-6 hidden w-full max-w-[45rem] lg:flex xl:max-w-[30rem] xl:p-10 2xl:max-w-[50rem]">
           <Image
             className="mx-auto block h-full w-auto rounded-[1.25rem] object-contain"
             src="/static/login.gif"

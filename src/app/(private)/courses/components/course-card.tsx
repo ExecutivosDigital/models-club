@@ -1,50 +1,24 @@
 "use client";
 import { GenericCard } from "@/components/ui/card";
+import { cn } from "@/utils/cn";
 import { CheckCheck } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { CoursePreviewProps } from "../page";
 
-export function HomeCard6() {
-  const array = [
-    {
-      id: "1",
-      image: "/static/placeholder-thumbnail-1.png",
-      tag: "Obrigatório*",
-      title: "Bem Vindos",
-      description:
-        "Visão geral da plataforma e das oportunidades de criar e vender conteúdo +18 com IA.",
-    },
-    {
-      id: "2",
-      image: "/static/placeholder-thumbnail-2.png",
-      tag: "Obrigatório*",
-      title: "Criar minha Modelo",
-      description:
-        "Passo a passo para desenvolver e personalizar sua própria personagem de IA.",
-    },
-    {
-      id: "3",
-      image: "/static/placeholder-thumbnail-3.png",
-      tag: "Obrigatório*",
-      title: "Como receber?",
-      description:
-        "Aprenda a configurar formas de pagamento e organizar seus ganhos com segurança.",
-    },
-    {
-      id: "4",
-      image: "/static/placeholder-thumbnail-4.png",
-      tag: "Obrigatório*",
-      title: "Key da IA",
-      description:
-        "Entenda o que é a chave da IA, como gerar e usar para liberar acessos e integrações.",
-    },
-  ];
+interface CourseCardProps {
+  course: CoursePreviewProps;
+}
+
+export function CourseCard({ course }: CourseCardProps) {
+  const router = useRouter();
 
   return (
     <GenericCard className="xl:col-span-3">
       <div className="flex w-full flex-col justify-between xl:flex-row xl:items-center">
         <span className="text-lg font-semibold text-zinc-200">
-          Vídeos para começar: Obrigatório*
+          Curso: {course.title}
         </span>
         <button className="h-8 rounded-md bg-zinc-700 px-4 font-semibold">
           Ver Todas
@@ -63,7 +37,7 @@ export function HomeCard6() {
           }}
           className="h-full w-full"
         >
-          {array.map((item) => (
+          {course.classes.map((item) => (
             <SwiperSlide key={item.id}>
               <div className="flex h-full max-w-96 cursor-pointer flex-col justify-between gap-4 rounded-md transition duration-200 hover:bg-stone-950">
                 <Image
@@ -81,10 +55,21 @@ export function HomeCard6() {
                   {item.description}
                 </span>
                 <div className="flex w-full items-center justify-between px-2 pb-2">
-                  <button className="h-8 rounded-md bg-stone-950 px-2 font-semibold">
-                    VER ATIVIDADE
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/courses/${item.id}`);
+                    }}
+                    className="h-8 rounded-md bg-stone-950 px-2 font-semibold"
+                  >
+                    VER AULA
                   </button>
-                  <div className="border-primary text-primary flex h-8 w-8 items-center justify-center rounded-md border bg-stone-950">
+                  <div
+                    className={cn(
+                      "border-primary text-primary flex h-8 w-8 items-center justify-center rounded-md border bg-stone-950",
+                      !item.seen && "opacity-0",
+                    )}
+                  >
                     <CheckCheck />
                   </div>
                 </div>
@@ -94,7 +79,7 @@ export function HomeCard6() {
         </Swiper>
       </div>
       <div className="hidden w-full items-center justify-between xl:flex">
-        {array.map((item) => (
+        {course.classes.map((item) => (
           <div
             key={item.id}
             className="flex h-full w-72 cursor-pointer flex-col justify-between gap-4 rounded-md transition duration-200 hover:bg-stone-950"
@@ -112,16 +97,30 @@ export function HomeCard6() {
             </div>
             <span className="px-2 text-neutral-400">{item.description}</span>
             <div className="flex w-full items-center justify-between px-2 pb-2">
-              <button className="h-8 rounded-md bg-stone-950 px-2 font-semibold">
-                VER ATIVIDADE
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push(`/courses/${item.id}`);
+                }}
+                className="h-8 rounded-md bg-stone-950 px-2 font-semibold"
+              >
+                VER AULA
               </button>
-              <div className="border-primary text-primary flex h-8 w-8 items-center justify-center rounded-md border bg-stone-950">
+              <div
+                className={cn(
+                  "border-primary text-primary flex h-8 w-8 items-center justify-center rounded-md border bg-stone-950",
+                  !item.seen && "opacity-0",
+                )}
+              >
                 <CheckCheck />
               </div>
             </div>
           </div>
         ))}
       </div>
+      <button className="flex h-8 w-max items-center gap-2 rounded-md border border-green-500 bg-stone-950 px-4 font-bold text-green-500">
+        Adquirir Curso
+      </button>
     </GenericCard>
   );
 }

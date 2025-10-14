@@ -246,96 +246,97 @@ const PaymentForm = ({
   const handleNext = async (
     form: UseFormReturn<z.infer<typeof FormSchema>>,
   ) => {
-    if (currentStep === 0) {
-      const isValid = await validateStep(currentStep);
-      if (!isValid) {
-        const errors = form.formState.errors;
-        const fieldLabels: Record<
-          keyof z.infer<typeof CreditCardSchema>,
-          string
-        > = {
-          holderName: "Nome",
-          number: "Cartão",
-          expiryDate: "Data",
-          ccv: "CVV",
-        };
-        const firstErrorField = Object.keys(
-          errors,
-        )[0] as keyof typeof fieldLabels;
-        const firstError = errors[firstErrorField];
-        if (firstError?.message && firstErrorField in fieldLabels) {
-          const fieldLabel = fieldLabels[firstErrorField];
-          return toast.error(`${fieldLabel}: ${firstError.message}`);
-        }
-        return toast.error("Por favor, corrija os erros no formulário.");
-      } else {
-        setCurrentStep(currentStep + 1);
-      }
-    } else if (currentStep === 1 || currentStep === 2) {
-      const isValid = await validateStep(currentStep);
-      if (!isValid) {
-        const errors = form.formState.errors;
-        const fieldLabels: Record<
-          keyof z.infer<typeof CreditCardHolderSchema>,
-          string
-        > = {
-          name: "Nome",
-          email: "Email",
-          cpfCnpj: "CPF/CNPJ",
-          postalCode: "CEP",
-          addressNumber: "Endereço",
-          phone: "Telefone",
-        };
-        const secondErrorField = Object.keys(
-          errors,
-        )[0] as keyof typeof fieldLabels;
-        const secondError = errors[secondErrorField];
-        if (secondError?.message && secondErrorField in fieldLabels) {
-          const fieldLabel = fieldLabels[secondErrorField];
-          return toast.error(`${fieldLabel}: ${secondError.message}`);
-        }
-        return toast.error("Por favor, corrija os erros no formulário.");
-      } else {
-        setCurrentStep(currentStep + 1);
-      }
-    } else if (currentStep === 3) {
-      setIsPaying(true);
+    router.push("/");
+    // if (currentStep === 0) {
+    //   const isValid = await validateStep(currentStep);
+    //   if (!isValid) {
+    //     const errors = form.formState.errors;
+    //     const fieldLabels: Record<
+    //       keyof z.infer<typeof CreditCardSchema>,
+    //       string
+    //     > = {
+    //       holderName: "Nome",
+    //       number: "Cartão",
+    //       expiryDate: "Data",
+    //       ccv: "CVV",
+    //     };
+    //     const firstErrorField = Object.keys(
+    //       errors,
+    //     )[0] as keyof typeof fieldLabels;
+    //     const firstError = errors[firstErrorField];
+    //     if (firstError?.message && firstErrorField in fieldLabels) {
+    //       const fieldLabel = fieldLabels[firstErrorField];
+    //       return toast.error(`${fieldLabel}: ${firstError.message}`);
+    //     }
+    //     return toast.error("Por favor, corrija os erros no formulário.");
+    //   } else {
+    //     setCurrentStep(currentStep + 1);
+    //   }
+    // } else if (currentStep === 1 || currentStep === 2) {
+    //   const isValid = await validateStep(currentStep);
+    //   if (!isValid) {
+    //     const errors = form.formState.errors;
+    //     const fieldLabels: Record<
+    //       keyof z.infer<typeof CreditCardHolderSchema>,
+    //       string
+    //     > = {
+    //       name: "Nome",
+    //       email: "Email",
+    //       cpfCnpj: "CPF/CNPJ",
+    //       postalCode: "CEP",
+    //       addressNumber: "Endereço",
+    //       phone: "Telefone",
+    //     };
+    //     const secondErrorField = Object.keys(
+    //       errors,
+    //     )[0] as keyof typeof fieldLabels;
+    //     const secondError = errors[secondErrorField];
+    //     if (secondError?.message && secondErrorField in fieldLabels) {
+    //       const fieldLabel = fieldLabels[secondErrorField];
+    //       return toast.error(`${fieldLabel}: ${secondError.message}`);
+    //     }
+    //     return toast.error("Por favor, corrija os erros no formulário.");
+    //   } else {
+    //     setCurrentStep(currentStep + 1);
+    //   }
+    // } else if (currentStep === 3) {
+    //   setIsPaying(true);
 
-      const body: any = {
-        planId: plans[0].id,
-        yearly: isYearly, // ← NOVO
-        creditCard: {
-          holderName: form.getValues("holderName"),
-          number: form.getValues("number"),
-          expiryMonth: form.getValues("expiryDate").split("/")[0],
-          expiryYear: form.getValues("expiryDate").split("/")[1],
-          ccv: form.getValues("ccv"),
-        },
-        creditCardHolderInfo: {
-          name: form.getValues("name"),
-          email: form.getValues("email"),
-          cpfCnpj: form.getValues("cpfCnpj"),
-          postalCode: form.getValues("postalCode"),
-          addressNumber: form.getValues("addressNumber"),
-          phone: form.getValues("phone"),
-        },
-        installmentCount: selectedInstallment,
-      };
+    //   const body: any = {
+    //     planId: plans[0].id,
+    //     yearly: isYearly,
+    //     creditCard: {
+    //       holderName: form.getValues("holderName"),
+    //       number: form.getValues("number"),
+    //       expiryMonth: form.getValues("expiryDate").split("/")[0],
+    //       expiryYear: form.getValues("expiryDate").split("/")[1],
+    //       ccv: form.getValues("ccv"),
+    //     },
+    //     creditCardHolderInfo: {
+    //       name: form.getValues("name"),
+    //       email: form.getValues("email"),
+    //       cpfCnpj: form.getValues("cpfCnpj"),
+    //       postalCode: form.getValues("postalCode"),
+    //       addressNumber: form.getValues("addressNumber"),
+    //       phone: form.getValues("phone"),
+    //     },
+    //     installmentCount: selectedInstallment,
+    //   };
 
-      if (couponApplied && couponCode.trim()) {
-        body.partnerCode = couponCode.trim(); // envia partnerCode para cartão
-      }
+    //   if (couponApplied && couponCode.trim()) {
+    //     body.partnerCode = couponCode.trim();
+    //   }
 
-      const creditPayment = await PostAPI("/signature/credit/new", body, true);
+    //   const creditPayment = await PostAPI("/signature/credit/new", body, true);
 
-      if (creditPayment.status === 200) {
-        toast.success("Pagamento realizado com sucesso!");
-        router.push("/thanks");
-        return setIsPaying(false);
-      }
-      toast.error("Houve um erro ao realizar o pagamento.");
-      return setIsPaying(false);
-    }
+    //   if (creditPayment.status === 200) {
+    //     toast.success("Pagamento realizado com sucesso!");
+    //     router.push("/thanks");
+    //     return setIsPaying(false);
+    //   }
+    //   toast.error("Houve um erro ao realizar o pagamento.");
+    //   return setIsPaying(false);
+    // }
   };
 
   async function HandleQrCode() {

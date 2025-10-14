@@ -24,7 +24,7 @@ export function ModelCard4() {
               key={index}
               className="flex w-full items-center justify-center gap-2 xl:justify-end"
             >
-              <div className="flex h-8 w-full max-w-60 items-center gap-2 rounded-md bg-stone-950 px-2">
+              <div className="flex h-8 w-full max-w-40 items-center gap-2 rounded-md bg-stone-950 px-2 md:max-w-60">
                 <Image
                   src="/icons/price.svg"
                   alt=""

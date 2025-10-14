@@ -111,7 +111,10 @@ export function Details({
         ))}
       </div>
       <div className="caption1 text-n-4/50 mb-6 hidden items-center xl:flex">
-        <Icon className="mr-2 h-4 w-4 fill-neutral-500" name="lock" />
+        <Icon
+          className="mr-3 max-h-6 min-h-6 max-w-6 min-w-6 fill-neutral-500"
+          name="lock"
+        />
         Garantia de Segurança com Banco Central
       </div>
 

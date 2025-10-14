@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
+    <html className="custom-scrollbar">
       <body className={`${inter.variable} bg-stone-950 text-neutral-300`}>
         <CookiesProvider>
           <ApiContextProvider>{children}</ApiContextProvider>

@@ -16,9 +16,9 @@ export const Pages = [
     route: "#",
   },
   {
-    title: "Aulas",
-    icon: "classes",
-    route: "#",
+    title: "Cursos",
+    icon: "courses",
+    route: "/courses",
   },
   {
     title: "Modelos",
@@ -28,11 +28,11 @@ export const Pages = [
   {
     title: "Administrativo",
     icon: "placeholder",
-    route: "#",
+    route: "/admin",
   },
   {
     title: "Testar IA",
     icon: "placeholder",
-    route: "#",
+    route: "/chat",
   },
 ];

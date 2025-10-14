@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -16,7 +17,12 @@ export function DashBoardLayoutProvider({
     <>
       <Header />
       <div className="transition-all duration-150">
-        <div className="px-6 pt-6 pb-8">
+        <div
+          className={cn(
+            "px-6 pt-6 pb-8",
+            location.includes("/courses/") && "p-0",
+          )}
+        >
           <>
             <motion.div
               key={location}
@@ -43,7 +49,14 @@ export function DashBoardLayoutProvider({
                 duration: 0.5,
               }}
             >
-              <main>{children}</main>
+              <main
+                className={cn(
+                  "mx-auto max-w-[1280px]",
+                  location.includes("/courses/") && "max-w-full",
+                )}
+              >
+                {children}
+              </main>
             </motion.div>
             <Sidebar />
           </>

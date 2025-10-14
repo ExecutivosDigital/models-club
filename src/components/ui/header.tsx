@@ -65,7 +65,9 @@ export function Header() {
                   <div
                     className={cn(
                       "group data-[state=open]:text-primary flex cursor-pointer items-center gap-2 px-6 py-4",
-                      path === item.route &&
+                      ((item.route === "/" && path === "/") ||
+                        item.route === path ||
+                        (item.route !== "/" && path.includes(item.route))) &&
                         "border-primary from-primary/5 via-primary/30 to-primary/5 border-t-2 bg-gradient-to-r from-0% to-100% backdrop-blur backdrop-filter",
                     )}
                   >

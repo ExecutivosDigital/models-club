@@ -137,7 +137,7 @@ const CreateAccount = () => {
   const handleNext = async (
     form: UseFormReturn<z.infer<typeof FormSchema>>,
   ) => {
-    router.push("/checkout");
+    router.push("/plans");
     // if (currentStep === 0) {
     //   const isValid = await validateStep(currentStep);
     //   if (!isValid) {
