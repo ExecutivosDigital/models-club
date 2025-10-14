@@ -58,7 +58,9 @@ export function CourseCard({ course }: CourseCardProps) {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      router.push(`/courses/${item.id}`);
+                      router.push(
+                        `/courses/${item.title.toLowerCase().replaceAll(" ", "-")}`,
+                      );
                     }}
                     className="h-8 rounded-md bg-stone-950 px-2 font-semibold"
                   >
@@ -100,7 +102,9 @@ export function CourseCard({ course }: CourseCardProps) {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  router.push(`/courses/${item.id}`);
+                  router.push(
+                    `/courses/${item.title.toLowerCase().replaceAll(" ", "-")}`,
+                  );
                 }}
                 className="h-8 rounded-md bg-stone-950 px-2 font-semibold"
               >

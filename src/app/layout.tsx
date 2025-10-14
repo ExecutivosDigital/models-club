@@ -3,6 +3,7 @@ import moment from "moment";
 import "moment/locale/pt-br";
 import { CookiesProvider } from "next-client-cookies/server";
 import { Inter } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "swiper/css";
 import "./globals.css";
 moment.locale("pt-br");
@@ -30,7 +31,21 @@ export default function RootLayout({
     <html className="custom-scrollbar">
       <body className={`${inter.variable} bg-stone-950 text-neutral-300`}>
         <CookiesProvider>
-          <ApiContextProvider>{children}</ApiContextProvider>
+          <ApiContextProvider>
+            <Toaster
+              containerStyle={{
+                bottom: 40,
+                left: 20,
+                right: 20,
+              }}
+              position="top-center"
+              gutter={10}
+              toastOptions={{
+                duration: 2000,
+              }}
+            />
+            {children}
+          </ApiContextProvider>
         </CookiesProvider>
       </body>
     </html>

@@ -1,37 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useApiContext } from "@/context/ApiContext";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Details } from "./components/details";
 import PaymentForm from "./components/payment-form";
 
 export interface PlanProps {
-  creditCardPrice: number;
+  creditValue: number;
   description: string;
   id: string;
   name: string;
-  pixPrice: number;
+  pixValue: number;
   yearlyDiscount: number;
   userQuantity: number;
 }
 
 export default function Checkout() {
+  const { GetAPI } = useApiContext();
+  const { id } = useParams<{ id: string }>();
   const [couponCode, setCouponCode] = useState("");
   const [couponLoading, setCouponLoading] = useState(false);
   const [couponApplied, setCouponApplied] = useState(false);
   const [discountPercent, setDiscountPercent] = useState<number | null>(null);
-  const [plans, setPlans] = useState<PlanProps[]>([
-    {
-      creditCardPrice: 0,
-      description: "teste",
-      id: "teste",
-      name: "teste",
-      pixPrice: 0,
-      yearlyDiscount: 0,
-      userQuantity: 0,
-    },
-  ]);
+
+  const [selectedPlan, setSelectedPlan] = useState<PlanProps | null>(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState<string>("card");
+
+  async function GetPlans() {
+    const plans = await GetAPI("/signature-plan", true);
+    if (plans.status === 200) {
+      setSelectedPlan(plans.body.plans.find((plan: any) => plan.id === id));
+    }
+  }
+
+  useEffect(() => {
+    GetPlans();
+  }, []);
 
   return (
     <>
@@ -44,7 +50,7 @@ export default function Checkout() {
           <div className="relative mt-2 flex flex-col items-center justify-between border-t border-t-neutral-500 pt-4 md:mt-10 md:border-t md:pt-4 lg:mt-6 xl:flex-row">
             <div className="w-full max-w-[20.375rem] lg:mb-8">
               <Details
-                plans={plans}
+                plans={selectedPlan}
                 selectedPaymentMethod={selectedPaymentMethod}
                 couponCode={couponCode}
                 setCouponCode={setCouponCode}
@@ -58,7 +64,7 @@ export default function Checkout() {
             </div>
             <div className="w-full max-w-[29.875rem] xl:w-[29rem]">
               <PaymentForm
-                plans={plans}
+                plans={selectedPlan}
                 selectedPaymentMethod={selectedPaymentMethod}
                 setSelectedPaymentMethod={setSelectedPaymentMethod}
                 couponCode={couponCode}

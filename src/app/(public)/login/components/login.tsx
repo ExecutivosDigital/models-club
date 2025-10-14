@@ -60,13 +60,11 @@ const SignIn = ({ onClick }: SignInProps) => {
     if (!isValid) {
       const errors = form.formState.errors;
 
-      // Define field labels with proper typing
       const fieldLabels: Record<keyof z.infer<typeof FormSchema>, string> = {
         email: "Email",
         password: "Senha",
       };
 
-      // Get first error with type safety
       const firstErrorField = Object.keys(
         errors,
       )[0] as keyof typeof fieldLabels;
@@ -80,11 +78,7 @@ const SignIn = ({ onClick }: SignInProps) => {
       return toast.error("Por favor, corrija os erros no formulário.");
     } else {
       setIsLoggingIn(true);
-      const login = await PostAPI(
-        "/lawyer/authenticate",
-        form.getValues(),
-        false,
-      );
+      const login = await PostAPI("/client/auth", form.getValues(), false);
       if (login.status === 200) {
         cookies.set(
           process.env.NEXT_PUBLIC_USER_TOKEN as string,
@@ -170,7 +164,10 @@ const SignIn = ({ onClick }: SignInProps) => {
         className="from-primary to-secondary w-full rounded-md bg-gradient-to-br px-4 py-2 font-semibold shadow-sm"
       >
         {isLoggingIn ? (
-          <Loader2 className="animate-spin" />
+          <div className="flex w-full items-center justify-center gap-2">
+            <Loader2 className="animate-spin" />
+            <span>Entrando</span>
+          </div>
         ) : (
           "Acessar Models Club"
         )}

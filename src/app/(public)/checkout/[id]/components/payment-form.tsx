@@ -36,15 +36,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../login/components/form";
-import Icon from "../../login/components/icon";
+} from "../../../login/components/form";
+import Icon from "../../../login/components/icon";
 import { PlanProps } from "../page";
 
 // ——————————————————————————————————————————————————————————
 // ⚙️ TIPOS
 // ——————————————————————————————————————————————————————————
 type FormProps = {
-  plans: PlanProps[];
+  plans: PlanProps | null;
   selectedPaymentMethod: string;
   setSelectedPaymentMethod: React.Dispatch<React.SetStateAction<string>>;
   couponCode: string;
@@ -107,7 +107,6 @@ const PaymentForm = ({
   const [buttonText, setButtonText] = useState("Aguardando Pagamento");
 
   // ——— NOVO: alternância mensal/anual ———
-  const [isYearly, setIsYearly] = useState(false);
 
   // ——— CUPOM (sempre percentual) ———
   // ex.: 10 => 10%
@@ -155,26 +154,14 @@ const PaymentForm = ({
   //     Anual = mensal * 12 - desconto anual (yearlyDiscount%)
   //     Cupom sempre percentual e aplicado por último.
   // ————————————————————————————————————————
-  const cardMonthly = plans[0]?.creditCardPrice ?? 0; // valor mensal
-  const pixMonthly = plans[0]?.pixPrice ?? 0; // valor mensal
-  const yearlyDiscountPct = Math.max(
-    0,
-    Math.min(100, plans[0]?.yearlyDiscount ?? 0),
-  );
-  const yearlyFactor = isYearly ? 1 - yearlyDiscountPct / 100 : 1;
+  const cardMonthly = plans?.creditValue ?? 0; // valor mensal
+  const pixMonthly = plans?.pixValue ?? 0; // valor mensal
 
   // Totais ANTES do cupom (já com yearly quando aplicável)
-  const cardBaseTotal = round2(
-    (isYearly ? cardMonthly * 12 : cardMonthly) * yearlyFactor,
-  );
-  const pixBaseTotal = round2(
-    (isYearly ? pixMonthly * 12 : pixMonthly) * yearlyFactor,
-  );
+  const cardBaseTotal = round2(cardMonthly);
+  const pixBaseTotal = round2(pixMonthly);
   const isCard = selectedPaymentMethod === "card";
-  const yearlyDiscount =
-    isYearly && isCard
-      ? cardMonthly * 12 * (yearlyDiscountPct / 100)
-      : pixMonthly * 12 * (yearlyDiscountPct / 100);
+
   // Cupom (aplicado por último)
   const couponFactor = discountPercent
     ? Math.max(0, 1 - discountPercent / 100)
@@ -195,9 +182,7 @@ const PaymentForm = ({
   );
 
   // Badge de desconto do Pix (diferença entre métodos, antes do cupom)
-  const pixBadgeDiff = round2(
-    (cardMonthly - pixMonthly) * (isYearly ? 12 : 1) * yearlyFactor,
-  );
+  const pixBadgeDiff = round2((cardMonthly - pixMonthly) * 1);
 
   // Para o dropdown de parcelas (usa o TOTAL efetivo do cartão, com cupom/ano quando houver)
   const effectiveCardTotal = cardFinalTotal;
@@ -246,110 +231,105 @@ const PaymentForm = ({
   const handleNext = async (
     form: UseFormReturn<z.infer<typeof FormSchema>>,
   ) => {
-    router.push("/");
-    // if (currentStep === 0) {
-    //   const isValid = await validateStep(currentStep);
-    //   if (!isValid) {
-    //     const errors = form.formState.errors;
-    //     const fieldLabels: Record<
-    //       keyof z.infer<typeof CreditCardSchema>,
-    //       string
-    //     > = {
-    //       holderName: "Nome",
-    //       number: "Cartão",
-    //       expiryDate: "Data",
-    //       ccv: "CVV",
-    //     };
-    //     const firstErrorField = Object.keys(
-    //       errors,
-    //     )[0] as keyof typeof fieldLabels;
-    //     const firstError = errors[firstErrorField];
-    //     if (firstError?.message && firstErrorField in fieldLabels) {
-    //       const fieldLabel = fieldLabels[firstErrorField];
-    //       return toast.error(`${fieldLabel}: ${firstError.message}`);
-    //     }
-    //     return toast.error("Por favor, corrija os erros no formulário.");
-    //   } else {
-    //     setCurrentStep(currentStep + 1);
-    //   }
-    // } else if (currentStep === 1 || currentStep === 2) {
-    //   const isValid = await validateStep(currentStep);
-    //   if (!isValid) {
-    //     const errors = form.formState.errors;
-    //     const fieldLabels: Record<
-    //       keyof z.infer<typeof CreditCardHolderSchema>,
-    //       string
-    //     > = {
-    //       name: "Nome",
-    //       email: "Email",
-    //       cpfCnpj: "CPF/CNPJ",
-    //       postalCode: "CEP",
-    //       addressNumber: "Endereço",
-    //       phone: "Telefone",
-    //     };
-    //     const secondErrorField = Object.keys(
-    //       errors,
-    //     )[0] as keyof typeof fieldLabels;
-    //     const secondError = errors[secondErrorField];
-    //     if (secondError?.message && secondErrorField in fieldLabels) {
-    //       const fieldLabel = fieldLabels[secondErrorField];
-    //       return toast.error(`${fieldLabel}: ${secondError.message}`);
-    //     }
-    //     return toast.error("Por favor, corrija os erros no formulário.");
-    //   } else {
-    //     setCurrentStep(currentStep + 1);
-    //   }
-    // } else if (currentStep === 3) {
-    //   setIsPaying(true);
+    if (currentStep === 0) {
+      const isValid = await validateStep(currentStep);
+      if (!isValid) {
+        const errors = form.formState.errors;
+        const fieldLabels: Record<
+          keyof z.infer<typeof CreditCardSchema>,
+          string
+        > = {
+          holderName: "Nome",
+          number: "Cartão",
+          expiryDate: "Data",
+          ccv: "CVV",
+        };
+        const firstErrorField = Object.keys(
+          errors,
+        )[0] as keyof typeof fieldLabels;
+        const firstError = errors[firstErrorField];
+        if (firstError?.message && firstErrorField in fieldLabels) {
+          const fieldLabel = fieldLabels[firstErrorField];
+          return toast.error(`${fieldLabel}: ${firstError.message}`);
+        }
+        return toast.error("Por favor, corrija os erros no formulário.");
+      } else {
+        setCurrentStep(currentStep + 1);
+      }
+    } else if (currentStep === 1 || currentStep === 2) {
+      const isValid = await validateStep(currentStep);
+      if (!isValid) {
+        const errors = form.formState.errors;
+        const fieldLabels: Record<
+          keyof z.infer<typeof CreditCardHolderSchema>,
+          string
+        > = {
+          name: "Nome",
+          email: "Email",
+          cpfCnpj: "CPF/CNPJ",
+          postalCode: "CEP",
+          addressNumber: "Endereço",
+          phone: "Telefone",
+        };
+        const secondErrorField = Object.keys(
+          errors,
+        )[0] as keyof typeof fieldLabels;
+        const secondError = errors[secondErrorField];
+        if (secondError?.message && secondErrorField in fieldLabels) {
+          const fieldLabel = fieldLabels[secondErrorField];
+          return toast.error(`${fieldLabel}: ${secondError.message}`);
+        }
+        return toast.error("Por favor, corrija os erros no formulário.");
+      } else {
+        setCurrentStep(currentStep + 1);
+      }
+    } else if (currentStep === 3) {
+      setIsPaying(true);
 
-    //   const body: any = {
-    //     planId: plans[0].id,
-    //     yearly: isYearly,
-    //     creditCard: {
-    //       holderName: form.getValues("holderName"),
-    //       number: form.getValues("number"),
-    //       expiryMonth: form.getValues("expiryDate").split("/")[0],
-    //       expiryYear: form.getValues("expiryDate").split("/")[1],
-    //       ccv: form.getValues("ccv"),
-    //     },
-    //     creditCardHolderInfo: {
-    //       name: form.getValues("name"),
-    //       email: form.getValues("email"),
-    //       cpfCnpj: form.getValues("cpfCnpj"),
-    //       postalCode: form.getValues("postalCode"),
-    //       addressNumber: form.getValues("addressNumber"),
-    //       phone: form.getValues("phone"),
-    //     },
-    //     installmentCount: selectedInstallment,
-    //   };
+      const body: any = {
+        signaturePlanId: plans?.id,
+        creditCard: {
+          holderName: form.getValues("holderName"),
+          number: form.getValues("number"),
+          expiryMonth: form.getValues("expiryDate").split("/")[0],
+          expiryYear: form.getValues("expiryDate").split("/")[1],
+          ccv: form.getValues("ccv"),
+        },
+        creditCardHolderInfo: {
+          name: form.getValues("name"),
+          email: form.getValues("email"),
+          cpfCnpj: form.getValues("cpfCnpj"),
+          postalCode: form.getValues("postalCode"),
+          addressNumber: form.getValues("addressNumber"),
+          phone: form.getValues("phone"),
+        },
+        installmentCount: selectedInstallment,
+      };
 
-    //   if (couponApplied && couponCode.trim()) {
-    //     body.partnerCode = couponCode.trim();
-    //   }
-
-    //   const creditPayment = await PostAPI("/signature/credit/new", body, true);
-
-    //   if (creditPayment.status === 200) {
-    //     toast.success("Pagamento realizado com sucesso!");
-    //     router.push("/thanks");
-    //     return setIsPaying(false);
-    //   }
-    //   toast.error("Houve um erro ao realizar o pagamento.");
-    //   return setIsPaying(false);
-    // }
+      if (couponApplied && couponCode.trim()) {
+        body.partnerCode = couponCode.trim();
+      }
+      const creditPayment = await PostAPI(
+        "/client-signature/credit/new",
+        body,
+        true,
+      );
+      if (creditPayment.status === 200) {
+        toast.success("Pagamento realizado com sucesso!");
+        router.push("/");
+        return setIsPaying(false);
+      }
+      toast.error("Houve um erro ao realizar o pagamento.");
+      return setIsPaying(false);
+    }
   };
 
   async function HandleQrCode() {
     setIsPixBeingGenerated(true);
 
-    const payload: any = { yearly: isYearly }; // ← NOVO
-    if (couponApplied && couponCode.trim()) {
-      payload.partnerCode = couponCode.trim();
-    }
-
     const qrResp = await PostAPI(
-      `/signature/pix/${plans[0]?.id}`,
-      payload,
+      `/client-signature/pix/${plans?.id}`,
+      {},
       true,
     );
     if (qrResp.status === 200) {
@@ -385,60 +365,6 @@ const PaymentForm = ({
       {/* ———————————————————————————————————————— */}
       {/* NOVO: Switch Mensal/Anual */}
       {/* ———————————————————————————————————————— */}
-      <div className="mb-4 flex w-full items-center justify-center">
-        <div
-          role="tablist"
-          aria-label="Alternar período de cobrança"
-          className={cn(
-            "relative flex w-full max-w-[320px] rounded-md bg-stone-800 p-1 before:absolute before:top-1 before:bottom-1 before:left-1 before:w-[calc(50%-0.25rem)] before:rounded-md before:bg-stone-700 before:transition-transform before:duration-300 before:ease-out",
-            isYearly && "before:translate-x-full",
-          )}
-        >
-          {/* Mensal */}
-          <button
-            type="button"
-            role="tab"
-            aria-selected={!isYearly}
-            onClick={() => setIsYearly(false)}
-            className={cn(
-              "group relative z-[1] inline-flex h-10 basis-1/2 items-center justify-center gap-2 rounded-md px-3 text-base font-semibold transition-colors focus:outline-none md:text-lg",
-              !isYearly && "text-n-3",
-            )}
-          >
-            <Icon
-              aria-hidden
-              name="calendar"
-              className={cn(
-                "h-5 w-5 transition-colors",
-                !isYearly ? "fill-primary" : "fill-neutral-500",
-              )}
-            />
-            Mensal
-          </button>
-
-          {/* Anual */}
-          <button
-            type="button"
-            role="tab"
-            aria-selected={isYearly}
-            onClick={() => setIsYearly(true)}
-            className={cn(
-              "group relative z-[1] inline-flex h-10 basis-1/2 items-center justify-center gap-2 rounded-md px-3 text-base font-semibold transition-colors focus:outline-none md:text-lg",
-              isYearly && "text-n-3",
-            )}
-          >
-            <Icon
-              aria-hidden
-              name="trophy"
-              className={cn(
-                "h-5 w-5 transition-colors",
-                isYearly ? "fill-primary" : "fill-neutral-500",
-              )}
-            />
-            Anual
-          </button>
-        </div>
-      </div>
 
       <div className="flex items-center">
         <div className="mr-auto text-neutral-600">Forma de Pagamento</div>
@@ -938,11 +864,8 @@ const PaymentForm = ({
           ) : (
             <div className="mb-3">
               <DropdownMenu>
-                <DropdownMenuTrigger asChild disabled={!isYearly}>
-                  <button
-                    disabled={!isYearly}
-                    className="from-primary to-secondary relative col-span-12 w-full rounded-md border border-neutral-500 bg-gradient-to-br bg-clip-text p-2 font-bold text-transparent"
-                  >
+                <DropdownMenuTrigger asChild>
+                  <button className="from-primary to-secondary relative col-span-12 w-full rounded-md border border-neutral-500 bg-gradient-to-br bg-clip-text p-2 font-bold text-transparent">
                     <span>
                       {selectedInstallment +
                         " x " +
@@ -1082,13 +1005,9 @@ const PaymentForm = ({
             className="base2 text-secondary-1 hover:text-secondary-1/90 mb-4 font-semibold transition-colors"
             type="button"
           >
-            / Por {isYearly ? "Ano" : "Mês"}
+            / Por Mês
           </button>
-          {isYearly && (
-            <div className="caption1 mb-1 text-[#0C923C]">
-              Você economiza {formatBRL(yearlyDiscount)} com o plano anual
-            </div>
-          )}
+
           {couponApplied && discountPercent != null && (
             <div className="caption1 mb-1 text-[#0C923C]">
               Você economiza {formatBRL(couponSavedSelected)} com o cupom
@@ -1119,11 +1038,14 @@ const PaymentForm = ({
                   className="from-primary to-secondary w-full rounded-md bg-gradient-to-br px-4 py-2 font-semibold shadow-sm"
                 >
                   {isPaying ? (
-                    <Loader2 className="animate-spin" />
+                    <div className="flex w-full items-center justify-center gap-2">
+                      <Loader2 className="animate-spin" />
+                      <span>Realizando Pagamento</span>
+                    </div>
                   ) : currentStep !== 3 ? (
                     "Próximo"
                   ) : (
-                    "Acessar Jurid IA"
+                    "Acessar Models Club"
                   )}
                 </button>
               </>

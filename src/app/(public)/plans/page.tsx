@@ -6,15 +6,23 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/blocks/accordion";
+import { useApiContext } from "@/context/ApiContext";
 import { Check, CircleCheck, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+interface PlanProps {
+  id: string;
+  pixValue: number;
+}
+
 export default function Plans() {
+  const { GetAPI } = useApiContext();
   const router = useRouter();
   const [planType, setPlanType] = useState("yearly");
+  const [plans, setPlans] = useState<PlanProps[]>([]);
   const benefits = [
     {
       title: "Monetização Ilimitada",
@@ -68,6 +76,17 @@ export default function Plans() {
     },
   ];
 
+  async function GetPlans() {
+    const plans = await GetAPI("/signature-plan", true);
+    if (plans.status === 200) {
+      setPlans(plans.body.plans);
+    }
+  }
+
+  useEffect(() => {
+    GetPlans();
+  }, []);
+
   return (
     <div className="m-6 min-h-[calc(100svh-3rem)] overflow-hidden rounded-md bg-neutral-900">
       <div className="mx-auto flex max-w-[80rem] flex-col items-center gap-4 p-4 xl:p-8">
@@ -80,7 +99,7 @@ export default function Plans() {
           </span>
         </div>
         <div className="grid w-full grid-cols-6 gap-2 xl:grid-cols-7 xl:gap-0">
-          <div className="col-span-6 flex flex-col items-center xl:col-span-1 xl:h-96 xl:items-start">
+          {/* <div className="col-span-6 flex flex-col items-center xl:col-span-1 xl:h-96 xl:items-start">
             <span className="text-lg font-bold text-white">
               Escolha seu Plano
             </span>
@@ -112,7 +131,7 @@ export default function Plans() {
                 </label>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="col-span-6 flex items-center justify-center xl:hidden">
             <Swiper slidesPerView="auto">
               <SwiperSlide>
@@ -123,7 +142,12 @@ export default function Plans() {
                       Iniciador de Lucro
                     </span>
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl font-bold">R$57</span>
+                      <span className="text-2xl font-bold">
+                        {(plans[0]?.pixValue / 12).toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
+                      </span>
                       <span className="text-neutral-500"> / mês</span>
                     </div>
                     <div className="h-[2px] w-full bg-black" />
@@ -142,7 +166,7 @@ export default function Plans() {
                       </div>
                     </div>
                     <button
-                      onClick={() => router.push("/checkout")}
+                      onClick={() => router.push(`/checkout/${plans[0].id}`)}
                       className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
                     >
                       Comece Agora
@@ -158,7 +182,12 @@ export default function Plans() {
                       Potência Dupla
                     </span>
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl font-bold">R$97</span>
+                      <span className="text-2xl font-bold">
+                        {(plans[1]?.pixValue / 12).toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
+                      </span>
                       <span className="text-neutral-500"> / mês</span>
                     </div>
                     <div className="h-[2px] w-full bg-black" />
@@ -177,7 +206,7 @@ export default function Plans() {
                       </div>
                     </div>
                     <button
-                      onClick={() => router.push("/checkout")}
+                      onClick={() => router.push(`/checkout/${plans[1].id}`)}
                       className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
                     >
                       Upgrade
@@ -197,7 +226,12 @@ export default function Plans() {
                     Elite da Escalada
                   </span>
                   <div className="flex items-center gap-2">
-                    <span className="text-2xl font-bold">R$137</span>
+                    <span className="text-2xl font-bold">
+                      {(plans[2]?.pixValue / 12).toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                    </span>
                     <span className="text-neutral-500"> / mês</span>
                   </div>
                   <div className="h-[2px] w-full bg-neutral-500" />
@@ -216,7 +250,7 @@ export default function Plans() {
                     </div>
                   </div>
                   <button
-                    onClick={() => router.push("/checkout")}
+                    onClick={() => router.push(`/checkout/${plans[2].id}`)}
                     className="from-primary to-secondary w-full rounded-lg border-2 border-transparent bg-gradient-to-br py-2 text-white"
                   >
                     Upgrade
@@ -225,11 +259,16 @@ export default function Plans() {
               </SwiperSlide>
             </Swiper>
           </div>
-          <div className="col-span-2 my-auto hidden h-[22rem] flex-col justify-between rounded-l-2xl border-r border-r-black bg-white p-4 text-black xl:flex">
+          <div className="col-span-2 col-start-2 my-auto hidden h-[22rem] flex-col justify-between rounded-l-2xl border-r border-r-black bg-white p-4 text-black xl:flex">
             <span className="text-lg font-bold">Tier</span>
             <span className="text-sm font-semibold">Iniciador de Lucro</span>
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold">R$57</span>
+              <span className="text-2xl font-bold">
+                {(plans[0]?.pixValue / 12).toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </span>
               <span className="text-neutral-500"> / mês</span>
             </div>
             <div className="h-[2px] w-full bg-black" />
@@ -248,7 +287,7 @@ export default function Plans() {
               </div>
             </div>
             <button
-              onClick={() => router.push("/checkout")}
+              onClick={() => router.push(`/checkout/${plans[0].id}`)}
               className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
             >
               Comece Agora
@@ -258,7 +297,12 @@ export default function Plans() {
             <span className="text-primary text-lg font-bold">Pro</span>
             <span className="text-sm font-semibold">Potência Dupla</span>
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold">R$97</span>
+              <span className="text-2xl font-bold">
+                {(plans[1]?.pixValue / 12).toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </span>
               <span className="text-neutral-500"> / mês</span>
             </div>
             <div className="h-[2px] w-full bg-black" />
@@ -277,7 +321,7 @@ export default function Plans() {
               </div>
             </div>
             <button
-              onClick={() => router.push("/checkout")}
+              onClick={() => router.push(`/checkout/${plans[1].id}`)}
               className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
             >
               Upgrade
@@ -290,7 +334,12 @@ export default function Plans() {
             <span className="text-lg font-bold text-green-500">Enterprise</span>
             <span className="text-sm font-semibold">Elite da Escalada</span>
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold">R$137</span>
+              <span className="text-2xl font-bold">
+                {(plans[2]?.pixValue / 12).toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </span>
               <span className="text-neutral-500"> / mês</span>
             </div>
             <div className="h-[2px] w-full bg-neutral-500" />
@@ -309,7 +358,7 @@ export default function Plans() {
               </div>
             </div>
             <button
-              onClick={() => router.push("/checkout")}
+              onClick={() => router.push(`/checkout/${plans[2].id}`)}
               className="from-primary to-secondary w-full rounded-lg border-2 border-transparent bg-gradient-to-br py-2 text-white"
             >
               Upgrade

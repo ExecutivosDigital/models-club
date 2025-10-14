@@ -1,7 +1,46 @@
+"use client";
 import { GenericCard } from "@/components/ui/card";
+import { useApiContext } from "@/context/ApiContext";
+import { useUserProfileContext } from "@/context/UserProfileContext";
+import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export function HomeCard2() {
+  const { userProfile, GetUserProfile } = useUserProfileContext();
+  const { PutAPI } = useApiContext();
+
+  const [localAsaasWalletId, setLocalAsaasWalletId] = useState<string>("");
+  const [canViewAsaasWalletId, setCanViewAsaasWalletId] = useState(false);
+  const [isSendingAsaasWalletId, setIsSendingAsaasWalletId] = useState(false);
+
+  async function SendAsaasKey() {
+    if (localAsaasWalletId === "")
+      return toast.error("Insira uma Chave Bancária válida.");
+    setIsSendingAsaasWalletId(true);
+    const key = await PutAPI(
+      `/client/profile`,
+      {
+        asaasWalletId: localAsaasWalletId,
+      },
+      true,
+    );
+    if (key.status === 200) {
+      toast.success("Chave Bancária inserida com sucesso!");
+      setIsSendingAsaasWalletId(false);
+      return GetUserProfile();
+    }
+    toast.error(key.body.message);
+    setIsSendingAsaasWalletId(false);
+  }
+
+  useEffect(() => {
+    if (userProfile) {
+      setLocalAsaasWalletId(userProfile.asaasWalletId || "");
+    }
+  }, [userProfile]);
+
   return (
     <GenericCard className="h-max xl:col-span-1 xl:h-full xl:justify-between">
       <div className="flex gap-2">
@@ -32,10 +71,36 @@ export function HomeCard2() {
           <input
             className="absolute top-0 left-0 h-full w-full px-8"
             placeholder="Sua Wallet ID aqui"
+            value={localAsaasWalletId}
+            onChange={(e) => setLocalAsaasWalletId(e.target.value)}
+            type={canViewAsaasWalletId ? "text" : "password"}
           />
+          <div className="absolute top-1/2 right-2 -translate-y-1/2">
+            {canViewAsaasWalletId ? (
+              <Eye
+                className="w-4"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCanViewAsaasWalletId(!canViewAsaasWalletId);
+                }}
+              />
+            ) : (
+              <EyeOff
+                className="w-4"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCanViewAsaasWalletId(!canViewAsaasWalletId);
+                }}
+              />
+            )}
+          </div>
         </label>
-        <button className="h-8 rounded-md bg-stone-950 px-4 font-semibold">
-          SALVAR
+        <button
+          onClick={SendAsaasKey}
+          className="h-8 w-36 rounded-md bg-stone-950 px-2 font-semibold"
+          disabled={isSendingAsaasWalletId}
+        >
+          {isSendingAsaasWalletId ? "Salvando..." : "Salvar"}
         </button>
       </div>
     </GenericCard>

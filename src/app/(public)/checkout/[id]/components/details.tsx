@@ -2,7 +2,7 @@ import { useApiContext } from "@/context/ApiContext";
 import { cn } from "@/utils/cn";
 import { Loader2, TicketPercent } from "lucide-react";
 import toast from "react-hot-toast";
-import Icon from "../../login/components/icon";
+import Icon from "../../../login/components/icon";
 import { PlanProps } from "../page";
 
 const details = [
@@ -14,7 +14,7 @@ const details = [
 ];
 
 interface DetailsProps {
-  plans: PlanProps[];
+  plans: PlanProps | null;
   selectedPaymentMethod: string;
   couponCode: string;
   setCouponCode: React.Dispatch<React.SetStateAction<string>>;
@@ -85,14 +85,14 @@ export function Details({
       <div className="from-primary to-secondary bg-gradient-to-br bg-clip-text text-3xl font-bold text-transparent">
         {selectedPaymentMethod === "card" ? (
           <>
-            {plans[0]?.creditCardPrice?.toLocaleString("pt-BR", {
+            {plans?.creditValue?.toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",
             })}
           </>
         ) : (
           <>
-            {plans[0]?.pixPrice.toLocaleString("pt-BR", {
+            {plans?.pixValue.toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",
             })}

@@ -1,7 +1,46 @@
+"use client";
 import { GenericCard } from "@/components/ui/card";
+import { useApiContext } from "@/context/ApiContext";
+import { useUserProfileContext } from "@/context/UserProfileContext";
+import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export function HomeCard3() {
+  const { userProfile, GetUserProfile } = useUserProfileContext();
+  const { PutAPI } = useApiContext();
+
+  const [localOpenRouterKey, setLocalOpenRouterKey] = useState<string>("");
+  const [canViewOpenRouterKey, setCanViewOpenRouterKey] = useState(false);
+  const [isSendingOpenRouterKey, setIsSendingOpenRouterKey] = useState(false);
+
+  async function SendAsaasKey() {
+    if (localOpenRouterKey === "")
+      return toast.error("Insira uma Chave IA válida.");
+    setIsSendingOpenRouterKey(true);
+    const key = await PutAPI(
+      `/client/profile`,
+      {
+        openRouterKey: localOpenRouterKey,
+      },
+      true,
+    );
+    if (key.status === 200) {
+      toast.success("Chave IA inserida com sucesso!");
+      setIsSendingOpenRouterKey(false);
+      return GetUserProfile();
+    }
+    toast.error(key.body.message);
+    setIsSendingOpenRouterKey(false);
+  }
+
+  useEffect(() => {
+    if (userProfile) {
+      setLocalOpenRouterKey(userProfile.openRouterKey || "");
+    }
+  }, [userProfile]);
+
   return (
     <GenericCard className="h-max xl:col-span-1 xl:h-full xl:justify-between">
       <div className="flex gap-2">
@@ -32,10 +71,36 @@ export function HomeCard3() {
           <input
             className="absolute top-0 left-0 h-full w-full px-8"
             placeholder="Sua API KEY aqui"
+            value={localOpenRouterKey}
+            onChange={(e) => setLocalOpenRouterKey(e.target.value)}
+            type={canViewOpenRouterKey ? "text" : "password"}
           />
+          <div className="absolute top-1/2 right-2 -translate-y-1/2">
+            {canViewOpenRouterKey ? (
+              <Eye
+                className="w-4"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCanViewOpenRouterKey(!canViewOpenRouterKey);
+                }}
+              />
+            ) : (
+              <EyeOff
+                className="w-4"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCanViewOpenRouterKey(!canViewOpenRouterKey);
+                }}
+              />
+            )}
+          </div>
         </label>
-        <button className="h-8 rounded-md bg-stone-950 px-4 font-semibold">
-          SALVAR
+        <button
+          onClick={SendAsaasKey}
+          className="h-8 w-36 rounded-md bg-stone-950 px-2 font-semibold"
+          disabled={isSendingOpenRouterKey}
+        >
+          {isSendingOpenRouterKey ? "Salvando..." : "Salvar"}
         </button>
       </div>
     </GenericCard>
