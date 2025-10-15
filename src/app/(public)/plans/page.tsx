@@ -21,11 +21,10 @@ interface PlanProps {
 export default function Plans() {
   const { GetAPI } = useApiContext();
   const router = useRouter();
-  const [planType, setPlanType] = useState("yearly");
   const [plans, setPlans] = useState<PlanProps[]>([]);
   const benefits = [
     {
-      title: "Monetização Ilimitada",
+      title: "Perfil de IA",
       free: true,
       medium: true,
       high: true,
@@ -37,39 +36,43 @@ export default function Plans() {
       high: true,
     },
     {
-      title: "Suporte de Elite",
+      title: "Receber PIX na Hora",
+      free: true,
+      medium: true,
+      high: true,
+    },
+    {
+      title: "2 Chats com IA",
       free: false,
       medium: true,
       high: true,
     },
     {
-      title: "Ativação de Modelos IA",
-      free: false,
-      medium: false,
-      high: true,
-    },
-    {
-      title: "Suporte (Resolução de Dúvidas)",
+      title: "1 Reunião em Grupo no mês",
       free: false,
       medium: true,
-      mediumMessage: "Via email",
       high: true,
-      highMessage: "Chat 24/7",
     },
     {
-      title: "Integração com Ferramentas",
+      title: "Afiliado Básicos",
+      free: false,
+      medium: true,
+      high: true,
+    },
+    {
+      title: "Contato Desenvolvedores",
       free: false,
       medium: false,
       high: true,
     },
     {
-      title: "Expansão Global",
+      title: "Reuniões One on One",
       free: false,
       medium: false,
       high: true,
     },
     {
-      title: "Gerente de Contas Dedicado",
+      title: "Afiliado Master",
       free: false,
       medium: false,
       high: true,
@@ -78,6 +81,7 @@ export default function Plans() {
 
   async function GetPlans() {
     const plans = await GetAPI("/signature-plan", true);
+    console.log("plans", plans);
     if (plans.status === 200) {
       setPlans(plans.body.plans);
     }
@@ -86,6 +90,8 @@ export default function Plans() {
   useEffect(() => {
     GetPlans();
   }, []);
+
+  if (plans.length === 0) return null;
 
   return (
     <div className="m-6 min-h-[calc(100svh-3rem)] overflow-hidden rounded-md bg-neutral-900">
@@ -137,9 +143,9 @@ export default function Plans() {
               <SwiperSlide>
                 <div className="flex h-96 w-72 items-center bg-transparent">
                   <div className="my-auto flex h-[22rem] w-72 flex-col justify-between rounded-l-2xl border-r border-r-black bg-white p-4 text-black">
-                    <span className="text-lg font-bold">Tier</span>
+                    <span className="text-lg font-bold">Básico</span>
                     <span className="text-sm font-semibold">
-                      Iniciador de Lucro
+                      {/* Iniciador de Lucro */}
                     </span>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl font-bold">
@@ -154,7 +160,7 @@ export default function Plans() {
                     <div className="flex flex-col gap-2">
                       <div className="flex items-center gap-2">
                         <CircleCheck className="fill-neutral-500 text-white" />
-                        <span>1 Chat com IA</span>
+                        <span>Perfil de IA</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CircleCheck className="fill-neutral-500 text-white" />
@@ -162,7 +168,7 @@ export default function Plans() {
                       </div>
                       <div className="flex items-center gap-2">
                         <CircleCheck className="fill-neutral-500 text-white" />
-                        <span>PIX na Hora</span>
+                        <span>Receber PIX na Hora</span>
                       </div>
                     </div>
                     <button
@@ -179,7 +185,7 @@ export default function Plans() {
                   <div className="my-auto flex h-[22rem] w-72 flex-col justify-between bg-white p-4 text-black">
                     <span className="text-primary text-lg font-bold">Pro</span>
                     <span className="text-sm font-semibold">
-                      Potência Dupla
+                      {/* Potência Dupla */}
                     </span>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl font-bold">
@@ -198,11 +204,11 @@ export default function Plans() {
                       </div>
                       <div className="flex items-center gap-2">
                         <CircleCheck className="fill-neutral-500 text-white" />
-                        <span>Suporte Prioritário</span>
+                        <span>1 Reunião em Grupo no mês</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CircleCheck className="fill-neutral-500 text-white" />
-                        <span>Recursos de Monetização</span>
+                        <span>Afiliado Básicos</span>
                       </div>
                     </div>
                     <button
@@ -223,30 +229,30 @@ export default function Plans() {
                     Enterprise
                   </span>
                   <span className="text-sm font-semibold">
-                    Elite da Escalada
+                    {/* Elite da Escalada */}
                   </span>
                   <div className="flex items-center gap-2">
                     <span className="text-2xl font-bold">
-                      {(plans[2]?.pixValue / 12).toLocaleString("pt-BR", {
+                      {(plans[2]?.pixValue).toLocaleString("pt-BR", {
                         style: "currency",
                         currency: "BRL",
                       })}
                     </span>
-                    <span className="text-neutral-500"> / mês</span>
+                    <span className="text-neutral-500"> / ano</span>
                   </div>
                   <div className="h-[2px] w-full bg-neutral-500" />
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">
                       <CircleCheck className="fill-white text-black" />
-                      <span>Acesso Exclusivo aos Cursos</span>
+                      <span>Contato Desenvolvedores</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CircleCheck className="fill-white text-black" />
-                      <span>Ative 3 Modelos Simultaneamente</span>
+                      <span>Reuniões One on One</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CircleCheck className="fill-white text-black" />
-                      <span>Configurações IA Otimizadas</span>
+                      <span>Afiliado Master</span>
                     </div>
                   </div>
                   <button
@@ -260,8 +266,10 @@ export default function Plans() {
             </Swiper>
           </div>
           <div className="col-span-2 col-start-2 my-auto hidden h-[22rem] flex-col justify-between rounded-l-2xl border-r border-r-black bg-white p-4 text-black xl:flex">
-            <span className="text-lg font-bold">Tier</span>
-            <span className="text-sm font-semibold">Iniciador de Lucro</span>
+            <span className="text-lg font-bold">Básicos</span>
+            <span className="text-sm font-semibold">
+              {/* Iniciador de Lucro */}
+            </span>
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold">
                 {(plans[0]?.pixValue / 12).toLocaleString("pt-BR", {
@@ -275,7 +283,7 @@ export default function Plans() {
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <CircleCheck className="fill-neutral-500 text-white" />
-                <span>1 Chat com IA</span>
+                <span>Perfil de IA</span>
               </div>
               <div className="flex items-center gap-2">
                 <CircleCheck className="fill-neutral-500 text-white" />
@@ -283,7 +291,7 @@ export default function Plans() {
               </div>
               <div className="flex items-center gap-2">
                 <CircleCheck className="fill-neutral-500 text-white" />
-                <span>PIX na Hora</span>
+                <span>Receber PIX na Hora</span>
               </div>
             </div>
             <button
@@ -295,7 +303,9 @@ export default function Plans() {
           </div>
           <div className="col-span-2 my-auto hidden h-[22rem] flex-col justify-between bg-white p-4 text-black xl:flex">
             <span className="text-primary text-lg font-bold">Pro</span>
-            <span className="text-sm font-semibold">Potência Dupla</span>
+            <span className="text-sm font-semibold">
+              {/* Potência Dupla */}
+            </span>
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold">
                 {(plans[1]?.pixValue / 12).toLocaleString("pt-BR", {
@@ -313,11 +323,11 @@ export default function Plans() {
               </div>
               <div className="flex items-center gap-2">
                 <CircleCheck className="fill-neutral-500 text-white" />
-                <span>Suporte Prioritário</span>
+                <span>1 Reunião em Grupo por mês</span>
               </div>
               <div className="flex items-center gap-2">
                 <CircleCheck className="fill-neutral-500 text-white" />
-                <span>Recursos de Monetização</span>
+                <span>Afiliado Básicos</span>
               </div>
             </div>
             <button
@@ -332,29 +342,31 @@ export default function Plans() {
               Popular
             </div>
             <span className="text-lg font-bold text-green-500">Enterprise</span>
-            <span className="text-sm font-semibold">Elite da Escalada</span>
+            <span className="text-sm font-semibold">
+              {/* Elite da Escalada */}
+            </span>
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold">
-                {(plans[2]?.pixValue / 12).toLocaleString("pt-BR", {
+                {(plans[2]?.pixValue).toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
               </span>
-              <span className="text-neutral-500"> / mês</span>
+              <span className="text-neutral-500"> / ano</span>
             </div>
             <div className="h-[2px] w-full bg-neutral-500" />
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <CircleCheck className="fill-white text-black" />
-                <span>Acesso Exclusivo aos Cursos</span>
+                <span>Contato Desenvolvedores</span>
               </div>
               <div className="flex items-center gap-2">
                 <CircleCheck className="fill-white text-black" />
-                <span>Ative 3 Modelos Simultaneamente</span>
+                <span>Reuniões One on One</span>
               </div>
               <div className="flex items-center gap-2">
                 <CircleCheck className="fill-white text-black" />
-                <span>Configurações IA Otimizadas</span>
+                <span>Afiliado Master</span>
               </div>
             </div>
             <button
@@ -386,18 +398,12 @@ export default function Plans() {
                 ) : (
                   <X className="text-white" />
                 )}
-                {b.mediumMessage && (
-                  <span className="text-sm text-white">{b.mediumMessage}</span>
-                )}
               </div>
               <div className="flex items-center gap-2">
                 {b.high ? (
                   <Check className="text-primary stroke-3" />
                 ) : (
                   <X className="text-white" />
-                )}
-                {b.highMessage && (
-                  <span className="text-sm text-white">{b.highMessage}</span>
                 )}
               </div>
             </div>
@@ -419,13 +425,12 @@ export default function Plans() {
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="shadow-none">
               <AccordionTrigger className="border-b border-b-white pb-4 text-start font-bold focus:outline-none xl:text-lg">
-                {" "}
                 Existem taxas de configuração ou instalação?
               </AccordionTrigger>
               <AccordionContent className="text-sm xl:text-base">
-                Não! Não cobramos taxa de instalação ou configuração. Seu único
-                custo inicial é a taxa de ativação do Tier escolhido (a partir
-                de R$ 57/mês).
+                Não. Nossos planos são 100% transparentes, sem nenhuma taxa de
+                configuração, instalação ou custos escondidos. O valor que você
+                vê é o valor que você paga.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2" className="shadow-none">
@@ -434,40 +439,19 @@ export default function Plans() {
                 planos?
               </AccordionTrigger>
               <AccordionContent className="text-sm xl:text-base">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry{"'"}s standard dummy
-                text ever since the 1500s
+                Sim. Oferecemos uma garantia de satisfação de 7 dias. Você pode
+                assinar qualquer plano e, se por qualquer motivo não ficar
+                satisfeito, basta solicitar o reembolso total do valor pago
+                dentro desse período. Risco zero para você experimentar.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3" className="shadow-none">
               <AccordionTrigger className="border-b border-b-white pb-4 text-start font-bold focus:outline-none xl:text-lg">
-                Posso fazer upgrade ou downgrade do meu plano a qualquer
-                momento?
+                Posso fazer upgrade do meu plano a qualquer momento?
               </AccordionTrigger>
               <AccordionContent className="text-sm xl:text-base">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry{"'"}s standard dummy
-                text ever since the 1500s
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-4" className="shadow-none">
-              <AccordionTrigger className="border-b border-b-white pb-4 text-start font-bold focus:outline-none xl:text-lg">
-                Posso testar a Spicy antes de me comprometer com um plano pago?
-              </AccordionTrigger>
-              <AccordionContent className="text-sm xl:text-base">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry{"'"}s standard dummy
-                text ever since the 1500s
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-5" className="shadow-none">
-              <AccordionTrigger className="border-b border-b-white pb-4 text-start font-bold focus:outline-none xl:text-lg">
-                Vocês oferecem descontos ?
-              </AccordionTrigger>
-              <AccordionContent className="text-sm xl:text-base">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry{"'"}s standard dummy
-                text ever since the 1500s
+                Sim. Você pode fazer o upgrade do seu plano a qualquer momento e
+                o acesso aos novos recursos é imediato.
               </AccordionContent>
             </AccordionItem>
           </Accordion>

@@ -1,5 +1,6 @@
 import { DashBoardLayoutProvider } from "@/components/dashboard-layout";
 import { PrivateHeader } from "@/components/ui/private-header";
+import { ModelContextProvider } from "@/context/ModelContext";
 import { UserProfileContextProvider } from "@/context/UserProfileContext";
 
 export default function RootLayout({
@@ -10,8 +11,10 @@ export default function RootLayout({
   return (
     <DashBoardLayoutProvider>
       <UserProfileContextProvider>
-        <PrivateHeader />
-        {children}
+        <ModelContextProvider>
+          <PrivateHeader />
+          {children}
+        </ModelContextProvider>
       </UserProfileContextProvider>
     </DashBoardLayoutProvider>
   );

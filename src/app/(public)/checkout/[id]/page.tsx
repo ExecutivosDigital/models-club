@@ -31,6 +31,7 @@ export default function Checkout() {
   async function GetPlans() {
     const plans = await GetAPI("/signature-plan", true);
     if (plans.status === 200) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setSelectedPlan(plans.body.plans.find((plan: any) => plan.id === id));
     }
   }

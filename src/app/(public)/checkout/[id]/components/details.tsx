@@ -2,7 +2,6 @@ import { useApiContext } from "@/context/ApiContext";
 import { cn } from "@/utils/cn";
 import { Loader2, TicketPercent } from "lucide-react";
 import toast from "react-hot-toast";
-import Icon from "../../../login/components/icon";
 import { PlanProps } from "../page";
 
 const details = [
@@ -100,21 +99,21 @@ export function Details({
         )}
       </div>
       <div className="mt-8 hidden space-y-5 border-t border-neutral-500 pt-8 xl:block">
-        {details.map((x: any, index: number) => (
+        {details.map((x: string, index: number) => (
           <div className="base2 flex" key={index}>
-            <Icon
+            {/* <Icon
               className="mr-3 max-h-6 min-h-6 max-w-6 min-w-6 bg-gradient-to-br fill-neutral-500"
               name="check-circle"
-            />
+            /> */}
             {x}
           </div>
         ))}
       </div>
       <div className="caption1 text-n-4/50 mb-6 hidden items-center xl:flex">
-        <Icon
+        {/* <Icon
           className="mr-3 max-h-6 min-h-6 max-w-6 min-w-6 fill-neutral-500"
           name="lock"
-        />
+        /> */}
         Garantia de Segurança com Banco Central
       </div>
 

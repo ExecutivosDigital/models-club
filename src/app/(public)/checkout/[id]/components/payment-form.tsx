@@ -37,7 +37,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../../../login/components/form";
-import Icon from "../../../login/components/icon";
 import { PlanProps } from "../page";
 
 // ——————————————————————————————————————————————————————————
@@ -286,6 +285,7 @@ const PaymentForm = ({
     } else if (currentStep === 3) {
       setIsPaying(true);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const body: any = {
         signaturePlanId: plans?.id,
         creditCard: {
@@ -390,13 +390,13 @@ const PaymentForm = ({
         >
           <div className="mb-1 flex items-center gap-1">
             <div className="text-sm text-neutral-600">Cartão</div>
-            <Icon
+            {/* <Icon
               className={cn(
                 "fill-primary ml-auto opacity-0 transition duration-200",
                 selectedPaymentMethod === "card" && "opacity-100",
               )}
               name="check-thin"
-            />
+            /> */}
           </div>
           <div className="flex items-center">
             <div className="font-semibold">Dados do Cartão</div>
@@ -422,13 +422,13 @@ const PaymentForm = ({
         >
           <div className="mb-1 flex items-center gap-1">
             <div className="text-sm text-neutral-600">Pix</div>
-            <Icon
+            {/* <Icon
               className={cn(
                 "fill-primary ml-auto opacity-0 transition duration-200",
                 selectedPaymentMethod === "pix" && "opacity-100",
               )}
               name="check-thin"
-            />
+            /> */}
           </div>
           <div className="flex items-center">
             <div className="mr-2 hidden font-semibold xl:block">Desconto</div>
@@ -671,10 +671,10 @@ const PaymentForm = ({
                             </FormLabel>
                             <FormItem className="relative">
                               <div className="relative grow md:mb-4 md:w-full">
-                                <Icon
+                                {/* <Icon
                                   className="pointer-events-none absolute top-0 left-0 h-5 fill-neutral-500"
                                   name="email"
-                                />
+                                /> */}
                                 <input
                                   className={cn(
                                     "focus:border-b-primary h-6 w-full border-b border-b-transparent bg-transparent pl-11 font-light transition duration-200 outline-none placeholder:text-neutral-600 focus:border-b",
@@ -949,7 +949,7 @@ const PaymentForm = ({
 
       <div className="flex flex-col">
         <div className="caption1 text-n-4/50 mb-6 flex items-center xl:hidden">
-          <Icon className="mr-2 h-4 w-4 fill-neutral-500" name="lock" />
+          {/* <Icon className="mr-2 h-4 w-4 fill-neutral-500" name="lock" /> */}
           Garantia de Segurança com Banco Central
         </div>
 

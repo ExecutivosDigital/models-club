@@ -2,6 +2,7 @@
 import { cn } from "@/utils/cn";
 import Image from "next/image";
 import { useState } from "react";
+import ForgotPassword from "./components/forgot";
 import SignIn from "./components/login";
 import CreateAccount from "./components/register";
 
@@ -24,9 +25,8 @@ export default function Login() {
         <div className="relative m-6 flex grow rounded-[1.25rem] bg-stone-900 p-2 md:p-0 md:px-2 lg:m-0">
           <div className="m-auto w-full max-w-[31.5rem]">
             {forgot ? (
-              forgot
+              <ForgotPassword onClick={() => setForgot(false)} />
             ) : (
-              // <ForgotPassword onClick={() => setForgot(false)} />
               <>
                 <Image
                   className="mx-auto mb-8 w-80"

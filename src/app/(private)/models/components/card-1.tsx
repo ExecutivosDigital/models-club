@@ -1,9 +1,69 @@
+"use client";
 import { GenericCard } from "@/components/ui/card";
+import { FileUploadInput } from "@/components/ui/file-upload-input";
+import { useApiContext } from "@/context/ApiContext";
+import { useModelContext } from "@/context/ModelContext";
 import Image from "next/image";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export function ModelCard1() {
+  const { PutAPI } = useApiContext();
+  const {
+    selectedModel,
+    setSelectedModel,
+    newModelData,
+    setNewModelData,
+    isGettingModels,
+  } = useModelContext();
+  const [isUploading, setIsUploading] = useState(false);
+
+  async function UpdateSelectedModelPhoto(url: string) {
+    if (selectedModel) {
+      const update = await PutAPI(
+        `/model/${selectedModel.id}`,
+        {
+          photoUrl: url,
+        },
+        true,
+      );
+      if (update.status === 200) {
+        toast.success("Foto de perfil atualizada com sucesso!");
+        return setIsUploading(false);
+      }
+      toast.error(update.body.message);
+      return setIsUploading(false);
+    }
+  }
+
+  const handleUpload = (url: string, fullUrl: string) => {
+    if (selectedModel) {
+      setSelectedModel({ ...selectedModel, photoUrl: fullUrl });
+      UpdateSelectedModelPhoto(url);
+    } else if (newModelData) {
+      setNewModelData({ ...newModelData, photoUrl: fullUrl });
+    } else {
+      setNewModelData({
+        bio: "",
+        clientId: "",
+        contentPrompt: "",
+        instagram: null,
+        name: "",
+        photos: [],
+        prices: [],
+        sellPrompt: "",
+        videos: [],
+        whatsApp: null,
+        photoUrl: fullUrl,
+      });
+    }
+  };
+
   return (
-    <GenericCard className="h-max xl:col-span-1">
+    <GenericCard
+      className="h-full min-h-52 xl:col-span-1"
+      isLoading={isGettingModels}
+    >
       <div className="flex gap-2">
         <div className="flex flex-1 flex-col gap-2">
           <span className="font-semibold">Inserir Foto de Perfil</span>
@@ -23,14 +83,19 @@ export function ModelCard1() {
       </div>
       <div className="flex w-full flex-1 items-center gap-2">
         <label className="relative flex h-8 w-full items-center gap-1 rounded-md bg-stone-950 px-2">
-          <input
-            className="absolute top-0 left-0 h-full w-full px-2"
-            placeholder="Upload da foto de Perfil"
+          <FileUploadInput
+            isUploading={isUploading}
+            setIsUploading={setIsUploading}
+            handleUpload={handleUpload}
+            isUploaded={
+              selectedModel
+                ? selectedModel.photoUrl !== ""
+                : newModelData
+                  ? newModelData.photoUrl !== ""
+                  : false
+            }
           />
         </label>
-        <button className="h-8 rounded-md bg-stone-950 px-4 font-semibold">
-          SALVAR
-        </button>
       </div>
     </GenericCard>
   );

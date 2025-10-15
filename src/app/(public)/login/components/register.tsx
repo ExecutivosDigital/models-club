@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useApiContext } from "@/context/ApiContext";
 import { maskCpfCnpj, maskPhone } from "@/utils/masks";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -41,14 +42,12 @@ const FormSchema = z.object({
   coupon: z.string().optional(),
 });
 
-type LoginForm = z.infer<typeof FormSchema>;
-
 const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
   const { PostAPI, setToken } = useApiContext();
   const cookies = useCookies();
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
-  const [isTermModalOpen, setIsTermModalOpen] = useState(false);
+  // const [isTermModalOpen, setIsTermModalOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showRememberPassword, setShowRememberPassword] = useState(false);
 
@@ -353,14 +352,14 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
         Ao criar uma conta, você aceita nossos{" "}
         <button
           className="transition-colors hover:text-neutral-300"
-          onClick={() => setIsTermModalOpen(true)}
+          // onClick={() => setIsTermModalOpen(true)}
         >
           Termos de Serviço
         </button>{" "}
         e nossa{" "}
         <button
           className="transition-colors hover:text-neutral-300"
-          onClick={() => setIsTermModalOpen(true)}
+          // onClick={() => setIsTermModalOpen(true)}
         >
           Política de Privacidade
         </button>

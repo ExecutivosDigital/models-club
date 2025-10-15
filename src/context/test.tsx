@@ -6,12 +6,11 @@ import {
   ModelProps,
   UserProps,
 } from "@/@types/global";
-import { useCookies } from "next-client-cookies";
 import { useParams } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useApiContext } from "./ApiContext";
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
+// const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 interface ChatContextProps {
   isChatsLoading: boolean;
@@ -27,7 +26,7 @@ interface ChatContextProps {
   setSelectedChatMessages: React.Dispatch<React.SetStateAction<MessageProps[]>>;
   setIsMessageLoading: (value: boolean) => void;
   paymentWebhookConfirmation: boolean;
-  setUserId: (value: string | undefined) => void;
+  // setUserId: (value: string | undefined) => void;
   handleGetChats: () => Promise<void>;
   handleVerify: () => Promise<void>;
   isPaymentConfirmed: boolean;
@@ -49,7 +48,6 @@ interface ProviderProps {
 export const ChatContextProvider = ({ children }: ProviderProps) => {
   const { id } = useParams<{ id: string }>();
   const { GetAPI, token } = useApiContext();
-  const cookies = useCookies();
 
   const [modelId, setModelId] = useState<string | undefined>();
   const [modelProfile, setModelProfile] = useState<ModelProps | null>(null);
@@ -59,11 +57,10 @@ export const ChatContextProvider = ({ children }: ProviderProps) => {
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const [selectedChat, setSelectedChat] = useState<ChatProps | null>(null);
   // const [socket, setSocket] = useState<null | Socket>(null);
-  const [paymentWebhookConfirmation, setPaymentWebHookConfirmation] =
-    useState(false);
-  const [userId, setUserId] = useState(
-    cookies.get(process.env.NEXT_PUBLIC_USER_ID as string),
-  );
+  const [paymentWebhookConfirmation] = useState(false);
+  // const [userId, setUserId] = useState(
+  //   cookies.get(process.env.NEXT_PUBLIC_USER_ID as string),
+  // );
   const [isPaymentConfirmed, setIsPaymentConfirmed] = useState(false);
 
   const [selectedChatMessages, setSelectedChatMessages] = useState<
@@ -211,7 +208,7 @@ export const ChatContextProvider = ({ children }: ProviderProps) => {
         setSelectedChatMessages,
         setIsMessageLoading,
         paymentWebhookConfirmation,
-        setUserId,
+        // setUserId,
         handleGetChats,
         handleVerify,
         isPaymentConfirmed,

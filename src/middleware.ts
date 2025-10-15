@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 export const config = {
-  matcher: ["/", "/thanks", "/pricing"],
+  matcher: ["/", "/admin", "/chat", "/courses", "/courses/:slug", "/models"],
 };
 
 const loginVerifyAPI = async ({ token }: { token: string }) => {
@@ -28,6 +28,7 @@ const loginVerifyAPI = async ({ token }: { token: string }) => {
   );
 
   const data = await connect.json();
+  console.log("data: ", data);
   const status = connect.status;
   if (status === 200) {
     const signatureValidation = await fetch(
@@ -37,11 +38,11 @@ const loginVerifyAPI = async ({ token }: { token: string }) => {
         headers: config.headers,
       },
     );
-    const status = signatureValidation.status;
+    const status = await signatureValidation.status;
     return {
       status,
       body: {
-        isSignature: true,
+        isSignature: status === 200 ? true : false,
         token: data.accessToken,
       },
     };
@@ -80,10 +81,10 @@ export async function middleware(req: NextRequest) {
     );
   }
 
-  if (connect.status !== 200 && !connect.body.isSignature)
+  if (connect.status === 401)
     return NextResponse.redirect(new URL("/login", req.url));
 
-  if (connect.status !== 200 && connect.body.isSignature) {
+  if (connect.status === 403) {
     return NextResponse.redirect(new URL("/plans", req.url));
   }
 

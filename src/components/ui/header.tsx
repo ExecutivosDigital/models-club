@@ -3,6 +3,7 @@ import { useSidebar } from "@/store";
 import { cn } from "@/utils/cn";
 import { Pages } from "@/utils/menus";
 import { LogOut, Menu } from "lucide-react";
+import { useCookies } from "next-client-cookies";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -10,6 +11,7 @@ export function Header() {
   const { mobileMenu, setMobileMenu } = useSidebar();
   const path = usePathname();
   const router = useRouter();
+  const cookies = useCookies();
 
   return (
     <header className="z-50 bg-stone-900">
@@ -41,7 +43,17 @@ export function Header() {
                   className="rounded-full"
                 />
               </div>
-              <LogOut className="cursor-pointer" />
+              <LogOut
+                onClick={() => {
+                  if (confirm("Tem certeza que deseja sair?")) {
+                    cookies.remove(
+                      process.env.NEXT_PUBLIC_USER_TOKEN as string,
+                    );
+                    router.push("/login");
+                  }
+                }}
+                className="cursor-pointer"
+              />
             </div>
             <button
               onClick={() => setMobileMenu(!mobileMenu)}
@@ -52,7 +64,7 @@ export function Header() {
           </div>
         </div>
       </div>
-      <div className="hidden w-full px-6 shadow-md backdrop-blur-lg xl:block">
+      <div className="hidden w-full px-6 shadow-md xl:block">
         <div>
           <div className="group relative flex justify-start">
             <div className="group flex list-none gap-2">
@@ -68,7 +80,7 @@ export function Header() {
                       ((item.route === "/" && path === "/") ||
                         item.route === path ||
                         (item.route !== "/" && path.includes(item.route))) &&
-                        "border-primary from-primary/5 via-primary/30 to-primary/5 border-t-2 bg-gradient-to-r from-0% to-100% backdrop-blur backdrop-filter",
+                        "border-primary from-primary/5 via-primary/30 to-primary/5 border-t-2 bg-gradient-to-r",
                     )}
                   >
                     <Image

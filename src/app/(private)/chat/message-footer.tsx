@@ -3,7 +3,7 @@
 import { MessageProps } from "@/@types/global";
 
 import { useApiContext } from "@/context/ApiContext";
-import { useChatContext } from "@/context/chatContext";
+import { useChatContext } from "@/context/test";
 import { cn } from "@/utils/cn";
 import {
   AudioLines,
@@ -19,12 +19,7 @@ import fixWebmDuration from "webm-duration-fix";
 import { AudioPlayer } from "./AudioPlayer";
 
 export function MessageFooter({ onSend }: { onSend: () => void }) {
-  const {
-    selectedChatId,
-    setSelectedChatMessages,
-    isPaymentConfirmed,
-    userProfile,
-  } = useChatContext();
+  const { selectedChatId, setSelectedChatMessages } = useChatContext();
 
   const { PostAPI } = useApiContext();
   const textareaRef = useRef<HTMLTextAreaElement>(null);

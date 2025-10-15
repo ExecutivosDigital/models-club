@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { MessageProps } from "@/@types/global";
-import { useChatContext } from "@/context/chatContext";
+import { useChatContext } from "@/context/test";
 import { ArrowDown } from "lucide-react";
 import { use, useEffect, useRef, useState } from "react";
 import { EmptyMessage } from "./empty-message";
@@ -63,7 +64,6 @@ export default function ChatPage({
   }, [selectedChatMessages, isAutoScrollEnabled, selectedChat, selectedChatId]);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const chatElement: any = containerRef.current;
     const handleScroll = () => {
       const scrollTop = chatElement.scrollTop;
@@ -238,9 +238,6 @@ export default function ChatPage({
   //     </div>
   //   );
   // }
-
-  const [isMediaOpen, setIsMediaOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
 
   return (
     <div className="flex h-[calc(100svh-175px)] gap-2 rounded-md bg-stone-900 text-white xl:h-[calc(100svh-240px)]">

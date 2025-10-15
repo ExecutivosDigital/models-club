@@ -1,12 +1,20 @@
 "use client";
+import { useModelContext } from "@/context/ModelContext";
 import { useUserProfileContext } from "@/context/UserProfileContext";
 import { cn } from "@/utils/cn";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./blocks/dropdown-menu";
 
 export function PrivateHeader() {
   const { userProfile } = useUserProfileContext();
+  const { models, selectedModel, setSelectedModel } = useModelContext();
   const pathname = usePathname();
 
   return (
@@ -37,16 +45,35 @@ export function PrivateHeader() {
       ) : pathname === "/courses" ? (
         <></>
       ) : pathname === "/models" ? (
-        <button className="flex items-center justify-center gap-2 rounded-lg border border-neutral-600 px-4 py-2 text-neutral-600 xl:justify-normal">
-          RASCUNHOS
-          <Image
-            src="/icons/save.svg"
-            alt=""
-            width={100}
-            height={100}
-            className="h-6 w-max object-contain"
-          />
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="flex items-center justify-center gap-2 rounded-lg border border-neutral-600 px-4 py-2 text-neutral-600 xl:w-60 xl:justify-normal">
+              <span className="truncate">
+                {selectedModel ? selectedModel.name : "Selecione uma Modelo"}
+              </span>
+              <Image
+                src="/icons/save.svg"
+                alt=""
+                width={100}
+                height={100}
+                className="h-6 w-min object-contain xl:ml-auto"
+              />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onSelect={() => setSelectedModel(null)}>
+              Criar Modelo
+            </DropdownMenuItem>
+            {models.map((model) => (
+              <DropdownMenuItem
+                key={model.id}
+                onSelect={() => setSelectedModel(model)}
+              >
+                {model.name}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       ) : pathname === "/admin" ? (
         <button className="flex items-center justify-center gap-2 rounded-lg border border-neutral-600 px-4 py-2 text-neutral-600 xl:justify-normal">
           Solicitar Ajuda

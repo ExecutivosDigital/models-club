@@ -65,7 +65,7 @@ const DropdownMenuContent = React.forwardRef<
       side={side} // <-- aqui você controla pra onde abre
       sideOffset={sideOffset}
       className={cn(
-        "text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-[999] min-w-[8rem] overflow-hidden rounded-md border border-zinc-400 bg-white p-1 shadow-md",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-[999] min-w-[8rem] overflow-hidden rounded-md border border-neutral-700 bg-neutral-800 p-1 text-white shadow-md",
         className,
       )}
       {...props}
@@ -83,7 +83,7 @@ const DropdownMenuItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      "focus:bg-default-200 focus:text-accent-foreground aria-selected:bg-default-200 relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm transition-colors outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm transition-colors outline-none focus:bg-neutral-700 aria-selected:bg-neutral-700 data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "ltr:pl-8 rtl:pr-8",
       className,
     )}
