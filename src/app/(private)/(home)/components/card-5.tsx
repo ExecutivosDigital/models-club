@@ -41,7 +41,7 @@ export function HomeCard5() {
             setSelectedModel(null);
             cookies.remove("selectedModel");
           }}
-          className="h-8 w-full rounded-md bg-stone-950 px-4 font-semibold xl:w-max"
+          className="from-primary to-secondary h-8 w-full rounded-md bg-gradient-to-br px-4 font-bold shadow-sm xl:w-max"
         >
           INICIAR CRIAÇÃO
         </button>

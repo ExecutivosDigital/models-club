@@ -76,10 +76,13 @@ export function ModelCard10() {
 
   return (
     <GenericCard
-      className={cn("h-max xl:col-span-3", selectedModel && "hidden")}
+      className={cn(
+        "fixed bottom-2 left-1/2 h-max w-[calc(100%-2rem)] max-w-[500px] -translate-x-1/2 border border-stone-600 bg-stone-800 shadow-sm shadow-white/10",
+        selectedModel && "hidden",
+      )}
     >
       <div className="flex w-full flex-col items-center justify-between gap-2 xl:flex-row xl:gap-0">
-        <span className="text-lg font-semibold text-zinc-200">
+        <span className="font-semibold text-zinc-200 2xl:text-lg">
           Tudo pronto? Só salvar e avançar
         </span>
         <button

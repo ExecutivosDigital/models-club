@@ -28,7 +28,6 @@ const loginVerifyAPI = async ({ token }: { token: string }) => {
   );
 
   const data = await connect.json();
-  console.log("data: ", data);
   const status = connect.status;
   if (status === 200) {
     const signatureValidation = await fetch(

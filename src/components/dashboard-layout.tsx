@@ -21,6 +21,7 @@ export function DashBoardLayoutProvider({
           className={cn(
             "px-6 pt-6 pb-8",
             location.includes("/courses/") && "p-0",
+            location === "/models" && "pb-0",
           )}
         >
           <>

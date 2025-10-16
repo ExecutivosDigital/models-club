@@ -61,7 +61,7 @@ export default function Login() {
                       <SignIn onClick={() => setForgot(true)} />
                     </div>
                     <div className={cn("", selectedStep !== 1 && "hidden")}>
-                      <CreateAccount setSelectedStep={setSelectedStep} />
+                      <CreateAccount />
                     </div>
                   </div>
                 </div>

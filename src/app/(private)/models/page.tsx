@@ -11,13 +11,15 @@ import { ModelCard9 } from "./components/card-9";
 
 export default function Models() {
   return (
-    <div className="grid gap-6 xl:grid-cols-3">
+    <div className="grid gap-6 pb-36 xl:grid-cols-3 xl:pb-20">
       <ModelCard1 />
-      <ModelCard2 />
-      <ModelCard3 />
-      <ModelCard4 />
-      <ModelCard5 />
-      <ModelCard6 />
+      <div className="flex h-max flex-col-reverse gap-6 xl:col-span-3 xl:grid xl:grid-cols-3">
+        <ModelCard2 />
+        <ModelCard3 />
+        <ModelCard4 />
+        <ModelCard5 />
+        <ModelCard6 />
+      </div>
       <ModelCard7 />
       <ModelCard8 />
       <ModelCard9 />

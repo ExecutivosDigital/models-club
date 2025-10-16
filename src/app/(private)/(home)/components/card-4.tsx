@@ -3,13 +3,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/blocks/dropdown-menu";
 import { GenericCard } from "@/components/ui/card";
 import { useModelContext } from "@/context/ModelContext";
 import { cn } from "@/utils/cn";
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
-import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronRight, ChevronsUpDown } from "lucide-react";
 import { useCookies } from "next-client-cookies";
 import toast from "react-hot-toast";
 
@@ -37,12 +37,19 @@ export function HomeCard4() {
       >
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center justify-center gap-2 rounded-lg border border-white px-4 py-2 text-white xl:w-60 xl:justify-between">
-              {selectedModel?.name || "Alterar Modelo"}
-              <ChevronsUpDown />
+            <button className="flex items-center justify-center gap-2 rounded-lg border border-white px-4 py-2 text-white focus:outline-none xl:w-60 xl:justify-between">
+              {selectedModel?.name || models.length === 0
+                ? "Crie sua Modelo"
+                : "Selecione uma Modelo"}
+              {models.length === 0 ? <ChevronRight /> : <ChevronsUpDown />}
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[var(--radix-dropdown-menu-trigger-width)]">
+          <DropdownMenuContent
+            className={cn(
+              "w-[var(--radix-dropdown-menu-trigger-width)]",
+              models.length === 0 && "hidden",
+            )}
+          >
             {models.map((model) => (
               <DropdownMenuItem
                 key={model.id}
@@ -71,7 +78,9 @@ export function HomeCard4() {
             >
               {selectedModel
                 ? `https://spiceai.com.br/${selectedModel.id}`
-                : "Selecione uma modelo"}
+                : models.length === 0
+                  ? "Crie sua modelo para ter acesso ao link"
+                  : "Selecione uma modelo"}
             </button>
           </span>
         </div>

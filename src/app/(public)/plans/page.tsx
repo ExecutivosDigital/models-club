@@ -81,7 +81,6 @@ export default function Plans() {
 
   async function GetPlans() {
     const plans = await GetAPI("/signature-plan", true);
-    console.log("plans", plans);
     if (plans.status === 200) {
       setPlans(plans.body.plans);
     }

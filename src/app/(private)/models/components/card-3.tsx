@@ -108,7 +108,7 @@ export function ModelCard3() {
           disabled={!selectedModel}
           className={cn(
             "h-8 w-44 rounded-md bg-stone-950 px-4 font-semibold",
-            !selectedModel && "cursor-not-allowed opacity-50",
+            !selectedModel && "hidden",
           )}
         >
           {selectedModel

@@ -223,7 +223,7 @@ export function ModelCard5() {
                 }}
                 InputElement={
                   <input
-                    className="text-sm text-neutral-400 focus:outline-none"
+                    className="text-neutral-400 focus:outline-none"
                     placeholder="R$0,00"
                     disabled={isUpdating === prices[0].id}
                   />
@@ -236,8 +236,8 @@ export function ModelCard5() {
               }
               disabled={!selectedModel}
               className={cn(
-                "h-8 w-40 rounded-md bg-stone-950 px-2 font-semibold",
-                !selectedModel && "cursor-not-allowed opacity-50",
+                "h-8 w-36 rounded-md bg-stone-950 px-2 font-semibold xl:w-40",
+                !selectedModel && "hid",
               )}
             >
               {selectedModel
@@ -267,7 +267,7 @@ export function ModelCard5() {
                 }}
                 InputElement={
                   <input
-                    className="text-sm text-neutral-400 focus:outline-none"
+                    className="text-neutral-400 focus:outline-none"
                     placeholder="R$0,00"
                     disabled={isUpdating === prices[1].id}
                   />
@@ -280,8 +280,8 @@ export function ModelCard5() {
               }
               disabled={!selectedModel}
               className={cn(
-                "h-8 w-40 rounded-md bg-stone-950 px-2 font-semibold",
-                !selectedModel && "cursor-not-allowed opacity-50",
+                "h-8 w-36 rounded-md bg-stone-950 px-2 font-semibold xl:w-40",
+                !selectedModel && "hid",
               )}
             >
               {selectedModel
@@ -311,7 +311,7 @@ export function ModelCard5() {
                 }}
                 InputElement={
                   <input
-                    className="text-sm text-neutral-400 focus:outline-none"
+                    className="text-neutral-400 focus:outline-none"
                     placeholder="R$0,00"
                     disabled={isUpdating === prices[2].id}
                   />
@@ -324,8 +324,8 @@ export function ModelCard5() {
               }
               disabled={!selectedModel}
               className={cn(
-                "h-8 w-40 rounded-md bg-stone-950 px-2 font-semibold",
-                !selectedModel && "cursor-not-allowed opacity-50",
+                "h-8 w-36 rounded-md bg-stone-950 px-2 font-semibold xl:w-40",
+                !selectedModel && "hid",
               )}
             >
               {selectedModel
@@ -355,7 +355,7 @@ export function ModelCard5() {
                 }}
                 InputElement={
                   <input
-                    className="text-sm text-neutral-400 focus:outline-none"
+                    className="text-neutral-400 focus:outline-none"
                     placeholder="R$0,00"
                     disabled={isUpdating === prices[3].id}
                   />
@@ -368,8 +368,8 @@ export function ModelCard5() {
               }
               disabled={!selectedModel}
               className={cn(
-                "h-8 w-40 rounded-md bg-stone-950 px-2 font-semibold",
-                !selectedModel && "cursor-not-allowed opacity-50",
+                "h-8 w-36 rounded-md bg-stone-950 px-2 font-semibold xl:w-40",
+                !selectedModel && "hid",
               )}
             >
               {selectedModel

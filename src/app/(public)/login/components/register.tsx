@@ -31,10 +31,6 @@ export interface RegisterClientServiceRequest {
   coupon?: string;
 }
 
-interface RegisterProps {
-  setSelectedStep: React.Dispatch<React.SetStateAction<number>>;
-}
-
 const FormSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.email({ message: "Email Inválido" }),
@@ -52,7 +48,7 @@ const FormSchema = z.object({
     }),
 });
 
-const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
+const CreateAccount = () => {
   const { PostAPI, setToken } = useApiContext();
   const cookies = useCookies();
   const router = useRouter();

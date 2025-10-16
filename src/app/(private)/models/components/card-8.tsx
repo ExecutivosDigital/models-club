@@ -20,13 +20,14 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { MediaModal } from "./media-modal";
 
 interface MediaProps {
   photos: PhotoProps[];
   videos: VideoProps[];
 }
 
-interface GalleryItemProps {
+export interface GalleryItemProps {
   src: string;
   id: string;
   type: "photo" | "video";
@@ -46,6 +47,10 @@ export function ModelCard8() {
   });
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
   const [viewAll, setViewAll] = useState(false);
+  const [selectedMedia, setSelectedMedia] = useState<GalleryItemProps | null>(
+    null,
+  );
+  const [isMediaModalOpen, setIsMediaModalOpen] = useState(false);
 
   function toGalleryItems(m: MediaProps): GalleryItemProps[] {
     const photos: GalleryItemProps[] = m.photos.map((p) => ({
@@ -348,7 +353,13 @@ export function ModelCard8() {
                         />
                       )}
                     </button>
-                    <div className="flex h-8 w-8 items-center justify-center rounded-md border border-white bg-stone-950 text-white">
+                    <div
+                      onClick={() => {
+                        setSelectedMedia(item);
+                        setIsMediaModalOpen(true);
+                      }}
+                      className="flex h-8 w-8 items-center justify-center rounded-md border border-white bg-stone-950 text-white"
+                    >
                       <Image
                         src="/icons/resize.svg"
                         alt=""
@@ -425,7 +436,13 @@ export function ModelCard8() {
                     />
                   )}
                 </button>
-                <div className="flex h-8 w-8 items-center justify-center rounded-md border border-white bg-stone-950 text-white">
+                <div
+                  onClick={() => {
+                    setSelectedMedia(item);
+                    setIsMediaModalOpen(true);
+                  }}
+                  className="flex h-8 w-8 items-center justify-center rounded-md border border-white bg-stone-950 text-white"
+                >
                   <Image
                     src="/icons/resize.svg"
                     alt=""
@@ -446,6 +463,16 @@ export function ModelCard8() {
           )
         )}
       </div>
+      {isMediaModalOpen && selectedMedia && (
+        <MediaModal
+          isOpen={isMediaModalOpen}
+          onClose={() => {
+            setIsMediaModalOpen(false);
+            setSelectedMedia(null);
+          }}
+          selectedMedia={selectedMedia}
+        />
+      )}
     </GenericCard>
   );
 }

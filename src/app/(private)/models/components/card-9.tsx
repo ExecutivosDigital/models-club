@@ -126,7 +126,10 @@ export function ModelCard9() {
 
   return (
     <GenericCard
-      className="h-full min-h-[760px] xl:col-span-3"
+      className={cn(
+        "h-full min-h-[664px] xl:col-span-3",
+        selectedModel && "min-h-[760px]",
+      )}
       isLoading={isGettingModels}
     >
       <div className="flex w-full flex-col justify-between xl:flex-row xl:items-center">
@@ -163,7 +166,7 @@ export function ModelCard9() {
               onClick={() => HandleUpdateModel("name")}
               className={cn(
                 "ml-auto flex h-8 w-32 items-center justify-center gap-2 rounded-md border border-green-500 px-4 font-semibold",
-                !selectedModel && "pointer-events-none opacity-50",
+                !selectedModel && "hidden",
               )}
             >
               {selectedModel
@@ -194,7 +197,7 @@ export function ModelCard9() {
               onClick={() => HandleUpdateModel("bio")}
               className={cn(
                 "ml-auto flex h-8 w-32 items-center justify-center gap-2 rounded-md border border-green-500 px-4 font-semibold",
-                !selectedModel && "pointer-events-none opacity-50",
+                !selectedModel && "hidden",
               )}
             >
               {selectedModel
@@ -228,7 +231,7 @@ export function ModelCard9() {
             onClick={() => HandleUpdateModel("contentPrompt")}
             className={cn(
               "ml-auto flex h-8 w-32 items-center justify-center gap-2 rounded-md border border-green-500 px-4 font-semibold",
-              !selectedModel && "pointer-events-none opacity-50",
+              !selectedModel && "hidden",
             )}
           >
             {selectedModel
