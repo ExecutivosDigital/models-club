@@ -172,7 +172,7 @@ export default function Plans() {
                     </div>
                     <button
                       onClick={() => router.push(`/checkout/${plans[0].id}`)}
-                      className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
+                      className="hover:from-primary hover:to-secondary w-full rounded-lg border-2 border-black py-2 font-semibold text-neutral-500 hover:bg-gradient-to-br hover:bg-clip-text hover:text-transparent hover:shadow-sm"
                     >
                       Comece Agora
                     </button>
@@ -212,7 +212,7 @@ export default function Plans() {
                     </div>
                     <button
                       onClick={() => router.push(`/checkout/${plans[1].id}`)}
-                      className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
+                      className="hover:from-primary hover:to-secondary w-full rounded-lg border-2 border-black py-2 font-semibold text-neutral-500 hover:bg-gradient-to-br hover:bg-clip-text hover:text-transparent hover:shadow-sm"
                     >
                       Upgrade
                     </button>
@@ -256,9 +256,13 @@ export default function Plans() {
                   </div>
                   <button
                     onClick={() => router.push(`/checkout/${plans[2].id}`)}
-                    className="from-primary to-secondary w-full rounded-lg border-2 border-transparent bg-gradient-to-br py-2 text-white"
+                    // className="from-primary to-secondary w-full rounded-lg border-2 border-transparent bg-gradient-to-br py-2 text-white"
+                    className="group relative inline-flex"
                   >
-                    Upgrade
+                    <div className="from-primary to-secondary animate-tilt absolute -inset-px rounded-lg bg-gradient-to-r opacity-70 blur-md transition duration-1000 group-hover:-inset-1 group-hover:opacity-100 group-hover:duration-200" />
+                    <span className="from-primary to-secondary relative inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-br py-2 text-lg font-bold text-white transition-all duration-200 focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:outline-none">
+                      Upgrade
+                    </span>
                   </button>
                 </div>
               </SwiperSlide>
@@ -295,7 +299,7 @@ export default function Plans() {
             </div>
             <button
               onClick={() => router.push(`/checkout/${plans[0].id}`)}
-              className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
+              className="hover:from-primary hover:to-secondary w-full rounded-lg border-2 border-black py-2 font-semibold text-neutral-500 hover:bg-gradient-to-br hover:bg-clip-text hover:text-transparent hover:shadow-sm"
             >
               Comece Agora
             </button>
@@ -331,7 +335,7 @@ export default function Plans() {
             </div>
             <button
               onClick={() => router.push(`/checkout/${plans[1].id}`)}
-              className="w-full rounded-lg border-2 border-black py-2 text-neutral-500"
+              className="hover:from-primary hover:to-secondary w-full rounded-lg border-2 border-black py-2 font-semibold text-neutral-500 hover:bg-gradient-to-br hover:bg-clip-text hover:text-transparent hover:shadow-sm"
             >
               Upgrade
             </button>
@@ -370,9 +374,13 @@ export default function Plans() {
             </div>
             <button
               onClick={() => router.push(`/checkout/${plans[2].id}`)}
-              className="from-primary to-secondary w-full rounded-lg border-2 border-transparent bg-gradient-to-br py-2 text-white"
+              // className="from-primary to-secondary w-full rounded-lg border-2 border-transparent bg-gradient-to-br py-2 text-white"
+              className="group relative inline-flex"
             >
-              Upgrade
+              <div className="from-primary to-secondary animate-tilt absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-50 blur-md transition duration-500 group-hover:-inset-0.5 group-hover:opacity-70 group-hover:duration-200" />
+              <span className="from-primary to-secondary relative inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-br py-2 text-lg font-bold text-white transition-all duration-200 focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:outline-none">
+                Upgrade
+              </span>
             </button>
           </div>
         </div>

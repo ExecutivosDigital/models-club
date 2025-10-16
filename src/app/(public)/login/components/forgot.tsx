@@ -1,6 +1,6 @@
 import { useApiContext } from "@/context/ApiContext";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, LockIcon, LockKeyhole, Mail, MoveLeft } from "lucide-react";
+import { Loader2, LockIcon, LockKeyhole, Mail } from "lucide-react";
 import { useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -217,10 +217,7 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
 
   return (
     <>
-      <div className="group mb-8 flex items-center gap-2" onClick={onClick}>
-        <MoveLeft />
-        Recuperar senha
-      </div>
+      <span>Recuperar senha</span>
       <Form {...form}>
         <div className="flex flex-col gap-4" onKeyDown={handleKeyPress}>
           {currentStep === 0 ? (

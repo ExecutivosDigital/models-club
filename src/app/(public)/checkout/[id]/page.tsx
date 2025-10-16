@@ -48,7 +48,7 @@ export default function Checkout() {
           <div className="font-semibold text-neutral-600">
             Realize o pagamento
           </div>
-          <div className="relative mt-2 flex flex-col items-center justify-between border-t border-t-neutral-500 pt-4 md:mt-10 md:border-t md:pt-4 lg:mt-6 xl:flex-row">
+          <div className="relative mt-2 flex flex-col items-center justify-between border-t border-t-neutral-800 pt-4 md:mt-10 md:border-t md:pt-4 lg:mt-6 xl:flex-row">
             <div className="w-full max-w-[20.375rem] lg:mb-8">
               <Details
                 plans={selectedPlan}

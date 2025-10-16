@@ -97,7 +97,7 @@ export function Details({
           </>
         )}
       </div>
-      <div className="mt-8 hidden space-y-5 border-t border-neutral-500 pt-8 xl:block">
+      <div className="mt-8 hidden space-y-5 border-t border-neutral-800 pt-8 xl:block">
         {details.map((x: string, index: number) => (
           <div className="flex gap-2" key={index}>
             <CheckCircle className="h-5" />
@@ -112,7 +112,7 @@ export function Details({
 
       {/* Cupom ao lado do resumo de preço */}
       <div className="mb-4 hidden flex-col gap-2 xl:flex">
-        <div className="border-n-3 dark:border-n-5 hidden items-center gap-3 rounded-xl border p-4 md:flex">
+        <div className="hidden items-center gap-3 rounded-xl border border-neutral-800 p-4 md:flex">
           <div className="relative flex-1">
             <TicketPercent className="text-primary pointer-events-none absolute top-0 left-0 h-5 w-max" />
             <input
@@ -129,7 +129,7 @@ export function Details({
             onClick={handleValidateCoupon}
             type="button"
             className={cn(
-              "bg-primary flex h-10 items-center justify-center gap-2 rounded-lg px-4 font-semibold text-white",
+              "from-primary to-secondary flex h-10 items-center justify-center gap-2 rounded-lg bg-gradient-to-br px-4 font-semibold text-white",
               couponLoading && "opacity-80",
             )}
             disabled={couponLoading}
@@ -142,7 +142,7 @@ export function Details({
           </button>
         </div>
         <div className="absolute bottom-20 left-0 flex flex-col gap-2 md:hidden">
-          <div className="border-n-3 dark:border-n-5 flex items-center gap-3 rounded-xl border p-4">
+          <div className="flex items-center gap-3 rounded-xl border border-neutral-800 p-4">
             <div className="relative flex-1">
               <TicketPercent className="text-primary pointer-events-none absolute top-0 left-0 h-5 w-max" />
               <input
@@ -159,7 +159,7 @@ export function Details({
               onClick={handleValidateCoupon}
               type="button"
               className={cn(
-                "bg-primary flex h-10 items-center justify-center gap-2 rounded-lg px-4 font-semibold text-white",
+                "from-primary to-secondary flex h-10 items-center justify-center gap-2 rounded-lg bg-gradient-to-br px-4 font-semibold text-white",
                 couponLoading && "opacity-80",
               )}
               disabled={couponLoading}

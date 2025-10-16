@@ -382,24 +382,25 @@ const PaymentForm = ({
         <label
           htmlFor="card"
           className={cn(
-            "flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-md",
-            selectedPaymentMethod === "card"
-              ? "border-primary border-2"
-              : "border border-neutral-500",
+            "flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-md p-0.5 shadow-sm",
+            selectedPaymentMethod === "card" &&
+              "from-primary to-secondary bg-gradient-to-br",
           )}
         >
-          <div className="mb-1 flex items-center gap-1">
-            <div className="text-sm text-neutral-600">Cartão</div>
-            {/* <Icon
+          <div className="flex w-full flex-1 flex-col items-center justify-center rounded-md bg-neutral-900">
+            <div className="mb-1 flex items-center gap-1">
+              <div className="text-sm text-neutral-600">Cartão</div>
+              {/* <Icon
               className={cn(
                 "fill-primary ml-auto opacity-0 transition duration-200",
                 selectedPaymentMethod === "card" && "opacity-100",
-              )}
-              name="check-thin"
-            /> */}
-          </div>
-          <div className="flex items-center">
-            <div className="font-semibold">Dados do Cartão</div>
+                )}
+                name="check-thin"
+                /> */}
+            </div>
+            <div className="flex items-center">
+              <div className="font-semibold">Dados do Cartão</div>
+            </div>
           </div>
         </label>
 
@@ -414,26 +415,27 @@ const PaymentForm = ({
         <label
           htmlFor="pix"
           className={cn(
-            "flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-md",
-            selectedPaymentMethod === "pix"
-              ? "border-primary border-2"
-              : "border border-neutral-500",
+            "flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-md p-0.5 shadow-sm",
+            selectedPaymentMethod === "pix" &&
+              "from-primary to-secondary bg-gradient-to-br",
           )}
         >
-          <div className="mb-1 flex items-center gap-1">
-            <div className="text-sm text-neutral-600">Pix</div>
-            {/* <Icon
+          <div className="flex w-full flex-1 flex-col items-center justify-center rounded-md bg-neutral-900">
+            <div className="mb-1 flex items-center gap-1">
+              <div className="text-sm text-neutral-600">Pix</div>
+              {/* <Icon
               className={cn(
                 "fill-primary ml-auto opacity-0 transition duration-200",
                 selectedPaymentMethod === "pix" && "opacity-100",
               )}
               name="check-thin"
             /> */}
-          </div>
-          <div className="flex items-center">
-            <div className="mr-2 hidden font-semibold xl:block">Desconto</div>
-            <div className="from-primary to-secondary ml-auto rounded bg-gradient-to-br bg-clip-text px-2 font-bold text-transparent">
-              - {formatBRL(pixBadgeDiff)}
+            </div>
+            <div className="flex items-center">
+              <div className="mr-2 hidden font-semibold xl:block">Desconto</div>
+              <div className="from-primary to-secondary ml-auto rounded bg-gradient-to-br bg-clip-text px-2 font-bold text-transparent">
+                - {formatBRL(pixBadgeDiff)}
+              </div>
             </div>
           </div>
         </label>
@@ -442,7 +444,7 @@ const PaymentForm = ({
       {selectedPaymentMethod === "card" ? (
         <div className="relative h-60" onKeyDown={handleKeyPress}>
           {currentStep === 0 ? (
-            <div className="mb-3 rounded-md border border-neutral-500 pb-4">
+            <div className="mb-3 rounded-md border border-neutral-800 pb-4">
               <div className="p-5">
                 <div className="relative">
                   <FormField
@@ -486,7 +488,7 @@ const PaymentForm = ({
                   />
                 </div>
               </div>
-              <div className="border-t border-neutral-500 p-5">
+              <div className="border-t border-neutral-800 p-5">
                 <div className="flex md:flex-wrap">
                   <FormField
                     key="number"
@@ -609,7 +611,7 @@ const PaymentForm = ({
             </div>
           ) : currentStep === 1 ? (
             <>
-              <div className="mb-3 rounded-md border border-neutral-500 pb-4">
+              <div className="mb-3 rounded-md border border-neutral-800 pb-4">
                 <div className="p-5">
                   <div className="relative">
                     <FormField
@@ -652,7 +654,7 @@ const PaymentForm = ({
                     />
                   </div>
                 </div>
-                <div className="flex border-t border-neutral-500 p-5">
+                <div className="flex border-t border-neutral-800 p-5">
                   <div className="flex flex-col">
                     <div className="flex md:flex-wrap">
                       <FormField
@@ -741,7 +743,7 @@ const PaymentForm = ({
             </>
           ) : currentStep === 2 ? (
             <>
-              <div className="mb-3 rounded-md border border-neutral-500 pb-4">
+              <div className="mb-3 rounded-md border border-neutral-800 pb-4">
                 <div className="p-5">
                   <div className="relative">
                     <FormField
@@ -779,7 +781,7 @@ const PaymentForm = ({
                     />
                   </div>
                 </div>
-                <div className="flex border-t border-neutral-500 p-5">
+                <div className="flex border-t border-neutral-800 p-5">
                   <div className="flex flex-col">
                     <div className="flex md:flex-wrap">
                       <FormField
@@ -865,7 +867,7 @@ const PaymentForm = ({
             <div className="mb-3">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="from-primary to-secondary relative col-span-12 w-full rounded-md border border-neutral-500 bg-gradient-to-br bg-clip-text p-2 font-bold text-transparent">
+                  <button className="from-primary to-secondary relative col-span-12 w-full rounded-md border border-neutral-800 bg-gradient-to-br bg-clip-text p-2 font-bold text-transparent">
                     <span>
                       {selectedInstallment +
                         " x " +
@@ -898,7 +900,7 @@ const PaymentForm = ({
         <div className="flex h-60 flex-col gap-2">
           <button
             onClick={HandleQrCode}
-            className="bg-primary mx-auto flex h-12 w-full items-center gap-2 rounded-lg p-2 font-semibold text-white transition-all duration-300"
+            className="from-primary to-secondary mx-auto flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-br p-2 font-semibold text-white transition-all duration-300"
           >
             {isPixBeingGenerated ? (
               <Loader2 className="mx-auto h-5 w-5 animate-spin" />
@@ -925,10 +927,10 @@ const PaymentForm = ({
                   width={300}
                   height={300}
                   alt=""
-                  className="bg-primary mx-auto h-max w-1/3 self-center rounded-2xl object-contain p-2"
+                  className="from-primary to-secondary mx-auto h-max w-1/3 self-center rounded-2xl bg-gradient-to-br object-contain p-2"
                 />
                 <button
-                  className="bg-primary m-auto flex w-40 items-center gap-2 rounded-lg p-1 text-sm text-white transition-all duration-300"
+                  className="from-primary to-secondary m-auto flex w-40 items-center gap-2 rounded-lg bg-gradient-to-br p-1 text-sm text-white transition-all duration-300"
                   onClick={() => {
                     copyToClipboard(qrCode.payload);
                     setCopiedQrCode(true);
@@ -1023,7 +1025,7 @@ const PaymentForm = ({
                 <button
                   onClick={() => setCurrentStep(currentStep - 1)}
                   className={cn(
-                    "rounded-md border border-neutral-500 bg-transparent px-4 py-2 text-neutral-500",
+                    "rounded-md border border-neutral-800 bg-transparent px-4 py-2 text-neutral-500",
                     currentStep === 0 && "hidden",
                   )}
                 >
@@ -1047,17 +1049,44 @@ const PaymentForm = ({
                 </button>
               </>
             ) : (
+              //    <button
+              //   onClick={() => router.push(`/checkout/${plans[2].id}`)}
+              //   className="group relative inline-flex"
+              // >
+              //   <div className="from-primary to-secondary animate-tilt absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-50 blur-lg transition duration-500 group-hover:-inset-0.5 group-hover:opacity-70 group-hover:duration-200" />
+              //   <span className="from-primary to-secondary relative inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-br py-2 text-lg font-bold text-white transition-all duration-200 focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:outline-none">
+              //     Upgrade
+              //   </span>
+              // </button>
               <button
                 onClick={() => router.push("/")}
                 className={cn(
-                  "flex h-12 w-60 cursor-default items-center justify-center gap-2 rounded-lg border border-zinc-400 p-2 font-semibold text-zinc-400 opacity-50 transition-all duration-300",
+                  "group relative inline-flex cursor-pointer",
+                  // "flex h-12 w-60 cursor-default items-center justify-center gap-2 rounded-lg border border-zinc-400 p-2 font-semibold text-zinc-400 opacity-50 transition-all duration-300",
                   !isPixGenerated && "hidden",
-                  buttonText === "Confirmar Pagamento" &&
-                    "bg-primary border-primary cursor-pointer text-white opacity-100",
+                  // buttonText === "Confirmar Pagamento" &&
+                  //   "bg-primary border-primary cursor-pointer text-white opacity-100",
                 )}
                 disabled={buttonText === "Aguardando Pagamento"}
               >
-                <span>{buttonText}</span>
+                <div
+                  className={cn(
+                    "absolute rounded-lg opacity-50 blur-md transition duration-500",
+                    buttonText === "Aguardando Pagamento"
+                      ? "opacity-0"
+                      : "from-primary to-secondary animate-tilt -inset-0.5 bg-gradient-to-r group-hover:-inset-0.5 group-hover:opacity-70 group-hover:duration-200",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "relative inline-flex w-full items-center justify-center rounded-lg p-2 text-lg font-bold transition-all duration-200 focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:outline-none",
+                    buttonText === "Aguardando Pagamento"
+                      ? "border border-neutral-800 text-neutral-500 opacity-50"
+                      : "from-primary to-secondary bg-gradient-to-br text-white",
+                  )}
+                >
+                  {buttonText}
+                </span>
               </button>
             )}
           </div>
