@@ -1,3 +1,4 @@
+import ChatWidget from "@/components/chatPopup";
 import { ApiContextProvider } from "@/context/ApiContext";
 import moment from "moment";
 import "moment/locale/pt-br";
@@ -45,6 +46,7 @@ export default function RootLayout({
               }}
             />
             {children}
+            <ChatWidget />
           </ApiContextProvider>
         </CookiesProvider>
       </body>
