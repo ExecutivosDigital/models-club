@@ -1,15 +1,14 @@
 import { useApiContext } from "@/context/ApiContext";
 import { cn } from "@/utils/cn";
-import { Loader2, TicketPercent } from "lucide-react";
+import { CheckCircle, Loader2, TicketPercent } from "lucide-react";
 import toast from "react-hot-toast";
 import { PlanProps } from "../page";
 
 const details = [
-  `Economia de Tempo - Petições em minutos`,
-  `Vantagem - Superando outros escritórios`,
-  `ROI - 10 estagiários no meu escritório`,
-  `Segurança - Dados 100% seguros`,
-  `Simplicidade - Fácil como WhatsApp`,
+  "Receba o PIX na hora",
+  "Acesso à cursos exclusivos",
+  "Facilidade de controle",
+  "Equipe especializada para ajudar",
 ];
 
 interface DetailsProps {
@@ -100,20 +99,14 @@ export function Details({
       </div>
       <div className="mt-8 hidden space-y-5 border-t border-neutral-500 pt-8 xl:block">
         {details.map((x: string, index: number) => (
-          <div className="base2 flex" key={index}>
-            {/* <Icon
-              className="mr-3 max-h-6 min-h-6 max-w-6 min-w-6 bg-gradient-to-br fill-neutral-500"
-              name="check-circle"
-            /> */}
+          <div className="flex gap-2" key={index}>
+            <CheckCircle className="h-5" />
             {x}
           </div>
         ))}
       </div>
-      <div className="caption1 text-n-4/50 mb-6 hidden items-center xl:flex">
-        {/* <Icon
-          className="mr-3 max-h-6 min-h-6 max-w-6 min-w-6 fill-neutral-500"
-          name="lock"
-        /> */}
+      <div className="caption1 text-n-4/50 mt-5 hidden gap-2 xl:flex">
+        <CheckCircle className="h-5" />
         Garantia de Segurança com Banco Central
       </div>
 

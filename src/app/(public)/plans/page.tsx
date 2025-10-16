@@ -427,7 +427,7 @@ export default function Plans() {
               <AccordionTrigger className="border-b border-b-white pb-4 text-start font-bold focus:outline-none xl:text-lg">
                 Existem taxas de configuração ou instalação?
               </AccordionTrigger>
-              <AccordionContent className="text-sm xl:text-base">
+              <AccordionContent className="text-start text-sm xl:text-base">
                 Não. Nossos planos são 100% transparentes, sem nenhuma taxa de
                 configuração, instalação ou custos escondidos. O valor que você
                 vê é o valor que você paga.
@@ -438,7 +438,7 @@ export default function Plans() {
                 Vocês oferecem um período de teste gratuito para qualquer um dos
                 planos?
               </AccordionTrigger>
-              <AccordionContent className="text-sm xl:text-base">
+              <AccordionContent className="text-start text-sm xl:text-base">
                 Sim. Oferecemos uma garantia de satisfação de 7 dias. Você pode
                 assinar qualquer plano e, se por qualquer motivo não ficar
                 satisfeito, basta solicitar o reembolso total do valor pago
@@ -449,7 +449,7 @@ export default function Plans() {
               <AccordionTrigger className="border-b border-b-white pb-4 text-start font-bold focus:outline-none xl:text-lg">
                 Posso fazer upgrade do meu plano a qualquer momento?
               </AccordionTrigger>
-              <AccordionContent className="text-sm xl:text-base">
+              <AccordionContent className="text-start text-sm xl:text-base">
                 Sim. Você pode fazer o upgrade do seu plano a qualquer momento e
                 o acesso aos novos recursos é imediato.
               </AccordionContent>

@@ -12,17 +12,17 @@ export default function Login() {
 
   return (
     <>
-      <div className="relative flex min-h-[100svh] gap-2 overflow-x-hidden p-2 2xl:gap-4 2xl:p-4">
-        <div className="relative m-auto hidden h-full w-max items-center justify-center xl:flex">
+      <div className="relative flex h-full min-h-[100svh] gap-2 overflow-x-hidden p-2 2xl:gap-4 2xl:p-4">
+        <div className="relative mx-auto hidden w-full max-w-[50vw] items-center justify-center xl:flex">
           <Image
-            className="m-auto block h-[90%] w-auto max-w-[350px] rounded-[1.25rem] object-contain 2xl:max-w-[500px]"
+            className="m-auto block h-[90%] w-max rounded-[1.25rem] bg-blue-500 object-contain"
             src="/static/login.gif"
             alt=""
             width={1000}
             height={1000}
           />
         </div>
-        <div className="relative flex grow rounded-[1.25rem] bg-stone-900 p-2">
+        <div className="relative flex w-full rounded-[1.25rem] bg-stone-900 p-2 xl:max-w-[50vw]">
           <div className="m-auto w-full max-w-[31.5rem]">
             {forgot ? (
               <ForgotPassword onClick={() => setForgot(false)} />
