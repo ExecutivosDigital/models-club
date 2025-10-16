@@ -10,7 +10,6 @@ import {
   LockIcon,
   Mail,
   Phone,
-  Ticket,
   User,
 } from "lucide-react";
 import { useCookies } from "next-client-cookies";
@@ -248,7 +247,7 @@ const CreateAccount = () => {
               </FormItem>
             )}
           />
-          <FormField
+          {/* <FormField
             key="coupon"
             name="coupon"
             control={form.control}
@@ -265,7 +264,7 @@ const CreateAccount = () => {
                 <FormMessage className="font-base inline-flex h-[22px] items-center justify-center rounded-sm px-2 text-xs text-red-500" />
               </FormItem>
             )}
-          />
+          /> */}
           <FormField
             key="password.password"
             name="password.password"
@@ -303,7 +302,7 @@ const CreateAccount = () => {
                 <div className="relative">
                   <Field
                     classInput="border-neutral-500"
-                    placeholder="Senha"
+                    placeholder="Repetir Senha"
                     Svg={<LockIcon className="text-neutral-500" />}
                     type={showRememberPassword ? "text" : "password"}
                     value={field.value}

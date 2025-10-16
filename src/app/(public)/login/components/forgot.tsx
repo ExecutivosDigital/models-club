@@ -1,6 +1,7 @@
 import { useApiContext } from "@/context/ApiContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, LockIcon, LockKeyhole, Mail } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -217,6 +218,13 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
 
   return (
     <>
+      <Image
+        className="mx-auto mb-2 h-auto w-48 2xl:mb-8 2xl:w-80"
+        src="/logos/logo.png"
+        width={1000}
+        height={500}
+        alt=""
+      />
       <span>Recuperar senha</span>
       <Form {...form}>
         <div className="flex flex-col gap-4" onKeyDown={handleKeyPress}>

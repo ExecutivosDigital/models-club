@@ -24,7 +24,7 @@ export function ModelCard1() {
             Acesse o site público da {selectedModel?.name}
           </span>
           <span
-            className="w-full text-center text-sm text-neutral-400"
+            className="w-full cursor-pointer text-center text-sm text-neutral-400 underline"
             onClick={() => {
               if (selectedModel) {
                 copyToClipboard(`https://spicyai.com.br/${selectedModel.id}`);
@@ -32,7 +32,7 @@ export function ModelCard1() {
               }
             }}
           >
-            https://spiceai.com.br/{selectedModel?.id}{" "}
+            Copiar link
           </span>
         </>
       ) : (

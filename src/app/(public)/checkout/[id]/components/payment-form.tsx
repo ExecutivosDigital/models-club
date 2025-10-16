@@ -1,5 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +15,7 @@ import {
   maskExpiryDate,
   maskPhone,
 } from "@/utils/masks";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CheckCheck,
   ChevronDown,
@@ -181,7 +181,7 @@ const PaymentForm = ({
   );
 
   // Badge de desconto do Pix (diferença entre métodos, antes do cupom)
-  const pixBadgeDiff = round2((cardMonthly - pixMonthly) * 1);
+  // const pixBadgeDiff = round2((cardMonthly - pixMonthly) * 1);
 
   // Para o dropdown de parcelas (usa o TOTAL efetivo do cartão, com cupom/ano quando houver)
   const effectiveCardTotal = cardFinalTotal;
@@ -307,7 +307,7 @@ const PaymentForm = ({
       };
 
       if (couponApplied && couponCode.trim()) {
-        body.partnerCode = couponCode.trim();
+        body.coupon = couponCode.trim();
       }
       const creditPayment = await PostAPI(
         "/client-signature/credit/new",
@@ -329,7 +329,9 @@ const PaymentForm = ({
 
     const qrResp = await PostAPI(
       `/client-signature/pix/${plans?.id}`,
-      {},
+      {
+        coupon: couponCode,
+      },
       true,
     );
     if (qrResp.status === 200) {
@@ -432,11 +434,14 @@ const PaymentForm = ({
             /> */}
             </div>
             <div className="flex items-center">
+              <div className="font-semibold">Copia e cola</div>
+            </div>
+            {/* <div className="flex items-center">
               <div className="mr-2 hidden font-semibold xl:block">Desconto</div>
               <div className="from-primary to-secondary ml-auto rounded bg-gradient-to-br bg-clip-text px-2 font-bold text-transparent">
                 - {formatBRL(pixBadgeDiff)}
               </div>
-            </div>
+            </div> */}
           </div>
         </label>
       </div>

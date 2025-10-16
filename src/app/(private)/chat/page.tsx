@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { MessageProps } from "@/@types/global";
-import { useChatContext } from "@/context/test";
+import { useChatContext } from "@/context/ChatContext";
+import { useModelContext } from "@/context/ModelContext";
 import { ArrowDown } from "lucide-react";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EmptyMessage } from "./empty-message";
 import { ChatHeader } from "./header";
 import { MessageFooter } from "./message-footer";
@@ -19,30 +20,11 @@ export type GalleryItem = {
   placeholder?: boolean;
 };
 
-export default function ChatPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = use(params);
-
-  const {
-    selectedChatId,
-    selectedChatMessages,
-    isMessageLoading,
-    selectedChat,
-    setModelId,
-  } = useChatContext();
-
-  const lastMsgIdRef = useRef<string | null>(null);
+export default function ChatPage() {
+  const { selectedChatMessages, isChatsLoading } = useChatContext();
+  const { selectedModel } = useModelContext();
   const containerRef = useRef(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (id) {
-      setModelId(id);
-    }
-  }, [id]);
 
   const handleScrollToBottom = () => {
     setIsAutoScrollEnabled(true);
@@ -61,7 +43,7 @@ export default function ChatPage({
     if (selectedChatMessages.length > 0 && isAutoScrollEnabled) {
       handleScrollToBottom();
     }
-  }, [selectedChatMessages, isAutoScrollEnabled, selectedChat, selectedChatId]);
+  }, [selectedChatMessages, isAutoScrollEnabled, selectedModel]);
 
   useEffect(() => {
     const chatElement: any = containerRef.current;
@@ -88,7 +70,7 @@ export default function ChatPage({
         chatElement.removeEventListener("scroll", handleScroll);
       }
     };
-  }, [containerRef.current, selectedChatId, selectedChat]);
+  }, [containerRef.current, selectedModel]);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -96,148 +78,11 @@ export default function ChatPage({
     if (chatElement) {
       lastScrollTop.current = chatElement.scrollTop;
     }
-  }, [selectedChatId, selectedChat]);
-
-  useEffect(() => {
-    const last = selectedChatMessages[selectedChatMessages.length - 1];
-    if (!last) return;
-
-    // If the last message changed, we just appended one → scroll
-    if (last.id !== lastMsgIdRef.current) {
-      lastMsgIdRef.current = last.id;
-      // next frame to ensure layout is ready
-      requestAnimationFrame(() => handleScrollToBottom());
-    }
-  }, [selectedChatMessages.length]); // only care that the list grew
+  }, [selectedModel]);
 
   useEffect(() => {
     setIsAutoScrollEnabled(true);
-  }, [selectedChatId]);
-
-  // const [showContactSidebar, setShowContactSidebar] = useState<boolean>(false);
-
-  // const [showInfo, setShowInfo] = useState<boolean>(false);
-
-  // const openChat = (chatId: string) => {
-  //   router.replace(`/?id=${chatId}`);
-  //   setShowInfo(false);
-  //   setIsAutoScrollEnabled(true);
-  //   setShowContactSidebar(false);
-  // };
-
-  // async function handleSetUnreadMessages(id: string) {
-  //   const userToken = cookies.get(token);
-
-  //   const connect = await AuthPutAPI(`/message/status/${id}`, {}, userToken);
-
-  //   if (connect.status === 200) {
-  //     const chat = chats.find((chat) => chat.id === id);
-
-  //     if (chat) {
-  //       setChats((prevChats) => {
-  //         return prevChats.map((chat) => {
-  //           if (chat.id === id) {
-  //             return { ...chat, hasUnreadMessages: true };
-  //           }
-  //           return chat;
-  //         });
-  //       });
-  //     }
-
-  //     if (selectedChatId === id && selectedChat) {
-  //       setSelectedChat(null);
-  //       setSelectedChatId(null);
-  //       router.replace(`/chat`);
-  //     }
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   setPageName("Chat de Clientes");
-  // }, []);
-
-  // function nameContainsQuery(name: string) {
-  //   return normalizeName(name).includes(normalizeName(query));
-  // }
-
-  // function sortByQueryMatch(clients: ClientChatProps[]) {
-  //   return clients.sort((a, b) => {
-  //     const aMatch = nameContainsQuery(a.name);
-  //     const bMatch = nameContainsQuery(b.name);
-
-  //     if (aMatch && !bMatch) return -1; // a vem antes
-  //     if (!aMatch && bMatch) return 1; // b vem antes
-  //     return 0; // mantém a ordem
-  //   });
-  // }
-
-  /* ========================= Chat ========================= */
-  // function Bubble({ msg }: { msg: ChatMessage }) {
-  //   const mine = msg.sender === "me";
-  //   return (
-  //     <div
-  //       className={clsx(
-  //         "flex items-end gap-2",
-  //         mine ? "justify-end" : "justify-start"
-  //       )}
-  //     >
-  //       {!mine && (
-  //         <img
-  //           src="/gab/avt.png"
-  //           className="h-6 w-6 rounded-full object-cover"
-  //           alt="Gabi"
-  //         />
-  //       )}
-  //       <div
-  //         className={cn(
-  //           "max-w-[78%] rounded-2xl flex flex-col bg-neutral-100 text-lg font-semibold text-neutral-900 rounded-bl-none px-3 py-2  shadow-sm",
-  //           msg.kind === "image" && "px-1 py-1 bg-transparent",
-  //           mine && "bg-[#E55C00] rounded-bl-2xl rounded-br-none  text-white "
-  //         )}
-  //       >
-  //         {msg.kind === "text" && <p>{msg.text}</p>}
-  //         {msg.kind === "image" && (
-  //           <img
-  //             src={msg.url}
-  //             alt="enviado"
-  //             className="rounded-lg max-h-[220px] object-cover"
-  //           />
-  //         )}
-  //         {msg.kind === "audio" && (
-  //           <audio src={msg.url} controls className="w-48" />
-  //         )}
-  //         <div
-  //           className={clsx(
-  //             "mt-1 text-sm opacity-70",
-  //             mine ? "text-white self-end" : "text-neutral-500"
-  //           )}
-  //         >
-  //           {new Date(msg.ts).toLocaleTimeString()}
-  //         </div>
-  //       </div>
-  //       {!mine && (
-  //         <button
-  //           aria-label="Curtir"
-  //           onClick={() =>
-  //             setMessages((m) =>
-  //               m.map((x) => (x.id === msg.id ? { ...x, liked: !x.liked } : x))
-  //             )
-  //           }
-  //           className="p-1 -mb-0.5"
-  //         >
-  //           <Heart
-  //             className={clsx(
-  //               "h-5 w-5 transition",
-  //               msg.liked
-  //                 ? "fill-rose-500 text-rose-500"
-  //                 : "text-neutral-400 hover:text-rose-500"
-  //             )}
-  //           />
-  //         </button>
-  //       )}
-  //     </div>
-  //   );
-  // }
+  }, [selectedModel]);
 
   return (
     <div className="flex h-[calc(100svh-175px)] gap-2 rounded-md bg-stone-900 text-white xl:h-[calc(100svh-240px)]">
@@ -247,57 +92,24 @@ export default function ChatPage({
           className="custom-scrollbar flex h-full w-full flex-col overflow-y-auto rounded-md bg-stone-950 py-4 lg:py-2 xl:py-4"
           ref={containerRef}
         >
-          {isMessageLoading ? (
-            <>
-              {Array.from({ length: 3 }).map((_, index) => (
-                <div key={index}>
-                  <div className="group mb-4 flex max-w-[calc(100%-8px)] animate-pulse flex-col items-end justify-end gap-1 text-transparent lg:mb-2 xl:mb-4 xl:max-w-[calc(100%-50px)]">
-                    <div className="flex w-60 min-w-10 justify-center gap-1 rounded-3xl rounded-br-none bg-neutral-800 p-2 shadow-sm">
-                      <div className="group flex items-center gap-1">
-                        <div className="relative z-[1] break-normal whitespace-pre-wrap">
-                          .
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-start gap-2 text-xs lg:text-[8px] xl:text-xs">
-                      .
-                    </div>
-                  </div>
-                  <div className="group mb-4 ml-2 flex max-w-[calc(100%-8px)] animate-pulse flex-col items-start justify-start gap-1 space-x-2 text-transparent lg:mb-2 xl:mb-4 xl:ml-[50px] xl:max-w-[calc(100%-50px)] rtl:space-x-reverse">
-                    <div className="flex w-60 min-w-10 justify-center gap-1 rounded-3xl rounded-bl-none bg-neutral-800 p-2 shadow-sm">
-                      <div className="flex items-center gap-1">.</div>
-                    </div>
-                    <div className="flex w-full items-center gap-2 text-end text-xs lg:text-[8px] xl:text-xs">
-                      <span className="text-default-500">
-                        <span>.</span>.
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </>
+          {isChatsLoading || selectedChatMessages.length === 0 ? (
+            <EmptyMessage />
           ) : (
-            <>
-              {isMessageLoading || selectedChatMessages.length === 0 ? (
-                <EmptyMessage />
-              ) : (
-                selectedChatMessages.map((message: MessageProps, i: number) => (
-                  <Messages
-                    key={`message-list-${i}-${message.id}`}
-                    message={message}
-                  />
-                ))
-              )}
-              <div ref={bottomRef} />
-            </>
+            selectedChatMessages.map((message: MessageProps, i: number) => (
+              <Messages
+                key={`message-list-${i}-${message.text}`}
+                message={message}
+              />
+            ))
           )}
+          <div ref={bottomRef} />
         </div>
         {!isAutoScrollEnabled &&
-          !isMessageLoading &&
+          !isChatsLoading &&
           selectedChatMessages.length !== 0 && (
             <button
               onClick={handleScrollToBottom}
-              className="absolute right-1/2 bottom-4 z-[100]"
+              className="absolute bottom-24 left-1/2 z-[100] -translate-x-1/2 rounded-full bg-stone-800 p-1"
             >
               <ArrowDown />
             </button>
@@ -309,65 +121,6 @@ export default function ChatPage({
           }}
         />
       </div>
-
-      {/* {selectedItem && isMediaOpen && (
-        <div
-          onClick={() => {
-            setSelectedItem(null);
-            setIsMediaOpen(false);
-          }}
-          className="fixed top-0 left-0 z-[9999] flex h-full w-full bg-black/20 backdrop-blur-sm"
-        >
-          {selectedItem.mediaType === "image" ? (
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-              }}
-              className="relative mx-auto mt-[calc(50vh-300px)] h-min max-h-[90vh] w-80 overflow-hidden rounded-lg object-contain xl:mt-[calc(50vh-400px)] xl:h-[80vh] xl:w-auto"
-            >
-              <X
-                className="absolute top-2 left-2 cursor-pointer"
-                onClick={() => {
-                  setSelectedItem(null);
-                  setIsMediaOpen(false);
-                }}
-              />
-              <Image
-                src={selectedItem.src}
-                alt={selectedItem.alt ?? ""}
-                quality={100}
-                width={1000}
-                height={1500}
-                className="h-full w-full"
-              />
-            </div>
-          ) : (
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-              }}
-              className="relative mx-auto mt-[calc(50vh-300px)] h-min max-h-[90vh] w-80 overflow-hidden rounded-lg object-contain xl:mt-[calc(50vh-400px)] xl:h-[80vh] xl:w-auto"
-            >
-              <X
-                className="absolute top-2 left-2 cursor-pointer"
-                onClick={() => {
-                  setSelectedItem(null);
-                  setIsMediaOpen(false);
-                }}
-              />
-              <video
-                src={selectedItem.src}
-                controls
-                autoPlay
-                muted
-                className="h-full w-full"
-              />
-            </div>
-          )}
-        </div>
-      )} */}
     </div>
   );
 }

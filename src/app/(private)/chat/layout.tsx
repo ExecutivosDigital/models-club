@@ -1,6 +1,6 @@
 "use client";
 
-import { ChatContextProvider } from "@/context/test";
+import { ChatContextProvider } from "@/context/ChatContext";
 
 export default function ChatLayout({
   children,

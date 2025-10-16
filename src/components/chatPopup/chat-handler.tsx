@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import OpenAI from "openai";
 import { startTransition, useEffect, useRef, useState } from "react";
@@ -135,7 +136,9 @@ export function useSectionChat({ selectedPrompt }: UseSectionChatParams) {
       }, 1000);
     }
     return () => {
-      timer && clearInterval(timer);
+      if (timer) {
+        clearInterval(timer);
+      }
       return undefined;
     };
   }, [recordStartTime, isRecording]);

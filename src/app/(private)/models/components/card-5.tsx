@@ -204,7 +204,7 @@ export function ModelCard5() {
         </div>
         <div className="flex w-full flex-col gap-2 xl:w-1/2">
           <div className="flex w-full items-center justify-center gap-2 xl:justify-end">
-            <div className="relative flex h-8 w-full max-w-40 items-center gap-2 rounded-md bg-stone-950 px-2 outline outline-transparent focus-within:outline-neutral-500 md:max-w-60">
+            <div className="relative flex h-8 w-full items-center gap-2 rounded-md bg-stone-950 px-2 outline outline-transparent focus-within:outline-neutral-500 md:max-w-60">
               <Image
                 src="/icons/price.svg"
                 alt=""
@@ -237,7 +237,7 @@ export function ModelCard5() {
               disabled={!selectedModel}
               className={cn(
                 "h-8 w-36 rounded-md bg-stone-950 px-2 font-semibold xl:w-40",
-                !selectedModel && "hid",
+                !selectedModel && "hidden",
               )}
             >
               {selectedModel
@@ -248,7 +248,7 @@ export function ModelCard5() {
             </button>
           </div>
           <div className="flex w-full items-center justify-center gap-2 xl:justify-end">
-            <div className="relative flex h-8 w-full max-w-40 items-center gap-2 rounded-md bg-stone-950 px-2 outline outline-transparent focus-within:outline-neutral-500 md:max-w-60">
+            <div className="relative flex h-8 w-full items-center gap-2 rounded-md bg-stone-950 px-2 outline outline-transparent focus-within:outline-neutral-500 md:max-w-60">
               <Image
                 src="/icons/price.svg"
                 alt=""
@@ -281,7 +281,7 @@ export function ModelCard5() {
               disabled={!selectedModel}
               className={cn(
                 "h-8 w-36 rounded-md bg-stone-950 px-2 font-semibold xl:w-40",
-                !selectedModel && "hid",
+                !selectedModel && "hidden",
               )}
             >
               {selectedModel
@@ -292,7 +292,7 @@ export function ModelCard5() {
             </button>
           </div>
           <div className="flex w-full items-center justify-center gap-2 xl:justify-end">
-            <div className="relative flex h-8 w-full max-w-40 items-center gap-2 rounded-md bg-stone-950 px-2 outline outline-transparent focus-within:outline-neutral-500 md:max-w-60">
+            <div className="relative flex h-8 w-full items-center gap-2 rounded-md bg-stone-950 px-2 outline outline-transparent focus-within:outline-neutral-500 md:max-w-60">
               <Image
                 src="/icons/price.svg"
                 alt=""
@@ -325,7 +325,7 @@ export function ModelCard5() {
               disabled={!selectedModel}
               className={cn(
                 "h-8 w-36 rounded-md bg-stone-950 px-2 font-semibold xl:w-40",
-                !selectedModel && "hid",
+                !selectedModel && "hidden",
               )}
             >
               {selectedModel
@@ -336,7 +336,7 @@ export function ModelCard5() {
             </button>
           </div>
           <div className="flex w-full items-center justify-center gap-2 xl:justify-end">
-            <div className="relative flex h-8 w-full max-w-40 items-center gap-2 rounded-md bg-stone-950 px-2 outline outline-transparent focus-within:outline-neutral-500 md:max-w-60">
+            <div className="relative flex h-8 w-full items-center gap-2 rounded-md bg-stone-950 px-2 outline outline-transparent focus-within:outline-neutral-500 md:max-w-60">
               <Image
                 src="/icons/price.svg"
                 alt=""
@@ -369,7 +369,7 @@ export function ModelCard5() {
               disabled={!selectedModel}
               className={cn(
                 "h-8 w-36 rounded-md bg-stone-950 px-2 font-semibold xl:w-40",
-                !selectedModel && "hid",
+                !selectedModel && "hidden",
               )}
             >
               {selectedModel
