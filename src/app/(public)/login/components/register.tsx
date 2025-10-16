@@ -49,7 +49,6 @@ const FormSchema = z.object({
       message: "Senhas não coincidem",
       path: ["confirm"],
     }),
-  coupon: z.string().optional(),
 });
 
 const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
@@ -57,7 +56,6 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
   const cookies = useCookies();
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
-  // const [isTermModalOpen, setIsTermModalOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showRememberPassword, setShowRememberPassword] = useState(false);
 
@@ -73,7 +71,6 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
         password: "",
         confirm: "",
       },
-      coupon: "",
     },
   });
 
@@ -81,7 +78,7 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
     const [activeStep, setActiveStep] = useState(0);
 
     const stepFields = {
-      0: ["email", "password", "name", "phone", "cpfCnpj", "coupon"] as const,
+      0: ["email", "password", "name", "phone", "cpfCnpj"] as const,
     };
 
     const validateStep = async (step: number) => {
@@ -107,7 +104,6 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
         name: "Nome",
         phone: "Telefone",
         cpfCnpj: "CPF/CNPJ",
-        coupon: "Cupom",
       };
       const secondErrorField = Object.keys(
         errors,
@@ -137,7 +133,7 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
         router.push("/plans");
         return setIsCreating(false);
       }
-      toast.error("Erro ao cadastrar, tente novamente.");
+      toast.error("Email ou CPF já cadastrado");
       return setIsCreating(false);
     }
   };

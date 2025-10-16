@@ -2,6 +2,7 @@
 import { GenericCard } from "@/components/ui/card";
 import { useApiContext } from "@/context/ApiContext";
 import { useUserProfileContext } from "@/context/UserProfileContext";
+import { cn } from "@/utils/cn";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -42,7 +43,12 @@ export function HomeCard2() {
   }, [userProfile]);
 
   return (
-    <GenericCard className="h-max xl:col-span-1 xl:h-full xl:justify-between">
+    <GenericCard
+      className={cn(
+        "h-max xl:col-span-1 xl:h-full xl:justify-between",
+        !userProfile.asaasWalletId && "border border-red-500",
+      )}
+    >
       <div className="flex gap-2">
         <div className="flex flex-1 flex-col gap-2">
           <span className="font-semibold">Inserir Chave Bancária</span>

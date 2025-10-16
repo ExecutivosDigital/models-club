@@ -946,13 +946,11 @@ const PaymentForm = ({
           </>
         </div>
       )}
-
       <div className="flex flex-col">
         <div className="caption1 text-n-4/50 mb-6 flex items-center xl:hidden">
           {/* <Icon className="mr-2 h-4 w-4 fill-neutral-500" name="lock" /> */}
           Garantia de Segurança com Banco Central
         </div>
-
         {/* Cupom ao lado do resumo de preço */}
         <div className="mb-4 flex flex-col gap-2 xl:hidden">
           <div className="border-n-3 dark:border-n-5 flex items-center gap-3 rounded-xl border p-4">
@@ -992,15 +990,14 @@ const PaymentForm = ({
             {couponApplied && discountPercent != null ? (
               <>
                 <span className="text-n-4/60 line-through">
-                  {formatBRL(baseTotalSelected)}
+                  {formatBRL(baseTotalSelected / 12)}
                 </span>
-                <span>{formatBRL(finalTotalSelected)}</span>
+                <span>{formatBRL(finalTotalSelected / 12)}</span>
               </>
             ) : (
-              <span>{formatBRL(baseTotalSelected)}</span>
+              <span>{formatBRL(baseTotalSelected / 12)}</span>
             )}
           </div>
-
           <button
             className="base2 text-secondary-1 hover:text-secondary-1/90 mb-4 font-semibold transition-colors"
             type="button"

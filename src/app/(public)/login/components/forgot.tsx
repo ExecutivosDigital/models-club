@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import z from "zod";
 import Field from "./field";
 import { Form, FormField, FormItem, FormMessage } from "./form";
+import Icon from "./icon";
 
 type ForgotPasswordProps = {
   onClick: () => void;
@@ -220,7 +221,7 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
       <button className="group mb-8 flex items-center gap-2" onClick={onClick}>
         <MoveLeft />
         Recuperar senha
-      </button>
+      </div>
       <Form {...form}>
         <div className="flex flex-col gap-4" onKeyDown={handleKeyPress}>
           {currentStep === 0 ? (
@@ -285,22 +286,30 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
             <></>
           )}
         </div>
-        <button
-          onClick={() => handleNext(form)}
-          className="from-primary to-secondary mt-6 flex w-full items-center justify-center rounded-md bg-gradient-to-br px-4 py-2 font-semibold shadow-sm"
-        >
-          {isLoading ? (
-            <Loader2 className="animate-spin" />
-          ) : currentStep === 0 ? (
-            "Enviar código"
-          ) : currentStep === 1 ? (
-            "Verificar"
-          ) : (
-            "Alterar senha"
-          )}
-        </button>
+        <div className="mt-4 flex w-full items-center justify-center gap-4">
+          <button
+            onClick={() => onClick()}
+            className="rounded-md border border-neutral-500 bg-transparent px-4 py-2 text-neutral-500"
+          >
+            Voltar
+          </button>
+          <button
+            onClick={() => handleNext(form)}
+            className="from-primary to-secondary flex w-full items-center justify-center rounded-md bg-gradient-to-br px-4 py-2 font-semibold shadow-sm"
+          >
+            {isLoading ? (
+              <Loader2 className="animate-spin" />
+            ) : currentStep === 0 ? (
+              "Enviar código"
+            ) : currentStep === 1 ? (
+              "Verificar"
+            ) : (
+              "Alterar senha"
+            )}
+          </button>
+        </div>
       </Form>
-    </>
+    </div>
   );
 };
 
