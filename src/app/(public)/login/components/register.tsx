@@ -40,6 +40,7 @@ const FormSchema = z.object({
   email: z.email({ message: "Email Inválido" }),
   phone: z.string().min(11, "Telefone deve ter pelo menos 11 caracteres"),
   cpfCnpj: z.string().min(14, "CPF/CNPJ deve ter pelo menos 14 caracteres"),
+  coupon: z.string().optional(),
   password: z
     .object({
       password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
@@ -67,6 +68,7 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
       phone: "",
       email: "",
       cpfCnpj: "",
+      coupon: "",
       password: {
         password: "",
         confirm: "",
@@ -103,6 +105,7 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
         password: "Senha",
         name: "Nome",
         phone: "Telefone",
+        coupon: "Cupom",
         cpfCnpj: "CPF/CNPJ",
       };
       const secondErrorField = Object.keys(

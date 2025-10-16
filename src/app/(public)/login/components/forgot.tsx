@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import z from "zod";
 import Field from "./field";
 import { Form, FormField, FormItem, FormMessage } from "./form";
-import Icon from "./icon";
 
 type ForgotPasswordProps = {
   onClick: () => void;
@@ -218,7 +217,7 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
 
   return (
     <>
-      <button className="group mb-8 flex items-center gap-2" onClick={onClick}>
+      <div className="group mb-8 flex items-center gap-2" onClick={onClick}>
         <MoveLeft />
         Recuperar senha
       </div>
@@ -309,7 +308,7 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
           </button>
         </div>
       </Form>
-    </div>
+    </>
   );
 };
 
