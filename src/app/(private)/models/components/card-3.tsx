@@ -3,7 +3,6 @@ import { GenericCard } from "@/components/ui/card";
 import { useApiContext } from "@/context/ApiContext";
 import { useModelContext } from "@/context/ModelContext";
 import { cn } from "@/utils/cn";
-import { maskPhone } from "@/utils/masks";
 import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -19,18 +18,18 @@ export function ModelCard3() {
   } = useModelContext();
   const [isUpdating, setIsUpdating] = useState(false);
 
-  async function UpdateSelectedModelWhatsApp() {
+  async function UpdateSelectedModelInstagram() {
     setIsUpdating(true);
     if (selectedModel) {
       const update = await PutAPI(
         `/model/${selectedModel.id}`,
         {
-          whatsApp: selectedModel.whatsApp,
+          instagram: selectedModel.instagram,
         },
         true,
       );
       if (update.status === 200) {
-        toast.success("WhatsApp atualizado com sucesso!");
+        toast.success("Instagram atualizado com sucesso!");
         return setIsUpdating(false);
       }
       toast.error(update.body.message);
@@ -38,29 +37,29 @@ export function ModelCard3() {
     }
   }
 
-  const handleChangeModelWhatsApp = (value: string) => {
+  const handleChangeModelInstagram = (value: string) => {
     if (selectedModel) {
       setSelectedModel({
         ...selectedModel,
-        whatsApp: value,
+        instagram: value,
       });
     } else if (newModelData) {
       setNewModelData({
         ...newModelData,
-        whatsApp: value,
+        instagram: value,
       });
     } else {
       setNewModelData({
         bio: "",
         clientId: "",
         contentPrompt: "",
-        whatsApp: value,
+        instagram: value,
         name: "",
         photos: [],
         prices: [],
         sellPrompt: "",
         videos: [],
-        instagram: null,
+        whatsApp: null,
         photoUrl: "",
       });
     }
@@ -73,7 +72,7 @@ export function ModelCard3() {
     >
       <div className="flex gap-2">
         <div className="flex flex-1 flex-col gap-2">
-          <span className="font-semibold">Inserir WhatsApp</span>
+          <span className="font-semibold">Inserir @ Instagram</span>
           <span className="text-neutral-400">
             Maximize o potencial das suas postagens e redes sociais com a
             avançada ferramenta de Inteligência Artificial da Inspire AI, que
@@ -81,7 +80,7 @@ export function ModelCard3() {
           </span>
         </div>
         <Image
-          src="/logos/whatsapp.png"
+          src="/logos/instagram.png"
           alt=""
           width={500}
           height={500}
@@ -92,23 +91,20 @@ export function ModelCard3() {
         <label className="relative flex h-8 w-full items-center gap-1 rounded-md bg-stone-950 px-2">
           <input
             className="absolute top-0 left-0 h-full w-full px-2"
-            placeholder="(41) 9 9900-0099"
-            maxLength={15}
+            placeholder="@da_sua_modelo_aqui"
             value={
-              selectedModel && selectedModel.whatsApp !== null
-                ? (selectedModel.whatsApp as string)
-                : newModelData && newModelData.whatsApp !== null
-                  ? (newModelData.whatsApp as string)
+              selectedModel && selectedModel.instagram !== null
+                ? (selectedModel.instagram as string)
+                : newModelData && newModelData.instagram !== null
+                  ? (newModelData.instagram as string)
                   : ""
             }
             disabled={isUpdating}
-            onChange={(e) =>
-              handleChangeModelWhatsApp(maskPhone(e.target.value))
-            }
+            onChange={(e) => handleChangeModelInstagram(e.target.value)}
           />
         </label>
         <button
-          onClick={() => UpdateSelectedModelWhatsApp()}
+          onClick={() => UpdateSelectedModelInstagram()}
           disabled={!selectedModel}
           className={cn(
             "h-8 w-44 rounded-md bg-stone-950 px-4 font-semibold",

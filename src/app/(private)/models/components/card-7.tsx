@@ -74,8 +74,8 @@ export function ModelCard7() {
 
   const allMediaItems = useMemo(() => toGalleryItems(media), [media]);
 
-  const paidMedia = useMemo(() => {
-    return allMediaItems.filter((m) => !m.isFreeAvailable);
+  const freeMedia = useMemo(() => {
+    return allMediaItems.filter((m) => m.isFreeAvailable);
   }, [allMediaItems]);
 
   async function HandleUploadMedia(
@@ -171,6 +171,8 @@ export function ModelCard7() {
     }
   }, [selectedModel]);
 
+  console.log("media: ", media);
+
   return (
     <GenericCard
       className="h-full min-h-60 xl:col-span-3 xl:min-h-[26rem]"
@@ -178,14 +180,14 @@ export function ModelCard7() {
     >
       <div className="flex w-full flex-col justify-between xl:flex-row xl:items-center">
         <span className="text-lg font-semibold text-zinc-200">
-          Inserir Mídias Pagas
+          Inserir Mídias Gratuitas
         </span>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setViewAll(!viewAll)}
             className={cn(
               "hidden h-8 rounded-md bg-zinc-700 px-4 font-semibold",
-              paidMedia.length <= 16 ? "xl:hidden" : "xl:block",
+              freeMedia.length <= 16 ? "xl:hidden" : "xl:block",
             )}
           >
             Ver Todas
@@ -210,7 +212,7 @@ export function ModelCard7() {
                     isUploaded={false}
                     handleUpload={(url, fullUrl) => {
                       if (selectedModel) {
-                        HandleUploadMedia("photo", url, false);
+                        HandleUploadMedia("photo", url, true);
                       } else {
                         setMedia((prev) => ({
                           ...prev,
@@ -219,7 +221,7 @@ export function ModelCard7() {
                             {
                               id: "",
                               photoUrl: fullUrl,
-                              isFreeAvailable: false,
+                              isFreeAvailable: true,
                               modelId: "",
                             },
                           ],
@@ -232,7 +234,7 @@ export function ModelCard7() {
                               {
                                 id: "",
                                 photoUrl: fullUrl,
-                                isFreeAvailable: false,
+                                isFreeAvailable: true,
                                 modelId: "",
                               },
                             ],
@@ -257,7 +259,7 @@ export function ModelCard7() {
                     isUploaded={false}
                     handleUpload={(url, fullUrl) => {
                       if (selectedModel) {
-                        HandleUploadMedia("video", url, false);
+                        HandleUploadMedia("video", url, true);
                       } else {
                         setMedia((prev) => ({
                           ...prev,
@@ -266,7 +268,7 @@ export function ModelCard7() {
                             {
                               id: "",
                               videoUrl: fullUrl,
-                              isFreeAvailable: false,
+                              isFreeAvailable: true,
                               modelId: "",
                             },
                           ],
@@ -279,7 +281,7 @@ export function ModelCard7() {
                               {
                                 id: "",
                                 videoUrl: fullUrl,
-                                isFreeAvailable: false,
+                                isFreeAvailable: true,
                                 modelId: "",
                               },
                             ],
@@ -295,10 +297,11 @@ export function ModelCard7() {
           </DropdownMenu>
         </div>
       </div>
+
       <div className="w-full xl:hidden">
         <Swiper
           spaceBetween={10}
-          slidesPerView={paidMedia.length !== 0 ? "auto" : 1}
+          slidesPerView={freeMedia.length !== 0 ? "auto" : 1}
           className="w-full"
         >
           {isGettingModels ? (
@@ -309,8 +312,8 @@ export function ModelCard7() {
                 </SwiperSlide>
               ))}
             </>
-          ) : !isGettingModels && paidMedia.length !== 0 ? (
-            paidMedia.map((item) => (
+          ) : !isGettingModels && freeMedia.length !== 0 ? (
+            freeMedia.map((item) => (
               <SwiperSlide key={item.id}>
                 <div className="flex h-full max-w-28 cursor-pointer flex-col justify-between gap-2 rounded-md transition duration-200 hover:bg-stone-900">
                   {item.type === "photo" ? (
@@ -363,7 +366,7 @@ export function ModelCard7() {
             ))
           ) : (
             !isGettingModels &&
-            paidMedia.length === 0 && (
+            freeMedia.length === 0 && (
               <span className="flex h-28 w-full items-center justify-center text-center text-xl font-bold text-white">
                 Nenhuma Mídia Inserida
               </span>
@@ -386,8 +389,8 @@ export function ModelCard7() {
               />
             ))}
           </>
-        ) : !isGettingModels && paidMedia.length !== 0 ? (
-          paidMedia.map((item) => (
+        ) : !isGettingModels && freeMedia.length !== 0 ? (
+          freeMedia.map((item) => (
             <div
               key={item.id}
               className="flex h-max w-32 cursor-pointer flex-col justify-between gap-2 rounded-md"
@@ -439,7 +442,7 @@ export function ModelCard7() {
           ))
         ) : (
           !isGettingModels &&
-          paidMedia.length === 0 && (
+          freeMedia.length === 0 && (
             <span className="flex h-full w-full items-center justify-center text-center text-xl font-bold text-white xl:col-span-8">
               Nenhuma Mídia Inserida
             </span>

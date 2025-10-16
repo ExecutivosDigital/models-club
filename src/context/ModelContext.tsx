@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { useCookies } from "next-client-cookies";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useApiContext } from "./ApiContext";
 
@@ -61,6 +62,7 @@ export interface ModelProps {
 
 export const ModelContextProvider = ({ children }: ProviderProps) => {
   const { GetAPI } = useApiContext();
+  const cookies = useCookies();
   const [models, setModels] = useState<ModelProps[]>([]);
   const [selectedModel, setSelectedModel] = useState<ModelProps | null>(null);
   const [newModelData, setNewModelData] = useState<ModelProps>({
@@ -111,7 +113,16 @@ export const ModelContextProvider = ({ children }: ProviderProps) => {
     const models = await GetAPI("/model", true);
     if (models.status === 200) {
       setModels(models.body.models);
-      setSelectedModel(models.body.models[0]);
+      if (cookies.get("selectedModel") === "") {
+        setSelectedModel(models.body.models[0]);
+      } else {
+        const model = models.body.models.find(
+          (model: ModelProps) => model.id === cookies.get("selectedModel"),
+        );
+        if (model) {
+          setSelectedModel(model);
+        }
+      }
       setIsGettingModels(false);
     }
     setIsGettingModels(false);

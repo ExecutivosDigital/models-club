@@ -19,17 +19,14 @@ export function GenericCard({
       )}
     >
       <>
-        {isLoading ? (
-          <div
-            className={cn(
-              "absolute top-0 left-0 z-10 h-full w-full bg-neutral-900 transition duration-100",
-              isLoading && "animate-pulse opacity-100",
-              !isLoading && "pointer-events-none opacity-0",
-            )}
-          />
-        ) : (
-          <>{children}</>
-        )}
+        <div
+          className={cn(
+            "absolute top-0 left-0 z-10 h-full w-full bg-neutral-900 transition duration-150",
+            isLoading && "opacity-100",
+            !isLoading && "pointer-events-none opacity-0 delay-500",
+          )}
+        />
+        <>{children}</>
       </>
     </div>
   );

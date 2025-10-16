@@ -49,7 +49,7 @@ export function PrivateHeader() {
           <DropdownMenuTrigger asChild>
             <button className="flex items-center justify-center gap-2 rounded-lg border border-neutral-600 px-4 py-2 text-neutral-600 xl:w-60 xl:justify-normal">
               <span className="truncate">
-                {selectedModel ? selectedModel.name : "Selecione uma Modelo"}
+                {selectedModel ? selectedModel.name : "Criar Modelo"}
               </span>
               <Image
                 src="/icons/save.svg"

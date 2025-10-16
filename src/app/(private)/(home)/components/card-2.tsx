@@ -1,6 +1,7 @@
 "use client";
 import { GenericCard } from "@/components/ui/card";
 import { useApiContext } from "@/context/ApiContext";
+import { useModelContext } from "@/context/ModelContext";
 import { useUserProfileContext } from "@/context/UserProfileContext";
 import { cn } from "@/utils/cn";
 import { Eye, EyeOff } from "lucide-react";
@@ -10,6 +11,7 @@ import toast from "react-hot-toast";
 
 export function HomeCard2() {
   const { userProfile, GetUserProfile } = useUserProfileContext();
+  const { isGettingModels } = useModelContext();
   const { PutAPI } = useApiContext();
 
   const [localAsaasWalletId, setLocalAsaasWalletId] = useState<string>("");
@@ -48,6 +50,7 @@ export function HomeCard2() {
         "h-max xl:col-span-1 xl:h-full xl:justify-between",
         !userProfile.asaasWalletId && "border border-red-500",
       )}
+      isLoading={isGettingModels}
     >
       <div className="flex gap-2">
         <div className="flex flex-1 flex-col gap-2">

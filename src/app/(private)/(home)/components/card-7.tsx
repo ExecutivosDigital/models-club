@@ -1,10 +1,13 @@
 "use client";
 import { GenericCard } from "@/components/ui/card";
+import { useModelContext } from "@/context/ModelContext";
 import { CheckCheck } from "lucide-react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export function HomeCard7() {
+  const { isGettingModels } = useModelContext();
+
   const array = [
     {
       id: "5",
@@ -40,7 +43,10 @@ export function HomeCard7() {
   ];
 
   return (
-    <GenericCard className="xl:col-span-3">
+    <GenericCard
+      className="h-full min-h-60 xl:col-span-3 xl:min-h-[26rem]"
+      isLoading={isGettingModels}
+    >
       <div className="flex w-full flex-col justify-between xl:flex-row xl:items-center">
         <span className="text-lg font-semibold text-zinc-200">
           Vídeos para começar: Opcional*

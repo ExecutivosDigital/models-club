@@ -3,15 +3,20 @@
 import { GenericCard } from "@/components/ui/card";
 import { useModelContext } from "@/context/ModelContext";
 import { ChevronRight } from "lucide-react";
+import { useCookies } from "next-client-cookies";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export function HomeCard5() {
-  const { setSelectedModel } = useModelContext();
+  const { setSelectedModel, isGettingModels } = useModelContext();
+  const cookies = useCookies();
   const router = useRouter();
 
   return (
-    <GenericCard className="h-max justify-between xl:col-span-2 xl:h-48">
+    <GenericCard
+      className="h-max justify-between xl:col-span-2 xl:h-48"
+      isLoading={isGettingModels}
+    >
       <div className="flex justify-between gap-2">
         <div className="flex flex-1 flex-col gap-2 xl:w-2/3 xl:flex-none">
           <span className="font-semibold">Criação de Modelo Digital</span>
@@ -34,6 +39,7 @@ export function HomeCard5() {
           onClick={() => {
             router.push("/models");
             setSelectedModel(null);
+            cookies.remove("selectedModel");
           }}
           className="h-8 w-full rounded-md bg-stone-950 px-4 font-semibold xl:w-max"
         >

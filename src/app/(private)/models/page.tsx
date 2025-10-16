@@ -1,4 +1,5 @@
 import { ModelCard1 } from "./components/card-1";
+import { ModelCard10 } from "./components/card-10";
 import { ModelCard2 } from "./components/card-2";
 import { ModelCard3 } from "./components/card-3";
 import { ModelCard4 } from "./components/card-4";
@@ -20,6 +21,7 @@ export default function Models() {
       <ModelCard7 />
       <ModelCard8 />
       <ModelCard9 />
+      <ModelCard10 />
     </div>
   );
 }
