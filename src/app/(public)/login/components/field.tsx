@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
+import Icon from "./icon";
 
 type FieldProps = {
   className?: string;
@@ -96,14 +97,13 @@ const Field = ({
               {Svg}
             </svg>
           ) : (
-            <></>
-            // <Icon
-            //   className={`fill-n-4/50 pointer-events-none absolute top-3.5 left-4 transition-colors ${
-            //     value !== "" && "fill-n-4"
-            //   }`}
-            //   name={icon}
-            //   fill="#737373"
-            // />
+            <Icon
+              className={`fill-n-4/50 pointer-events-none absolute top-3.5 left-4 transition-colors ${
+                value !== "" && "fill-n-4"
+              }`}
+              name={icon}
+              fill="#737373"
+            />
           )}
         </div>
         {note && <div className="base2 text-n-4/50 mt-2">{note}</div>}

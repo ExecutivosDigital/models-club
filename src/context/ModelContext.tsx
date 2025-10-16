@@ -109,7 +109,6 @@ export const ModelContextProvider = ({ children }: ProviderProps) => {
 
   async function GetModels() {
     const models = await GetAPI("/model", true);
-    console.log("models", models);
     if (models.status === 200) {
       setModels(models.body.models);
       setSelectedModel(models.body.models[0]);

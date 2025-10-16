@@ -1,8 +1,15 @@
+"use client";
+
 import { GenericCard } from "@/components/ui/card";
+import { useModelContext } from "@/context/ModelContext";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export function HomeCard5() {
+  const { setSelectedModel } = useModelContext();
+  const router = useRouter();
+
   return (
     <GenericCard className="h-max justify-between xl:col-span-2 xl:h-48">
       <div className="flex justify-between gap-2">
@@ -23,7 +30,13 @@ export function HomeCard5() {
         />
       </div>
       <div className="flex w-full flex-1 flex-col items-end justify-between gap-2 xl:flex-row">
-        <button className="h-8 w-full rounded-md bg-stone-950 px-4 font-semibold xl:w-max">
+        <button
+          onClick={() => {
+            router.push("/models");
+            setSelectedModel(null);
+          }}
+          className="h-8 w-full rounded-md bg-stone-950 px-4 font-semibold xl:w-max"
+        >
           INICIAR CRIAÇÃO
         </button>
         <button className="flex h-8 w-full items-center justify-center gap-2 rounded-lg border border-neutral-600 bg-stone-950 px-4 text-neutral-600 xl:w-max xl:justify-normal">
