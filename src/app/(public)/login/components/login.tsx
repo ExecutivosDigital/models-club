@@ -1,7 +1,7 @@
 "use client";
 import { useApiContext } from "@/context/ApiContext";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2, LockIcon, Mail } from "lucide-react";
 import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -103,7 +103,7 @@ const SignIn = ({ onClick }: SignInProps) => {
 
   return (
     <Form {...form}>
-      <div className="flex flex-col gap-4" onKeyDown={handleKeyPress}>
+      <div className="flex flex-col gap-1 2xl:gap-4" onKeyDown={handleKeyPress}>
         <FormField
           key="email"
           name="email"
@@ -113,7 +113,7 @@ const SignIn = ({ onClick }: SignInProps) => {
               <Field
                 classInput="border-neutral-500"
                 placeholder="Email"
-                icon="email"
+                Svg={<Mail className="text-neutral-500" />}
                 value={field.value}
                 onChange={field.onChange}
                 required
@@ -133,7 +133,7 @@ const SignIn = ({ onClick }: SignInProps) => {
                 <Field
                   classInput="border-neutral-500"
                   placeholder="Senha"
-                  icon="lock"
+                  Svg={<LockIcon className="text-neutral-500" />}
                   type={showPassword ? "text" : "password"}
                   value={field.value}
                   onChange={field.onChange}

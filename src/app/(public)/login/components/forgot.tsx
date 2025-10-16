@@ -1,6 +1,6 @@
 import { useApiContext } from "@/context/ApiContext";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Loader2, LockIcon, LockKeyhole, Mail, MoveLeft } from "lucide-react";
 import { useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -217,11 +217,8 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
 
   return (
     <>
-      <button className="group mb-8 flex items-center" onClick={onClick}>
-        {/* <Icon
-          className="mr-4 fill-neutral-500 transition-transform group-hover:-translate-x-1"
-          name="arrow-prev"
-        /> */}
+      <button className="group mb-8 flex items-center gap-2" onClick={onClick}>
+        <MoveLeft />
         Recuperar senha
       </button>
       <Form {...form}>
@@ -236,7 +233,7 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
                   <Field
                     classInput="border-neutral-500"
                     placeholder="Email"
-                    icon="email"
+                    Svg={<Mail className="text-neutral-500" />}
                     value={field.value}
                     onChange={field.onChange}
                     required
@@ -255,7 +252,7 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
                   <Field
                     classInput="border-neutral-500"
                     placeholder="Código"
-                    icon="code"
+                    Svg={<LockKeyhole className="text-neutral-500" />}
                     value={field.value}
                     onChange={field.onChange}
                     required
@@ -274,7 +271,7 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
                   <Field
                     classInput="border-neutral-500"
                     placeholder="Senha"
-                    icon="lock"
+                    Svg={<LockIcon className="text-neutral-500" />}
                     type="password"
                     value={field.value}
                     onChange={field.onChange}

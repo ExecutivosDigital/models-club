@@ -2,7 +2,17 @@
 import { useApiContext } from "@/context/ApiContext";
 import { maskCpfCnpj, maskPhone } from "@/utils/masks";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Loader2, Phone, User } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Hash,
+  Loader2,
+  LockIcon,
+  Mail,
+  Phone,
+  Ticket,
+  User,
+} from "lucide-react";
 import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -165,14 +175,14 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
 
   return (
     <Form {...form}>
-      <div className="flex flex-col gap-4" onKeyDown={handleKeyPress}>
+      <div className="flex flex-col gap-1 2xl:gap-4" onKeyDown={handleKeyPress}>
         <>
           <FormField
             key="name"
             name="name"
             control={form.control}
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="relative">
                 <Field
                   classInput="border-neutral-500"
                   placeholder="Nome"
@@ -195,7 +205,6 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
                   classInput="border-neutral-500"
                   placeholder="Telefone"
                   Svg={<Phone className="text-neutral-500" />}
-                  icon="phone"
                   value={maskPhone(field.value)}
                   onChange={(e: any) => field.onChange(e.target.value)}
                   required
@@ -214,7 +223,7 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
                 <Field
                   classInput="border-neutral-500"
                   placeholder="Email"
-                  icon="email"
+                  Svg={<Mail className="text-neutral-500" />}
                   value={field.value}
                   onChange={field.onChange}
                   required
@@ -232,7 +241,7 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
                 <Field
                   classInput="border-neutral-500"
                   placeholder="000.000.000-00"
-                  icon="dots"
+                  Svg={<Hash className="text-neutral-500" />}
                   value={field.value}
                   onChange={(e: any) =>
                     field.onChange(maskCpfCnpj(e.target.value))
@@ -253,7 +262,7 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
                 <Field
                   classInput="border-neutral-500"
                   placeholder="Cupom"
-                  icon="coupon"
+                  Svg={<Ticket className="text-neutral-500" />}
                   value={field.value || ""}
                   onChange={field.onChange}
                   required
@@ -272,7 +281,7 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
                   <Field
                     classInput="border-neutral-500"
                     placeholder="Senha"
-                    icon="lock"
+                    Svg={<LockIcon className="text-neutral-500" />}
                     type={showPassword ? "text" : "password"}
                     value={field.value}
                     onChange={field.onChange}
@@ -300,7 +309,7 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
                   <Field
                     classInput="border-neutral-500"
                     placeholder="Senha"
-                    icon="lock"
+                    Svg={<LockIcon className="text-neutral-500" />}
                     type={showRememberPassword ? "text" : "password"}
                     value={field.value}
                     onChange={field.onChange}
@@ -328,12 +337,6 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
       </div>
       <div className="mt-4 flex w-full items-center gap-4">
         <button
-          onClick={() => setSelectedStep(0)}
-          className="rounded-md border border-neutral-500 bg-transparent px-4 py-2 text-neutral-500"
-        >
-          Voltar
-        </button>
-        <button
           onClick={() => handleNext(form)}
           disabled={isCreating}
           className="from-primary to-secondary w-full rounded-md bg-gradient-to-br px-4 py-2 font-semibold shadow-sm"
@@ -348,7 +351,7 @@ const CreateAccount = ({ setSelectedStep }: RegisterProps) => {
           )}
         </button>
       </div>
-      <div className="text-sm text-neutral-500">
+      <div className="text-xs text-neutral-500 2xl:text-sm">
         Ao criar uma conta, você aceita nossos{" "}
         <button
           className="transition-colors hover:text-neutral-300"

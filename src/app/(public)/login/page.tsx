@@ -12,31 +12,31 @@ export default function Login() {
 
   return (
     <>
-      <div className="relative flex h-[100svh] overflow-x-hidden md:px-4 md:pt-16 md:pb-10 lg:p-6">
-        <div className="relative my-6 hidden w-full max-w-[45rem] lg:flex xl:max-w-[30rem] xl:p-10 2xl:max-w-[50rem]">
+      <div className="relative flex min-h-[100svh] gap-2 overflow-x-hidden p-2 2xl:gap-4 2xl:p-4">
+        <div className="relative m-auto hidden h-full w-max items-center justify-center xl:flex">
           <Image
-            className="mx-auto block h-full w-auto rounded-[1.25rem] object-contain"
+            className="m-auto block h-[90%] w-auto max-w-[350px] rounded-[1.25rem] object-contain 2xl:max-w-[500px]"
             src="/static/login.gif"
             alt=""
             width={1000}
             height={1000}
           />
         </div>
-        <div className="relative m-6 flex grow rounded-[1.25rem] bg-stone-900 p-2 md:p-0 md:px-2 lg:m-0">
+        <div className="relative flex grow rounded-[1.25rem] bg-stone-900 p-2">
           <div className="m-auto w-full max-w-[31.5rem]">
             {forgot ? (
               <ForgotPassword onClick={() => setForgot(false)} />
             ) : (
               <>
                 <Image
-                  className="mx-auto mb-8 w-80"
+                  className="mx-auto mb-2 h-auto w-48 2xl:mb-8 2xl:w-80"
                   src="/logos/logo.png"
                   width={1000}
                   height={500}
                   alt=""
                 />
                 <div>
-                  <div className="mb-8 flex rounded-md bg-stone-800 p-1">
+                  <div className="mb-2 flex rounded-md bg-stone-800 p-1 2xl:mb-8">
                     <div
                       onClick={() => setSelectedStep(0)}
                       className={cn(

@@ -46,9 +46,9 @@ const Field = ({
 
   return (
     <div className={`${className}`}>
-      <div className="">
+      <div className="relative">
         {label && (
-          <div className="base2 mb-2 flex font-semibold">
+          <div className="mb-0.5 flex font-semibold 2xl:mb-2">
             {label}
             {textarea && (
               <span className="text-n-4/50 ml-auto pl-4">{remainingChars}</span>
@@ -56,6 +56,11 @@ const Field = ({
           </div>
         )}
         <div className="relative">
+          {Svg && (
+            <svg className="text-[rgb(108 114 117 / 0.5)] pointer-events-none absolute top-2 left-2 h-10 transition-colors 2xl:top-3.5 2xl:h-13">
+              {Svg}
+            </svg>
+          )}
           {textarea ? (
             <textarea
               className={`bg-n-2 border-n-2 base2 text-n-7 placeholder:text-n-4/50 dark:bg-n-8 dark:border-n-6 dark:text-n-3 dark:focus:bg-n-8 h-24 w-full resize-none rounded-md border-2 px-3.5 py-3 transition-colors outline-none focus:bg-transparent ${
@@ -72,13 +77,14 @@ const Field = ({
           ) : (
             <input
               className={twMerge(
-                `bg-n-2 border-n-2 base2 text-n-7 placeholder:text-n-4/50 dark:bg-n-8 dark:border-n-6 dark:text-n-3 dark:focus:bg-n-8 h-13 w-full rounded-md border-2 px-3.5 transition-colors outline-none focus:border-white/20 focus:bg-transparent dark:focus:border-white/20 ${
+                `bg-n-2 border-n-2 base2 text-n-7 placeholder:text-n-4/50 dark:bg-n-8 dark:border-n-6 dark:text-n-3 dark:focus:bg-n-8 h-10 w-full rounded-md border-2 px-3.5 transition-colors outline-none focus:border-white/20 focus:bg-transparent 2xl:h-13 dark:focus:border-white/20 ${
                   (icon || Svg) && "pl-[3.125rem]"
                 } ${
                   value !== "" && "dark:bg-n-8 border-white/20 bg-transparent"
                 } ${classInput}`,
               )}
               type={type || "text"}
+              autoCapitalize="off"
               value={value}
               onChange={onChange}
               disabled={disabled}
@@ -86,24 +92,6 @@ const Field = ({
               required={required}
               maxLength={maxLength}
             />
-          )}
-          {Svg ? (
-            <svg
-              className={`text-[rgb(108 114 117 / 0.5)] pointer-events-none absolute top-3.5 left-4 transition-colors ${
-                value !== "" && ""
-              }`}
-            >
-              {Svg}
-            </svg>
-          ) : (
-            <></>
-            // <Icon
-            //   className={`fill-n-4/50 pointer-events-none absolute top-3.5 left-4 transition-colors ${
-            //     value !== "" && "fill-n-4"
-            //   }`}
-            //   name={icon}
-            //   fill="#737373"
-            // />
           )}
         </div>
         {note && <div className="base2 text-n-4/50 mt-2">{note}</div>}
