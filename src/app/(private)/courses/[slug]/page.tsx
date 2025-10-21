@@ -1,9 +1,20 @@
+"use client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Breadcrumbs } from "./components/breadcrumbs";
 import { BreadcrumbsSelector } from "./components/breadcrumbs-selector";
 import { ClassInfo } from "./components/class-info";
 import { DesktopSidebar } from "./components/desktop-sidebar";
 
 export default function CourseDetails() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.back();
+  }, []);
+
+  return null;
+
   return (
     <div className="min-h-[calc(100svh-65px)] w-full bg-stone-900 xl:h-[calc(100svh-119px)] xl:max-h-[calc(100svh-119px)] xl:min-h-auto">
       <Breadcrumbs />

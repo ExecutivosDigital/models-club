@@ -1,5 +1,6 @@
 "use client";
 import { GenericCard } from "@/components/ui/card";
+import { Soon } from "@/components/ui/soon";
 import { cn } from "@/utils/cn";
 import { CheckCheck } from "lucide-react";
 import Image from "next/image";
@@ -16,6 +17,7 @@ export function CourseCard({ course }: CourseCardProps) {
 
   return (
     <GenericCard className="xl:col-span-3">
+      <Soon />
       <div className="flex w-full flex-col justify-between xl:flex-row xl:items-center">
         <span className="text-lg font-semibold text-zinc-200">
           Curso: {course.title}

@@ -28,15 +28,17 @@ export function PrivateHeader() {
       <span className="text-lg font-semibold text-zinc-200">
         {pathname === "/"
           ? `Seja muito bem vindo ${userProfile.name}`
-          : pathname === "/courses"
-            ? "Cursos"
-            : pathname === "/models"
-              ? "Modelos"
-              : pathname === "/admin"
-                ? "Administrativo"
-                : pathname === "/chat"
-                  ? "Chat"
-                  : ""}
+          : pathname === "/analytics"
+            ? "Analytics"
+            : pathname === "/courses"
+              ? "Cursos"
+              : pathname === "/models"
+                ? "Modelos"
+                : pathname === "/admin"
+                  ? "Administrativo"
+                  : pathname === "/chat"
+                    ? "Chat"
+                    : ""}
       </span>
       {pathname === "/" ? (
         <button className="flex items-center justify-center gap-2 rounded-lg border border-neutral-600 px-4 py-2 text-neutral-600 xl:justify-normal">

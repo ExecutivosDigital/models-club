@@ -13,7 +13,7 @@ export const Pages = [
   {
     title: "Analytics",
     icon: "analytics",
-    route: "#",
+    route: "/analytics",
   },
   {
     title: "Cursos",
