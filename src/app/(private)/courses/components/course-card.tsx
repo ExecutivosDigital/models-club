@@ -1,132 +1,106 @@
 "use client";
 import { GenericCard } from "@/components/ui/card";
-import { Soon } from "@/components/ui/soon";
 import { cn } from "@/utils/cn";
-import { CheckCheck } from "lucide-react";
+import { BookOpen, CheckCheck, Clock, DollarSign } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { CoursePreviewProps } from "../page";
+import { CourseDetailsProps } from "../page";
 
 interface CourseCardProps {
-  course: CoursePreviewProps;
+  course: CourseDetailsProps;
 }
 
 export function CourseCard({ course }: CourseCardProps) {
   const router = useRouter();
 
+  // const handlePurchase = () => {
+  //   // Lógica para redirecionar para a página de compra
+  //   router.push(/purchase/${course.id});
+  // };
+
+  const handleViewDetails = () => {
+    // Lógica para redirecionar para a página de detalhes do curso
+    router.push(`/courses/${course.id}`);
+  };
+
   return (
     <GenericCard className="xl:col-span-3">
-      <Soon />
       <div className="flex w-full flex-col justify-between xl:flex-row xl:items-center">
         <span className="text-lg font-semibold text-zinc-200">
           Curso: {course.title}
         </span>
-        <button className="h-8 rounded-md bg-zinc-700 px-4 font-semibold">
-          Ver Todas
+        <button
+          onClick={handleViewDetails}
+          className="h-8 rounded-md bg-zinc-700 px-4 font-semibold transition-colors hover:bg-zinc-600"
+        >
+          Ver Detalhes
         </button>
       </div>
-      <div className="h-[26rem] min-h-[26rem] w-full xl:hidden">
-        <Swiper
-          spaceBetween={10}
-          breakpoints={{
-            300: {
-              slidesPerView: 1.2,
-            },
-            768: {
-              slidesPerView: "auto",
-            },
-          }}
-          className="h-full w-full"
-        >
-          {course.classes.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div className="flex h-full max-w-96 cursor-pointer flex-col justify-between gap-4 rounded-md transition duration-200 hover:bg-stone-950">
-                <Image
-                  src={item.image}
-                  alt=""
-                  width={500}
-                  height={500}
-                  className="h-max w-96 rounded-md object-contain"
-                />
-                <div className="flex flex-col px-2 leading-4">
-                  <span className="text-sm text-zinc-400">{item.tag}</span>
-                  <span className="text-lg font-semibold">{item.title}</span>
-                </div>
-                <span className="px-2 text-neutral-400">
-                  {item.description}
-                </span>
-                <div className="flex w-full items-center justify-between px-2 pb-2">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(
-                        `/courses/${item.title.toLowerCase().replaceAll(" ", "-")}`,
-                      );
-                    }}
-                    className="h-8 rounded-md bg-stone-950 px-2 font-semibold"
-                  >
-                    VER AULA
-                  </button>
-                  <div
-                    className={cn(
-                      "border-primary text-primary flex h-8 w-8 items-center justify-center rounded-md border bg-stone-950",
-                      !item.seen && "opacity-0",
-                    )}
-                  >
-                    <CheckCheck />
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-      <div className="hidden w-full items-center justify-between xl:flex">
-        {course.classes.map((item) => (
-          <div
-            key={item.id}
-            className="flex h-full w-72 cursor-pointer flex-col justify-between gap-4 rounded-md transition duration-200 hover:bg-stone-950"
-          >
-            <Image
-              src={item.image}
-              alt=""
-              width={500}
-              height={500}
-              className="aspect-video w-full rounded-md object-contain"
-            />
-            <div className="flex flex-col px-2 leading-4">
-              <span className="text-sm text-zinc-400">{item.tag}</span>
-              <span className="text-lg font-semibold">{item.title}</span>
+
+      <div className="mt-4 flex flex-col gap-4">
+        <div className="aspect-video w-full overflow-hidden rounded-md bg-zinc-800">
+          <Image
+            src="/placeholder-course.jpg" // Imagem padrão, ajuste conforme necessário
+            alt={`Capa do curso ${course.title}`}
+            width={800}
+            height={450}
+            className="h-full w-full object-cover"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-neutral-400">{course.description}</p>
+
+          <div className="flex flex-wrap gap-4 text-sm text-zinc-400">
+            <div className="flex items-center gap-1">
+              <Clock size={16} />
+              <span>{course.duration}</span>
             </div>
-            <span className="px-2 text-neutral-400">{item.description}</span>
-            <div className="flex w-full items-center justify-between px-2 pb-2">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  router.push(
-                    `/courses/${item.title.toLowerCase().replaceAll(" ", "-")}`,
-                  );
-                }}
-                className="h-8 rounded-md bg-stone-950 px-2 font-semibold"
-              >
-                VER AULA
-              </button>
-              <div
-                className={cn(
-                  "border-primary text-primary flex h-8 w-8 items-center justify-center rounded-md border bg-stone-950",
-                  !item.seen && "opacity-0",
-                )}
-              >
-                <CheckCheck />
-              </div>
+            <div className="flex items-center gap-1">
+              <BookOpen size={16} />
+              <span>{course.lessons} aulas</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <DollarSign size={16} />
+              <span>
+                {new Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(course.price)}
+              </span>
             </div>
           </div>
-        ))}
+        </div>
       </div>
-      <button className="flex h-8 w-max items-center gap-2 rounded-md border border-green-500 bg-stone-950 px-4 font-bold text-green-500">
-        Adquirir Curso
-      </button>
+
+      <div className="mt-6 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          {course.purchased && (
+            <div className="flex items-center gap-1 text-green-500">
+              <CheckCheck size={20} />
+              <span className="text-sm font-medium">Adquirido</span>
+            </div>
+          )}
+          {course.partnerId && (
+            <span className="rounded bg-zinc-700 px-2 py-1 text-xs text-zinc-300">
+              Parceria
+            </span>
+          )}
+        </div>
+
+        <button
+          // onClick={handlePurchase}
+          disabled={course.purchased}
+          className={cn(
+            "flex h-8 w-max items-center gap-2 rounded-md border px-4 font-bold transition-colors",
+            course.purchased
+              ? "cursor-not-allowed border-zinc-600 bg-zinc-700 text-zinc-400"
+              : "border-green-500 bg-stone-950 text-green-500 hover:bg-green-500 hover:text-stone-950",
+          )}
+        >
+          {course.purchased ? "Curso Adquirido" : "Adquirir Curso"}
+        </button>
+      </div>
     </GenericCard>
   );
 }

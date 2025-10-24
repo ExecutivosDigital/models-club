@@ -1,7 +1,6 @@
 "use client";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { BreadcrumbsSelector } from "./breadcrumbs-selector";
 
 export function Breadcrumbs() {
   const router = useRouter();
@@ -16,7 +15,7 @@ export function Breadcrumbs() {
         <span>Curso Tal</span>
       </div>
       <div className="hidden h-full items-center xl:flex">
-        <BreadcrumbsSelector />
+        {/* <BreadcrumbsSelector /> */}
       </div>
     </div>
   );

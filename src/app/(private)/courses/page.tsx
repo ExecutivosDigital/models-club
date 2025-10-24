@@ -1,113 +1,72 @@
 "use client";
 
+import { useApiContext } from "@/context/ApiContext";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { CourseCard } from "./components/course-card";
 
-export interface ClassPreviewProps {
+// Tipo de dados retornado pela API
+export interface CourseDetailsProps {
   id: string;
-  image: string;
-  tag: string;
   title: string;
   description: string;
-  seen: boolean;
-}
-
-export interface CoursePreviewProps {
-  id: string;
-  title: string;
-  classes: ClassPreviewProps[];
+  price: number;
+  partnerId?: string | null;
+  duration: string;
+  lessons: number;
+  purchased: boolean;
 }
 
 export default function Courses() {
-  const Courses: CoursePreviewProps[] = [
-    {
-      id: "1",
-      title: "Bem Vindos",
-      classes: [
-        {
-          id: "1",
-          image: "/static/placeholder-thumbnail-1.png",
-          tag: "Obrigatório*",
-          title: "Bem Vindos",
-          description:
-            "Visão geral da plataforma e das oportunidades de criar e vender conteúdo +18 com IA.",
-          seen: true,
-        },
-        {
-          id: "2",
-          image: "/static/placeholder-thumbnail-2.png",
-          tag: "Obrigatório*",
-          title: "Criar minha Modelo",
-          description:
-            "Passo a passo para desenvolver e personalizar sua própria personagem de IA.",
-          seen: true,
-        },
-        {
-          id: "3",
-          image: "/static/placeholder-thumbnail-3.png",
-          tag: "Obrigatório*",
-          title: "Como receber?",
-          description:
-            "Aprenda a configurar formas de pagamento e organizar seus ganhos com segurança.",
-          seen: false,
-        },
-        {
-          id: "4",
-          image: "/static/placeholder-thumbnail-4.png",
-          tag: "Obrigatório*",
-          title: "Key da IA",
-          description:
-            "Entenda o que é a chave da IA, como gerar e usar para liberar acessos e integrações.",
-          seen: false,
-        },
-      ],
-    },
-    {
-      id: "2",
-      title: "Criar minha Modelo",
-      classes: [
-        {
-          id: "1",
-          image: "/static/placeholder-thumbnail-1.png",
-          tag: "Obrigatório*",
-          title: "Bem Vindos",
-          description:
-            "Visão geral da plataforma e das oportunidades de criar e vender conteúdo +18 com IA.",
-          seen: true,
-        },
-        {
-          id: "2",
-          image: "/static/placeholder-thumbnail-2.png",
-          tag: "Obrigatório*",
-          title: "Criar minha Modelo",
-          description:
-            "Passo a passo para desenvolver e personalizar sua própria personagem de IA.",
-          seen: true,
-        },
-        {
-          id: "3",
-          image: "/static/placeholder-thumbnail-3.png",
-          tag: "Obrigatório*",
-          title: "Como receber?",
-          description:
-            "Aprenda a configurar formas de pagamento e organizar seus ganhos com segurança.",
-          seen: false,
-        },
-        {
-          id: "4",
-          image: "/static/placeholder-thumbnail-4.png",
-          tag: "Obrigatório*",
-          title: "Key da IA",
-          description:
-            "Entenda o que é a chave da IA, como gerar e usar para liberar acessos e integrações.",
-          seen: false,
-        },
-      ],
-    },
-  ];
+  const { GetAPI } = useApiContext();
+  const [courses, setCourses] = useState<CourseDetailsProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        setLoading(true);
+        const response = await GetAPI("/course", true);
+
+        if (response.status !== 200) {
+          toast.error(response.body.message);
+          return;
+        }
+
+        setCourses(response.body.courses);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Erro desconhecido");
+        console.error("Erro ao buscar cursos:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, [GetAPI]);
+
+  if (loading) {
+    return <div className="flex justify-center p-8">Carregando cursos...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center p-8">
+        <p className="mb-4 text-red-500">Erro: {error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
+        >
+          Tentar novamente
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="grid gap-6 xl:grid-cols-3">
-      {Courses.map((course) => (
+      {courses.map((course) => (
         <CourseCard key={course.id} course={course} />
       ))}
     </div>

@@ -1,16 +1,26 @@
+// components/Card-6.tsx
 "use client";
 import { GenericCard } from "@/components/ui/card";
+import { VideoModal } from "@/components/ui/videoModal";
 import { useModelContext } from "@/context/ModelContext";
 import { CheckCheck } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export function HomeCard6() {
   const { isGettingModels } = useModelContext();
+  const [selectedVideo, setSelectedVideo] = useState<{
+    id: string;
+    videoId: string;
+    title: string;
+    description: string;
+  } | null>(null);
 
   const array = [
     {
       id: "1",
+      videoId: "dQw4w9WgXcQ", // ID do vídeo do YouTube
       image: "/static/placeholder-thumbnail-1.png",
       tag: "Obrigatório*",
       title: "Bem Vindos",
@@ -19,6 +29,7 @@ export function HomeCard6() {
     },
     {
       id: "2",
+      videoId: "dQw4w9WgXcQ", // ID do vídeo do YouTube
       image: "/static/placeholder-thumbnail-2.png",
       tag: "Obrigatório*",
       title: "Criar minha Modelo",
@@ -27,6 +38,7 @@ export function HomeCard6() {
     },
     {
       id: "3",
+      videoId: "dQw4w9WgXcQ", // ID do vídeo do YouTube
       image: "/static/placeholder-thumbnail-3.png",
       tag: "Obrigatório*",
       title: "Como receber?",
@@ -35,6 +47,7 @@ export function HomeCard6() {
     },
     {
       id: "4",
+      videoId: "dQw4w9WgXcQ", // ID do vídeo do YouTube
       image: "/static/placeholder-thumbnail-4.png",
       tag: "Obrigatório*",
       title: "Key da IA",
@@ -43,92 +56,124 @@ export function HomeCard6() {
     },
   ];
 
+  const handleOpenVideo = (item: (typeof array)[0]) => {
+    setSelectedVideo({
+      id: item.id,
+      videoId: item.videoId,
+      title: item.title,
+      description: item.description,
+    });
+  };
+
+  const handleCloseModal = () => {
+    setSelectedVideo(null);
+  };
+
   return (
-    <GenericCard
-      className="h-full min-h-60 xl:col-span-3 xl:min-h-[26rem]"
-      isLoading={isGettingModels}
-    >
-      {" "}
-      <div className="flex w-full flex-col justify-between xl:flex-row xl:items-center">
-        <span className="text-lg font-semibold text-zinc-200">
-          Vídeos para começar: Obrigatório*
-        </span>
-        <button className="h-8 rounded-md bg-zinc-700 px-4 font-semibold">
-          Ver Todas
-        </button>
-      </div>
-      <div className="h-[26rem] min-h-[26rem] w-full xl:hidden">
-        <Swiper
-          spaceBetween={10}
-          breakpoints={{
-            300: {
-              slidesPerView: 1.2,
-            },
-            768: {
-              slidesPerView: "auto",
-            },
-          }}
-          className="h-full w-full"
-        >
-          {array.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div className="flex h-full max-w-96 cursor-pointer flex-col justify-between gap-4 rounded-md transition duration-200 hover:bg-stone-950">
-                <Image
-                  src={item.image}
-                  alt=""
-                  width={500}
-                  height={500}
-                  className="h-max w-96 rounded-md object-contain"
-                />
-                <div className="flex flex-col px-2 leading-4">
-                  <span className="text-sm text-zinc-400">{item.tag}</span>
-                  <span className="text-lg font-semibold">{item.title}</span>
-                </div>
-                <span className="px-2 text-neutral-400">
-                  {item.description}
-                </span>
-                <div className="flex w-full items-center justify-between px-2 pb-2">
-                  <button className="h-8 rounded-md bg-stone-950 px-2 font-semibold">
-                    VER ATIVIDADE
-                  </button>
-                  <div className="border-primary text-primary flex h-8 w-8 items-center justify-center rounded-md border bg-stone-950">
-                    <CheckCheck />
+    <>
+      <GenericCard
+        className="h-full min-h-60 xl:col-span-3 xl:min-h-[26rem]"
+        isLoading={isGettingModels}
+      >
+        <div className="flex w-full flex-col justify-between xl:flex-row xl:items-center">
+          <span className="text-lg font-semibold text-zinc-200">
+            Vídeos para começar: Obrigatório*
+          </span>
+          <button className="h-8 rounded-md bg-zinc-700 px-4 font-semibold">
+            Ver Todas
+          </button>
+        </div>
+
+        <div className="h-[26rem] min-h-[26rem] w-full xl:hidden">
+          <Swiper
+            spaceBetween={10}
+            breakpoints={{
+              300: {
+                slidesPerView: 1.2,
+              },
+              768: {
+                slidesPerView: "auto",
+              },
+            }}
+            className="h-full w-full"
+          >
+            {array.map((item) => (
+              <SwiperSlide key={item.id}>
+                <div className="flex h-full max-w-96 cursor-pointer flex-col justify-between gap-4 rounded-md transition duration-200 hover:bg-stone-950">
+                  <Image
+                    src={item.image}
+                    alt=""
+                    width={500}
+                    height={500}
+                    className="h-max w-96 rounded-md object-contain"
+                  />
+                  <div className="flex flex-col px-2 leading-4">
+                    <span className="text-sm text-zinc-400">{item.tag}</span>
+                    <span className="text-lg font-semibold">{item.title}</span>
+                  </div>
+                  <span className="px-2 text-neutral-400">
+                    {item.description}
+                  </span>
+                  <div className="flex w-full items-center justify-between px-2 pb-2">
+                    <button
+                      onClick={() => handleOpenVideo(item)}
+                      className="h-8 rounded-md bg-stone-950 px-2 font-semibold"
+                    >
+                      VER ATIVIDADE
+                    </button>
+                    <div className="border-primary text-primary flex h-8 w-8 items-center justify-center rounded-md border bg-stone-950">
+                      <CheckCheck />
+                    </div>
                   </div>
                 </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        <div className="hidden w-full items-center justify-between xl:flex">
+          {array.map((item) => (
+            <div
+              key={item.id}
+              className="flex h-full w-72 cursor-pointer flex-col justify-between gap-4 rounded-md transition duration-200 hover:bg-stone-950"
+            >
+              <Image
+                src={item.image}
+                alt=""
+                width={500}
+                height={500}
+                className="aspect-video w-full rounded-md object-contain"
+              />
+              <div className="flex flex-col px-2 leading-4">
+                <span className="text-sm text-zinc-400">{item.tag}</span>
+                <span className="text-lg font-semibold">{item.title}</span>
               </div>
-            </SwiperSlide>
+              <span className="px-2 text-neutral-400">{item.description}</span>
+              <div className="flex w-full items-center justify-between px-2 pb-2">
+                <button
+                  onClick={() => handleOpenVideo(item)}
+                  className="h-8 rounded-md bg-stone-950 px-2 font-semibold"
+                >
+                  VER ATIVIDADE
+                </button>
+                <div className="border-primary text-primary flex h-8 w-8 items-center justify-center rounded-md border bg-stone-950">
+                  <CheckCheck />
+                </div>
+              </div>
+            </div>
           ))}
-        </Swiper>
-      </div>
-      <div className="hidden w-full items-center justify-between xl:flex">
-        {array.map((item) => (
-          <div
-            key={item.id}
-            className="flex h-full w-72 cursor-pointer flex-col justify-between gap-4 rounded-md transition duration-200 hover:bg-stone-950"
-          >
-            <Image
-              src={item.image}
-              alt=""
-              width={500}
-              height={500}
-              className="aspect-video w-full rounded-md object-contain"
-            />
-            <div className="flex flex-col px-2 leading-4">
-              <span className="text-sm text-zinc-400">{item.tag}</span>
-              <span className="text-lg font-semibold">{item.title}</span>
-            </div>
-            <span className="px-2 text-neutral-400">{item.description}</span>
-            <div className="flex w-full items-center justify-between px-2 pb-2">
-              <button className="h-8 rounded-md bg-stone-950 px-2 font-semibold">
-                VER ATIVIDADE
-              </button>
-              <div className="border-primary text-primary flex h-8 w-8 items-center justify-center rounded-md border bg-stone-950">
-                <CheckCheck />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </GenericCard>
+        </div>
+      </GenericCard>
+
+      {selectedVideo && (
+        <VideoModal
+          isOpen={!!selectedVideo}
+          onClose={handleCloseModal}
+          videoId={selectedVideo.videoId}
+          title={selectedVideo.title}
+          description={selectedVideo.description}
+        />
+      )}
+    </>
   );
 }

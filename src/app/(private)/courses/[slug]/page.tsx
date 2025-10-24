@@ -1,19 +1,30 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useCourseContext } from "@/context/CoursesContext";
+import { convertToEmbedUrl } from "@/utils/functions";
 import { Breadcrumbs } from "./components/breadcrumbs";
 import { BreadcrumbsSelector } from "./components/breadcrumbs-selector";
 import { ClassInfo } from "./components/class-info";
 import { DesktopSidebar } from "./components/desktop-sidebar";
 
 export default function CourseDetails() {
-  const router = useRouter();
+  const { currentLesson } = useCourseContext();
 
-  useEffect(() => {
-    router.back();
-  }, []);
+  if (!currentLesson) {
+    return (
+      <div className="flex min-h-[calc(100svh-65px)] w-full items-center justify-center bg-stone-900">
+        <div className="text-center">
+          <h2 className="mb-4 text-2xl font-bold text-white">
+            Nenhuma aula selecionada
+          </h2>
+          <p className="text-neutral-400">
+            Por favor, selecione uma aula na lista para começar a assistir.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
-  return null;
+  const embedUrl = convertToEmbedUrl(currentLesson.videoUrl);
 
   return (
     <div className="min-h-[calc(100svh-65px)] w-full bg-stone-900 xl:h-[calc(100svh-119px)] xl:max-h-[calc(100svh-119px)] xl:min-h-auto">
@@ -23,8 +34,8 @@ export default function CourseDetails() {
           <iframe
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/uaS75cHC3iU?si=ERiuHqjw-j4ZYWRm"
-            title="YouTube video player"
+            src={embedUrl}
+            title={currentLesson.title}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
