@@ -117,7 +117,9 @@ export default function Privacy() {
         recursos que você usa em nosso site.
       </span>
       <span className="font-semibold">Data de Vigência</span>
-      <span>Esta política é efetiva a partir de 20 October 2025 13:39</span>
+      <span>
+        Esta política é efetiva a partir de 20 de Outubro de 2025 13:39
+      </span>
     </div>
   );
 }
