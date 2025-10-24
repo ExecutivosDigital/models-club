@@ -1,5 +1,6 @@
 "use client";
 
+import { Soon } from "@/components/ui/soon";
 import { useApiContext } from "@/context/ApiContext";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -66,6 +67,7 @@ export default function Courses() {
 
   return (
     <div className="grid gap-6 xl:grid-cols-3">
+      <Soon />
       {courses.map((course) => (
         <CourseCard key={course.id} course={course} />
       ))}
