@@ -349,14 +349,14 @@ const CreateAccount = () => {
         Ao criar uma conta, você aceita nossos{" "}
         <button
           className="transition-colors hover:text-neutral-300"
-          // onClick={() => setIsTermModalOpen(true)}
+          onClick={() => window.open("/terms", "_blank")}
         >
           Termos de Serviço
         </button>{" "}
         e nossa{" "}
         <button
           className="transition-colors hover:text-neutral-300"
-          // onClick={() => setIsTermModalOpen(true)}
+          onClick={() => window.open("/privacy", "_blank")}
         >
           Política de Privacidade
         </button>
