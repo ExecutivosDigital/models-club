@@ -10,7 +10,7 @@ interface ModelContextProps {
   setSelectedModel: React.Dispatch<React.SetStateAction<ModelProps | null>>;
   newModelData: ModelProps;
   setNewModelData: React.Dispatch<React.SetStateAction<ModelProps>>;
-  GetModels: () => void;
+  GetModels: (id?: string) => void;
   isGettingModels: boolean;
 }
 
@@ -109,12 +109,16 @@ export const ModelContextProvider = ({ children }: ProviderProps) => {
   });
   const [isGettingModels, setIsGettingModels] = useState(true);
 
-  async function GetModels() {
+  async function GetModels(id?: string) {
     const models = await GetAPI("/model", true);
     if (models.status === 200) {
       setModels(models.body.models);
       if (cookies.get("selectedModel") === "") {
         setSelectedModel(models.body.models[0]);
+      } else if (id) {
+        setSelectedModel(
+          models.body.models.find((model: ModelProps) => model.id === id),
+        );
       } else {
         const model = models.body.models.find(
           (model: ModelProps) => model.id === cookies.get("selectedModel"),

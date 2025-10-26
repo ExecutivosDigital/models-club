@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 export function ModelCard10() {
   const { PostAPI } = useApiContext();
-  const { selectedModel, newModelData } = useModelContext();
+  const { selectedModel, newModelData, GetModels } = useModelContext();
   const [isCreating, setIsCreating] = useState(false);
 
   async function CreateModel() {
@@ -20,6 +20,12 @@ export function ModelCard10() {
       toast.success("Modelo criada com sucesso!");
       await CreateModelPricing(create.body.modelId);
       await CreateModelMedia(create.body.modelId);
+      GetModels(create.body.modelId);
+      return setIsCreating(false);
+    }
+
+    if (create.status === 403) {
+      toast.error("Você não tem permissão para criar mais uma modelo.");
       return setIsCreating(false);
     }
     toast.error(create.body.message);
