@@ -12,15 +12,15 @@ export default function Login() {
 
   return (
     <>
-      <div className="relative flex h-full min-h-[100svh] gap-2 overflow-x-hidden p-2 2xl:gap-4 2xl:p-4">
-        <div className="relative mx-auto hidden w-full max-w-[50vw] items-center justify-center xl:flex">
+      <div className="relative flex h-full min-h-[100svh] flex-col gap-2 overflow-x-hidden p-2 xl:flex-row 2xl:gap-4 2xl:p-4">
+        <div className="relative mx-auto flex w-full items-center justify-center xl:max-w-[50vw]">
           <iframe
             src="https://www.youtube.com/embed/LrSwFoLAAO0?si=xgGFvrKD43dWWAiG"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-            className="m-auto block h-[90%] w-full rounded-[1.25rem]"
+            className="m-auto block h-[35vh] w-full rounded-[1.25rem] xl:h-[90%]"
           ></iframe>
           {/* <Image
             className="m-auto block h-[90%] w-max rounded-[1.25rem] bg-blue-500 object-contain"
