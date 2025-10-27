@@ -4,7 +4,6 @@ import { GenericCard } from "@/components/ui/card";
 import { Soon } from "@/components/ui/soon";
 import { useApiContext } from "@/context/ApiContext";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { CourseCard } from "./components/course-card";
 
 // Tipo de dados retornado pela API
@@ -32,7 +31,7 @@ export default function Courses() {
         const response = await GetAPI("/course", true);
 
         if (response.status !== 200) {
-          toast.error(response.body.message);
+          // toast.error(response.body.message);
           return;
         }
 

@@ -20,6 +20,17 @@ export function VideoModal({
 }: VideoModalProps) {
   if (!isOpen) return null;
 
+  function driveToPreview(url: string) {
+    if (url.includes("drive")) {
+      const m1 = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (m1) return `https://drive.google.com/file/d/${m1[1]}/preview`;
+      // match ?id=<id>
+      const m2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (m2) return `https://drive.google.com/file/d/${m2[1]}/preview`;
+      return url; // fallback
+    }
+  }
+
   return (
     <div className="bg-opacity-75 fixed inset-0 z-50 flex items-center justify-center bg-black">
       <div className="relative w-full max-w-4xl rounded-lg bg-zinc-900 p-4">
@@ -36,7 +47,11 @@ export function VideoModal({
 
         <div className="aspect-video w-full overflow-hidden rounded-lg">
           <iframe
-            src={`https://www.youtube.com/embed/${videoId}`}
+            src={
+              videoId.includes("drive")
+                ? driveToPreview(videoId)
+                : `https://www.youtube.com/embed/${videoId}`
+            }
             title={title}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

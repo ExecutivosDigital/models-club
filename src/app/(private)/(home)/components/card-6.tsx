@@ -20,7 +20,7 @@ export function HomeCard6() {
   const array = [
     {
       id: "1",
-      videoId: "dQw4w9WgXcQ", // ID do vídeo do YouTube
+      videoId: "LrSwFoLAAO0", // ID do vídeo do YouTube
       image: "/static/placeholder-thumbnail-1.png",
       tag: "Obrigatório*",
       title: "Bem Vindos",
@@ -29,7 +29,7 @@ export function HomeCard6() {
     },
     {
       id: "2",
-      videoId: "dQw4w9WgXcQ", // ID do vídeo do YouTube
+      videoId: "rX8nssrdkhM", // ID do vídeo do YouTube
       image: "/static/placeholder-thumbnail-2.png",
       tag: "Obrigatório*",
       title: "Criar minha Modelo",
@@ -38,7 +38,7 @@ export function HomeCard6() {
     },
     {
       id: "3",
-      videoId: "dQw4w9WgXcQ", // ID do vídeo do YouTube
+      videoId: "QE-AjEQwWIk", // ID do vídeo do YouTube
       image: "/static/placeholder-thumbnail-3.png",
       tag: "Obrigatório*",
       title: "Como receber?",
@@ -47,7 +47,7 @@ export function HomeCard6() {
     },
     {
       id: "4",
-      videoId: "dQw4w9WgXcQ", // ID do vídeo do YouTube
+      videoId: "TlrHhgq95YI", // ID do vídeo do YouTube
       image: "/static/placeholder-thumbnail-4.png",
       tag: "Obrigatório*",
       title: "Key da IA",

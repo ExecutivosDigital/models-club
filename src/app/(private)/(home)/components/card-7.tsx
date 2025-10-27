@@ -19,7 +19,7 @@ export function HomeCard7() {
   const array = [
     {
       id: "5",
-      videoId: "dQw4w9WgXcQ",
+      videoId: "OEwULyHd358",
       image: "/static/placeholder-thumbnail-5.png",
       tag: "Livre*",
       title: "Automação N8N",
@@ -28,7 +28,7 @@ export function HomeCard7() {
     },
     {
       id: "6",
-      videoId: "dQw4w9WgXcQ",
+      videoId: "NM52Nqdvg8g",
       image: "/static/placeholder-thumbnail-6.png",
       tag: "Livre*",
       title: "Integração com Instagram",
@@ -37,7 +37,8 @@ export function HomeCard7() {
     },
     {
       id: "7",
-      videoId: "dQw4w9WgXcQ",
+      videoId:
+        "https://drive.google.com/file/d/1HXBeoXAs_bqyTTSirz7j2ovZE9HY3f3K/view?usp=sharing",
       image: "/static/placeholder-thumbnail-7.png",
       tag: "Livre*",
       title: "IA sem cesura",
@@ -46,11 +47,11 @@ export function HomeCard7() {
     },
     {
       id: "8",
-      videoId: "dQw4w9WgXcQ",
+      videoId: "3ME7EwabHXk",
       image: "/static/placeholder-thumbnail-8.png",
       tag: "Livre*",
-      title: "ABC ABC ABC",
-      description: "O que inserir?",
+      title: "Por Que usar N8N?",
+      description: "Entenda toda a lógica por trás da importância de usar N8N.",
     },
   ];
 

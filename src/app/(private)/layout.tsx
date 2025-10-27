@@ -1,3 +1,4 @@
+import ChatWidget from "@/components/chatPopup";
 import { DashBoardLayoutProvider } from "@/components/dashboard-layout";
 import { PrivateHeader } from "@/components/ui/private-header";
 import { ModelContextProvider } from "@/context/ModelContext";
@@ -13,6 +14,7 @@ export default function RootLayout({
       <UserProfileContextProvider>
         <ModelContextProvider>
           <PrivateHeader />
+          <ChatWidget />
           {children}
         </ModelContextProvider>
       </UserProfileContextProvider>

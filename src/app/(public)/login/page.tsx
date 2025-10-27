@@ -14,13 +14,21 @@ export default function Login() {
     <>
       <div className="relative flex h-full min-h-[100svh] gap-2 overflow-x-hidden p-2 2xl:gap-4 2xl:p-4">
         <div className="relative mx-auto hidden w-full max-w-[50vw] items-center justify-center xl:flex">
-          <Image
+          <iframe
+            src="https://www.youtube.com/embed/LrSwFoLAAO0?si=xgGFvrKD43dWWAiG"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            className="m-auto block h-[90%] w-full rounded-[1.25rem]"
+          ></iframe>
+          {/* <Image
             className="m-auto block h-[90%] w-max rounded-[1.25rem] bg-blue-500 object-contain"
             src="/static/login.gif"
             alt=""
             width={1000}
             height={1000}
-          />
+          /> */}
         </div>
         <div className="relative flex w-full rounded-[1.25rem] bg-stone-900 p-2 xl:max-w-[50vw]">
           <div className="m-auto w-full max-w-[31.5rem]">
