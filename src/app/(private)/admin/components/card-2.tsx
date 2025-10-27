@@ -1,10 +1,12 @@
 import { GenericCard } from "@/components/ui/card";
+import { Soon } from "@/components/ui/soon";
 import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 
 export function AdminCard2() {
   return (
     <GenericCard className="xl:col-span-1 xl:justify-between">
+      <Soon />
       <span className="font-semibold">Suas Modelos</span>
       <div className="flex items-center gap-2">
         <label className="flex h-8 w-full items-center gap-2 rounded-md border border-transparent bg-stone-950 px-2 focus-within:border-neutral-500">

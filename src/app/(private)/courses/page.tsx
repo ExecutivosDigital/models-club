@@ -1,5 +1,6 @@
 "use client";
 
+import { GenericCard } from "@/components/ui/card";
 import { Soon } from "@/components/ui/soon";
 import { useApiContext } from "@/context/ApiContext";
 import { useEffect, useState } from "react";
@@ -67,7 +68,9 @@ export default function Courses() {
 
   return (
     <div className="grid gap-6 xl:grid-cols-3">
-      <Soon />
+      <GenericCard className="h-80 xl:col-span-3">
+        <Soon />
+      </GenericCard>
       {courses.map((course) => (
         <CourseCard key={course.id} course={course} />
       ))}

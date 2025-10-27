@@ -1,10 +1,12 @@
 import { GenericCard } from "@/components/ui/card";
+import { Soon } from "@/components/ui/soon";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 export function AdminCard4() {
   return (
     <GenericCard className="xl:col-span-2 xl:justify-between">
+      <Soon />
       <div className="flex w-full flex-col items-end justify-between gap-2 xl:flex-row">
         <button className="h-8 w-full rounded-md bg-stone-950 px-4 font-semibold xl:w-max">
           PRECIFICAÇÃO

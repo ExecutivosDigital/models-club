@@ -1,9 +1,11 @@
 import { GenericCard } from "@/components/ui/card";
+import { Soon } from "@/components/ui/soon";
 import Image from "next/image";
 
 export function AdminCard1() {
   return (
     <GenericCard className="xl:col-span-2 xl:justify-between">
+      <Soon />
       <span className="font-semibold">Dados de Cadastro</span>
       <div className="flex w-full flex-col gap-2">
         <div className="flex w-full flex-col items-center justify-center gap-2 md:flex-row">

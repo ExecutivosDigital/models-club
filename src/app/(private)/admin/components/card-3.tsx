@@ -1,9 +1,11 @@
 import { GenericCard } from "@/components/ui/card";
+import { Soon } from "@/components/ui/soon";
 import Image from "next/image";
 
 export function AdminCard3() {
   return (
     <GenericCard className="relative h-max rounded-3xl p-0 text-white xl:col-span-1 xl:justify-between">
+      <Soon />
       <Image
         src="/static/card-template.png"
         alt=""

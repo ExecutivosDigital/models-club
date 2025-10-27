@@ -29,13 +29,13 @@ export function PrivateHeader() {
         {pathname === "/"
           ? `Seja muito bem vindo ${userProfile.name}`
           : pathname === "/analytics"
-            ? "Analytics"
+            ? ""
             : pathname === "/courses"
-              ? "Cursos"
+              ? ""
               : pathname === "/models"
                 ? "Modelos"
                 : pathname === "/admin"
-                  ? "Administrativo"
+                  ? ""
                   : pathname === "/chat"
                     ? "Chat"
                     : ""}
@@ -90,11 +90,12 @@ export function PrivateHeader() {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : pathname === "/admin" ? (
-        <button className="flex items-center justify-center gap-2 rounded-lg border border-neutral-600 px-4 py-2 text-neutral-600 xl:justify-normal">
-          Solicitar Ajuda
-          <ChevronRight />
-        </button>
+        <></>
       ) : (
+        // <button className="flex items-center justify-center gap-2 rounded-lg border border-neutral-600 px-4 py-2 text-neutral-600 xl:justify-normal">
+        //   Solicitar Ajuda
+        //   <ChevronRight />
+        // </button>
         <></>
       )}
     </div>

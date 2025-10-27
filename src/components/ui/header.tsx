@@ -20,7 +20,20 @@ export function Header() {
           <div className="flex items-center">
             <div
               onClick={() => router.push("/")}
-              className="text-primary flex items-center"
+              className="text-primary hidden items-center xl:flex"
+            >
+              <Image
+                src="/logos/logo.png"
+                alt=""
+                quality={100}
+                width={1250}
+                height={500}
+                className="h-10 w-max object-contain"
+              />
+            </div>
+            <div
+              onClick={() => setMobileMenu(!mobileMenu)}
+              className="text-primary flex items-center xl:hidden"
             >
               <Image
                 src="/logos/logo.png"
@@ -43,6 +56,12 @@ export function Header() {
                   className="rounded-full"
                 />
               </div>
+              <button
+                onClick={() => setMobileMenu(!mobileMenu)}
+                className="hover:bg-primary-100 hover:text-primary relative h-6 w-6 xl:hidden"
+              >
+                <Menu />
+              </button>
               <LogOut
                 onClick={() => {
                   if (confirm("Tem certeza que deseja sair?")) {
@@ -55,12 +74,6 @@ export function Header() {
                 className="cursor-pointer"
               />
             </div>
-            <button
-              onClick={() => setMobileMenu(!mobileMenu)}
-              className="hover:bg-primary-100 hover:text-primary relative h-6 w-6 xl:hidden"
-            >
-              <Menu />
-            </button>
           </div>
         </div>
       </div>

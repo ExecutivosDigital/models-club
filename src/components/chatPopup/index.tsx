@@ -85,7 +85,7 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-stone-900 shadow-xl"
+            className="flex flex-col overflow-hidden rounded-2xl border border-stone-800 bg-stone-900 shadow-xl"
             style={{
               width: isExpanded ? 500 : 320,
               height: isExpanded ? 600 : 484,
@@ -159,7 +159,7 @@ export default function ChatWidget() {
 
             {/* Campo de entrada */}
             {/* Campo de entrada */}
-            <div className="relative flex items-center border-t border-gray-200 p-2">
+            <div className="relative flex items-center border-t border-stone-800 p-2">
               <div className="flex-1">
                 {file ? (
                   <div className="flex items-center justify-center gap-2 py-2">
