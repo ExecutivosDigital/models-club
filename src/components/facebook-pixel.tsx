@@ -14,11 +14,6 @@ declare global {
   }
 }
 
-/**
- * Este componente carrega o script do Facebook Pixel
- * e usa um hook useEffect para rastrear TODAS as visualizações de página (PageViews),
- * incluindo a carga inicial e as navegações do lado do cliente.
- */
 export const FacebookPixel = () => {
   const pathname = usePathname();
 
