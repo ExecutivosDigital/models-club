@@ -1,3 +1,4 @@
+import { FacebookPixel } from "@/components/facebook-pixel";
 import { ApiContextProvider } from "@/context/ApiContext";
 import moment from "moment";
 import "moment/locale/pt-br";
@@ -39,6 +40,7 @@ export default function RootLayout({
     })(window, document, "clarity", "script", "twqdonz6s7");
         `}
         </Script>
+        <FacebookPixel />
       </head>
       <body className={`${inter.variable} bg-stone-950 text-neutral-300`}>
         <CookiesProvider>
