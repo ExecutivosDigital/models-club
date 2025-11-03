@@ -74,9 +74,7 @@ export function ModelCard3() {
         <div className="flex flex-1 flex-col gap-2">
           <span className="font-semibold">Inserir @ Instagram</span>
           <span className="text-neutral-400">
-            Maximize o potencial das suas postagens e redes sociais com a
-            avançada ferramenta de Inteligência Artificial da Inspire AI, que
-            oferece insights valiosos
+            Insira o perfil do seu modelo de IA para automatizar a distribuição de conteúdo e alavancar o engajamento e a venda de assinaturas via rede social.
           </span>
         </div>
         <Image

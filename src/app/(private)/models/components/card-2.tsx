@@ -68,9 +68,9 @@ export function ModelCard2() {
         <div className="flex flex-1 flex-col gap-2">
           <span className="font-semibold">Inserir Foto de Perfil</span>
           <span className="text-neutral-400">
-            Maximize o potencial das suas postagens e redes sociais com a
-            avançada ferramenta de Inteligência Artificial da Inspire AI, que
-            oferece insights valiosos
+            Otimize a identidade visual da sua modelo de IA,
+            garantindo que o público reconheça facilmente o seu conteúdo
+            e a personalidade para maximizar o retorno financeiro.
           </span>
         </div>
         <Image

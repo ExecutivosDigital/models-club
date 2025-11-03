@@ -60,7 +60,6 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "commitlint": "19.8.1",
-    "commitlint@19.8.1": "^19.8.0",
     "conventional-changelog-atom": "^5.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.2.2",

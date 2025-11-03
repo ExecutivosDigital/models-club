@@ -190,9 +190,9 @@ export function ModelCard5() {
         <div className="flex w-full flex-col gap-2 xl:w-1/2">
           <span className="font-semibold">Precificação</span>
           <span className="text-neutral-400">
-            Maximize o potencial das suas postagens e redes sociais com a
-            avançada ferramenta de Inteligência Artificial da Inspire AI, que
-            oferece insights valiosos
+            Defina o valor e a duração da assinatura do seu 
+            modelo de IA para otimizar a receita e expandir 
+            o seu alcance no mercado de inteligência artificial.
           </span>
           <button
             disabled

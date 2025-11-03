@@ -75,9 +75,9 @@ export function ModelCard4() {
         <div className="flex flex-1 flex-col gap-2">
           <span className="font-semibold">Inserir WhatsApp</span>
           <span className="text-neutral-400">
-            Maximize o potencial das suas postagens e redes sociais com a
-            avançada ferramenta de Inteligência Artificial da Inspire AI, que
-            oferece insights valiosos
+            Permita que seu modelo de IA interaja com usuários por WhatsApp, 
+            transformando conversas em vendas diretas e 
+            oferecendo um serviço premium de valor.
           </span>
         </div>
         <Image
